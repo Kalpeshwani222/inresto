@@ -6,6 +6,10 @@ const itemSchema = new mongoose.Schema({
     required: true,
   },
 
+varients :[],
+
+prices : [],
+
   desc: {
     type: String,
     required: true,
@@ -15,16 +19,7 @@ const itemSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
-
-  price: {
-    type: Number,
-    required: true,
-  },
-
-  // user:{
-  //     type:
-  // }
-});
+},{timestamps:true});
 
 const items = mongoose.model("Items", itemSchema);
 

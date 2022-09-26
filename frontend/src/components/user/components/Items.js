@@ -6,11 +6,14 @@ import {addToCart} from "../../../actions/cartAction";
 const Items = ({ menuItem }) => {
 
   const[quantity,setQuantity] = useState(1);
+  const[variant,setVariant] = useState('full');
+
+
 
   const dispatch = useDispatch();
 
   const addToCartHandler = () =>{
-      dispatch(addToCart(menuItem,quantity ))
+      dispatch(addToCart(menuItem,variant,quantity ))
   }
 
 
@@ -19,8 +22,8 @@ const Items = ({ menuItem }) => {
       <div
         style={{
          
-          width: "200px",
-          height: "180px",
+          width: "250px",
+          height: "270px",
           border: "1px solid",
           justifyContent: "center",
           display: "inline-block",
@@ -30,6 +33,22 @@ const Items = ({ menuItem }) => {
         <p>{menuItem.name} <strong>{menuItem.price}</strong></p>
         
         <p>{menuItem.desc}</p>
+
+            <select value={variant} onChange={ e=> setVariant(e.target.value)}>
+              {menuItem.varients.map((cur) =>{
+                return (
+                  <>
+                    <option >{cur}</option>
+                  </>
+                )
+              })}
+            </select>
+        
+              
+              <p>Price : {menuItem.prices[0][variant] * quantity} -/RS</p>
+            
+          
+        
 
         <button 
         onClick={addToCartHandler}
