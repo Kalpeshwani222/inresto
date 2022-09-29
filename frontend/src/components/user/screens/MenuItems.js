@@ -3,14 +3,14 @@ import Items from "../components/Items";
 import {useDispatch,useSelector} from "react-redux";
 import {getAllMenuItems} from "../../../actions/menuItemsAction"
 import Navbar from "../../Navbar";
-
+import {  useParams } from "react-router-dom";
 const MenuItems = () => {
 
   const dispatch = useDispatch();
-
+  const param = useParams();
   const itemsState = useSelector(state => state.getAllItemsReducer);
   const{loading,items,error} = itemsState;
-
+  
 
     useEffect(() =>{
       dispatch(getAllMenuItems());
@@ -18,7 +18,7 @@ const MenuItems = () => {
 
   return (
     <>
-    <Navbar />
+    <Navbar  />
       <section>
 
         <div>
@@ -33,7 +33,7 @@ const MenuItems = () => {
               {items.map((cur) => {
                 return (
                   <>
-                    <Items menuItem={cur} />
+                    <Items menuItem={cur}  />
                   </>
                 );
               })}

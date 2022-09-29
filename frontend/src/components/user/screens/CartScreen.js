@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../../Navbar";
 import { addToCart, deleteCart } from "../../../actions/cartAction";
+import OrderNow from "./OrderNow";
 
 const CartScreen = () => {
   const cartState = useSelector((state) => state.cartReducer);
@@ -39,12 +40,12 @@ const CartScreen = () => {
 
                   <p>{item.name}</p>
                   <p>
-                    price : {item.quantity} X {item.prices[0][item.variant]} ={" "}
-                    {item.price}{" "}
+                    price : {item.quantity} X {item.prices[0][item.variant]} =
+                    {item.price}
                   </p>
 
                   <h5>
-                    {" "}
+                    
                     &nbsp;
                     <button
                       onClick={() =>
@@ -57,7 +58,7 @@ const CartScreen = () => {
                       }}
                     >
                       +
-                    </button>{" "}
+                    </button>
                     &nbsp;
                     {item.quantity}&nbsp;&nbsp;
                     <button
@@ -88,20 +89,25 @@ const CartScreen = () => {
           })}
         </div>
 
-        <h1>
+        {
+          subTotal ==0 ? <h1>NO ITEM ADDED</h1> 
+          
+          
+          : <>
+               <h1>
           payment
           <h4>subTotal</h4>
           <h4>RS {subTotal} /- </h4>
         </h1>
 
-         <button
-                    // onClick={() => dispatch(deleteCart(item))}
-                    style={{
-                      cursor: "pointer",
-                    }}
-                  >
-                    Order Now
-                  </button>
+        <OrderNow 
+          subTotal={subTotal}
+
+        />
+          </>
+        }
+
+       
       </section>
     </>
   );

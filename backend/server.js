@@ -7,6 +7,7 @@ const cors = require("cors");
 dotenv.config();
 const menu = require("./routes/menuRoute");
 const tableroute = require("./routes/tablesRoute");
+const userRoute = require("./routes/userRoute");
 const PORT = process.env.PORT || 8000;
 
 //cors policy
@@ -23,6 +24,7 @@ app.use(morgan('dev'))
 
 app.use("/api/", menu);
 app.use("/api/table",tableroute);
+app.use('/api/auth/user',userRoute)
 
 app.get("/", (req, res) => {
   res.send("API is running...");

@@ -1,14 +1,14 @@
 import React,{useState} from "react";
 import {useDispatch,useSelector} from "react-redux";
 import {addToCart} from "../../../actions/cartAction";
-
+import {  useParams } from "react-router-dom";
 
 const Items = ({ menuItem }) => {
-
+ const param = useParams();
   const[quantity,setQuantity] = useState(1);
   const[variant,setVariant] = useState('full');
 
-
+ console.log(param.tableno);
 
   const dispatch = useDispatch();
 

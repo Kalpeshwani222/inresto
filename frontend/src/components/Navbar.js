@@ -1,16 +1,23 @@
 import React from 'react';
 import {history, useHistory} from "react-router-dom";
 import {useSelector,useDispatch} from "react-redux";
-
+import {  useParams } from "react-router-dom";
 
 const Navbar = () => {
+
+
   const dispatch = useDispatch();
+  const param = useParams();
   const history = useHistory();
+
+ 
+
+
   const cartState = useSelector(state => state.cartReducer);
 
   const handleClick=(e) =>{
     e.preventDefault();
-    history.push("/cart");
+    history.push(`/cart/${param.tableno}`);
   }
   return (
    <>
