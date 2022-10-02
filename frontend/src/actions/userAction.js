@@ -43,7 +43,7 @@ console.log(res.data);
     dispatch({ type: "USER_LOGIN_SUCCESS", payload: res.data });
       
     localStorage.setItem("userInfo", JSON.stringify(res.data));
-    // window.location.href = "/";
+    window.location.href = "/";
   } catch (error) {
     dispatch({
       type: "USER_LOGIN_FAIL",

@@ -4,14 +4,17 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import {getAllItemsReducer} from "./reducers/menuItemsReducer"
 import {cartReducer} from "./reducers/cartReducer";
 import {RegisterUserReducer,LoginUserReducer} from './reducers/userReducer';
-import {placeOrderReducer} from "./reducers/orderReducer"
+import {placeOrderReducer,getUserOrderReducer} from "./reducers/orderReducer"
 
 
 //data is present then convert it to JSON form otherwise [].
-const cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+const cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
 
  const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 
+//  if(cartItems !== undefined){
+//      console.log("NO");
+//  }
 
 const rootReducer = combineReducers({
     getAllItemsReducer: getAllItemsReducer,
@@ -19,6 +22,7 @@ const rootReducer = combineReducers({
     RegisterUserReducer:RegisterUserReducer,
     LoginUserReducer:LoginUserReducer, 
     placeOrderReducer : placeOrderReducer,
+    // getUserOrderReducer:getUserOrderReducer,
 });
 
 

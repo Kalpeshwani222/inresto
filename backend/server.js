@@ -5,11 +5,15 @@ const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
+
+const PORT = process.env.PORT || 8000;
+
+
+//import Routes
 const menu = require("./routes/menuRoute");
 const tableroute = require("./routes/tablesRoute");
 const userRoute = require("./routes/userRoute");
-const PORT = process.env.PORT || 8000;
-
+const orderRoute = require("./routes/orderRoute");
 //cors policy
 app.use(cors());
 
@@ -22,10 +26,15 @@ connectDB();
 app.use(express.json());
 app.use(morgan('dev'))
 
+
+//routes register
 app.use("/api/", menu);
 app.use("/api/table",tableroute);
-app.use('/api/auth/user',userRoute)
+app.use('/api/auth/user',userRoute);
+app.use('/api/order',orderRoute)
 
+
+//test
 app.get("/", (req, res) => {
   res.send("API is running...");
 });

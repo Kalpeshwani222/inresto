@@ -8,7 +8,7 @@ const Items = ({ menuItem }) => {
   const[quantity,setQuantity] = useState(1);
   const[variant,setVariant] = useState('full');
 
- console.log(param.tableno);
+//  console.log(param.tableno);
 
   const dispatch = useDispatch();
 
