@@ -3,8 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../../Navbar";
 import { addToCart, deleteCart } from "../../../actions/cartAction";
 import OrderNow from "./OrderNow";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useHistory } from "react-router-dom";
 
 const CartScreen = () => {
+  const history = useHistory();
+
   const cartState = useSelector((state) => state.cartReducer);
   const cartItems = cartState.cartItems;
 
@@ -12,9 +16,15 @@ const CartScreen = () => {
 
   const subTotal = cartItems.reduce((x, item) => x + item.price, 0);
 
+  const goback = () => {
+    history.goBack();
+  };
   return (
     <>
       <section className="">
+        <ArrowBackIcon onClick={goback} style= {{
+          cursor:"pointer"
+        }} />
         <div className="">
           <Navbar />
           {cartItems.map((item) => {
@@ -45,7 +55,6 @@ const CartScreen = () => {
                   </p>
 
                   <h5>
-                    
                     &nbsp;
                     <button
                       onClick={() =>
@@ -89,25 +98,19 @@ const CartScreen = () => {
           })}
         </div>
 
-        {
-          subTotal ==0 ? <h1>NO ITEM ADDED</h1> 
-          
-          
-          : <>
-               <h1>
-          payment
-          <h4>subTotal</h4>
-          <h4>RS {subTotal} /- </h4>
-        </h1>
+        {subTotal == 0 ? (
+          <h1>NO ITEM ADDED</h1>
+        ) : (
+          <>
+            <h1>
+              payment
+              <h4>subTotal</h4>
+              <h4>RS {subTotal} /- </h4>
+            </h1>
 
-        <OrderNow 
-          subTotal={subTotal}
-
-        />
+            <OrderNow subTotal={subTotal} />
           </>
-        }
-
-       
+        )}
       </section>
     </>
   );

@@ -7,6 +7,8 @@ import MenuItems from './components/user/screens/MenuItems';
 import Register from './components/user/screens/Register';
 import Login from "./components/user/screens/Login";
 import OrderScreen from './components/user/screens/order/OrderScreen';
+import AdminOrdersList from './components/admin/AdminOrdersList';
+import ScanqrCode from './components/user/screens/QR code/ScanqrCode';
 
 
 const App = () => {
@@ -17,10 +19,15 @@ const App = () => {
           <Route path="/" component={Home} exact />
           <Route path="/register" component={Register} exact />
           <Route path="/login" component={Login} exact />
-          <Route path="/admin/home" component={AdminHome} exact />
+          <Route path="/scan-qr" component={ScanqrCode} exact />
            <Route path="/menu-items/:tableno" component={() => <MenuItems />} />
            <Route path="/cart/:tableno" component={CartScreen} exact />
            <Route path="/orders" component={OrderScreen} exact />
+
+          {/* admin routes */}
+           <Route path="/admin/home" component={AdminHome} exact />
+          <Route path="/admin/" component={AdminOrdersList} exact />
+
       </Switch>
     </BrowserRouter>
   )

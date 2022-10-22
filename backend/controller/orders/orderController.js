@@ -53,10 +53,11 @@ const getOrder = async (req, res) => {
       res.send(orders);
     
     } catch (error) {
-      res.status(400).send({ 
-        message: "something went wrong",
-        error : error.stack,
-      });
+      // res.status(400).send({ 
+      //   message: "something went wrong",
+      //   error : error.stack,
+      // });
+      res.send(error)
     }
 }
 

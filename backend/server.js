@@ -14,6 +14,7 @@ const menu = require("./routes/menuRoute");
 const tableroute = require("./routes/tablesRoute");
 const userRoute = require("./routes/userRoute");
 const orderRoute = require("./routes/orderRoute");
+const adminOrderListRoute = require("./routes/admin/adminOrderListRoute")
 //cors policy
 app.use(cors());
 
@@ -31,7 +32,11 @@ app.use(morgan('dev'))
 app.use("/api/", menu);
 app.use("/api/table",tableroute);
 app.use('/api/auth/user',userRoute);
-app.use('/api/order',orderRoute)
+app.use('/api/order',orderRoute);
+
+
+app.use('/api/admin/',adminOrderListRoute);
+
 
 
 //test

@@ -4,7 +4,7 @@ import axios from "axios";
 import { saveAs } from "file-saver";
 
 const AdminHome = () => {
-      const [qrcode, setQrcode] = useState("");
+  const [qrcode, setQrcode] = useState("");
   const [table, setTables] = useState([]);
 
   const GenerateQRCode = async (url, tableno) => {
@@ -43,7 +43,7 @@ const AdminHome = () => {
   useEffect(() => {
     getAllTables();
   }, []);
-   return (
+  return (
     <>
       {/* all tables */}
       <table
@@ -53,7 +53,7 @@ const AdminHome = () => {
         }}
       >
         <tr>
-          {table.map((cur,ind) => {
+          {table.map((cur, ind) => {
             return (
               <>
                 {cur.status === "free" ? (
@@ -86,12 +86,12 @@ const AdminHome = () => {
                         style={{}}
                         onClick={() =>
                           GenerateQRCode(
-                            `http://localhost:3000/menu/${cur.tableno}`,
+                            `http://localhost:3000/menu-items/${cur.tableno}`,
                             cur.tableno
                           )
                         }
                       >
-                        generate
+                        Generate
                       </button>
                     </div>
                   </>
@@ -164,4 +164,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome
+export default AdminHome;
