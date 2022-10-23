@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { Card } from "@mui/material";
 
 const AdminOrdersList = () => {
   const [ordersList, setOrdersList] = useState([]);
@@ -23,16 +31,34 @@ const AdminOrdersList = () => {
     getOrdersList();
   }, []);
 
-  const changeOrderStatus = (event,id) =>{
-   
-    console.log(event.target.value,id);
-    setOrderStatus(event.target.value)
-  }
+  const changeOrderStatus = async (val, id) => {
+    console.log(val.target.value);
+    console.log(id);
+
+
+const status = val.target.value;
+    setOrderStatus(val.target.value);
+    //  e.preventDefault();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.put(`/api/admin/${id}`, { status}, config);
+    if(data.message === "OK"){
+      window.location.href="/admin";
+
+    }
+    console.log(data);
+  };
+
   
-console.log(ordersList);
+
   return (
     <>
-      <div>
+      {/* <div>
         {ordersList.length == 0 ? (
           <h1>NOT any ORDERS</h1>
         ) : (
@@ -77,7 +103,78 @@ console.log(ordersList);
             </div>
           ))
         )}
-      </div>
+      </div> */}
+
+      <section className="">
+        <div className="">
+          <Card
+            style={{
+              alignContent: "center",
+              alignItems: "center",
+              margin: "2rem",
+            }}
+          >
+            <TableContainer
+              component={Paper}
+              style={{
+                margin: "1rem",
+              }}
+            >
+              <Table
+                style={{
+                  width: "95%",
+                }}
+                aria-label="a dense table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell size="small">Orders</TableCell>
+                    <TableCell size="small">Status</TableCell>
+                    <TableCell>Amount&nbsp;(RS)</TableCell>
+                    {/* <TableCell>Placed At</TableCell> */}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {ordersList.length == 0 ? (
+                    <h1>NOT any ORDERS</h1>
+                  ) : (
+                    ordersList.map((order) => (
+                      <TableRow>
+                        <TableCell component="th" scope="row">
+                          {order.orderItems.map((item) => (
+                            <p>
+                              <br />
+                              {item.name}
+                              <p>
+                                {item.quantity} X {item.prices[0][item.variant]}{" "}
+                                ={item.price}
+                              </p>
+                            </p>
+                          ))}
+                        </TableCell>
+
+                        <TableCell align="left">
+                          {order.status}
+                          <select
+                            value={order.status}
+                            onChange={(e) => changeOrderStatus(e, order._id)}
+                          >
+                            <option>Order Placed</option>
+                            <option>confimed</option>
+                            <option>prepared</option>
+                            <option>delivered</option>
+                          </select>
+                        </TableCell>
+                        <TableCell>{order.orderAmount}</TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Card>
+        </div>
+      </section>
     </>
   );
 };
