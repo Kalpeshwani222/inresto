@@ -36,6 +36,12 @@ const createOrder = async (req, res) => {
       orderAmount: subTotal,
     }).save();
 
+    //emit event
+    const eventEmitter = req.app.get("eventEmitter");
+    eventEmitter.emit("orderPlaced", newOrder);
+
+    console.log(newOrder);
+
     res.status(201).json({
       message: "success",
       data: newOrder,

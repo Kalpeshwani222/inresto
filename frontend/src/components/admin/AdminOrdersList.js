@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Card } from "@mui/material";
+import socket from "../../socketApi";
 
 const AdminOrdersList = () => {
   const [ordersList, setOrdersList] = useState([]);
@@ -31,12 +32,19 @@ const AdminOrdersList = () => {
     getOrdersList();
   }, []);
 
+  useEffect(() => {
+    socket.emit("join", "adminRoom");
+
+    socket.on("orderPlaced", (data) => {
+      setOrdersList([...ordersList, data]);
+    });
+  });
+
   const changeOrderStatus = async (val, id) => {
     console.log(val.target.value);
     console.log(id);
 
-
-const status = val.target.value;
+    const status = val.target.value;
     setOrderStatus(val.target.value);
     //  e.preventDefault();
 
@@ -46,15 +54,12 @@ const status = val.target.value;
       },
     };
 
-    const { data } = await axios.put(`/api/admin/${id}`, { status}, config);
-    if(data.message === "OK"){
-      window.location.href="/admin";
-
+    const { data } = await axios.put(`/api/admin/${id}`, { status }, config);
+    if (data.message === "OK") {
+      window.location.href = "/admin";
     }
     console.log(data);
   };
-
-  
 
   return (
     <>

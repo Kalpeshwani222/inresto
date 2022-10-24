@@ -72,7 +72,7 @@ const OrderScreen = () => {
                 </div>
               ))}
 
-              {order.status}
+           
               <p>Order Amount : {order.orderAmount}</p>
             </div>
           ))

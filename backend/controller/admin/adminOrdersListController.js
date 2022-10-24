@@ -2,7 +2,7 @@ const Order = require("../../model/orderModel");
 
 const orderList = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().sort({$natural:-1});
     res.send(orders);
   } catch (error) {
     res.status(400).send({

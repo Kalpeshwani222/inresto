@@ -68,3 +68,8 @@ eventEmitter.on("orderUpdated", (data) => {
   io.to(`order_${data.updatedData._id}`).emit("orderUpdated", data.updatedData);
   //  console.log(data.updatedData._id);
 });
+
+//diplay the orders at real time in admin side
+eventEmitter.on("orderPlaced", (data) => {
+  io.to("adminRoom").emit("orderPlaced", data);
+});
