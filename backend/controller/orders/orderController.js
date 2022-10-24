@@ -46,19 +46,34 @@ const createOrder = async (req, res) => {
 };
 
 const getOrder = async (req, res) => {
-    const {userId} = req.body;
+  const { userId } = req.body;
 
-    try {
-      const orders = await Order.find({userId});
-      res.send(orders);
-    
-    } catch (error) {
-      // res.status(400).send({ 
-      //   message: "something went wrong",
-      //   error : error.stack,
-      // });
-      res.send(error)
+  try {
+    const orders = await Order.find({ userId });
+    res.send(orders);
+  } catch (error) {
+    // res.status(400).send({
+    //   message: "something went wrong",
+    //   error : error.stack,
+    // });
+    res.send(error);
+  }
+};
+
+//display the user single order
+const getSingleOrder = async (req, res) => {
+  if (!req.params.id) {
+    return res.status(404).json({ message: "NOT VALID" });
+  }
+  try {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      res.send(order);
+    } else {
+      res.status(404).json({ message: "ORDER not found" });
     }
-}
-
-module.exports = { createOrder,getOrder };
+  } catch (error) {
+    res.send(error);
+  }
+};
+module.exports = { createOrder, getOrder, getSingleOrder };

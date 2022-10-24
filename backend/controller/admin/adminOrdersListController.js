@@ -17,8 +17,8 @@ const updateOrder = async (req, res) => {
     return res.status(403).json({ message: "Not true" });
   }
   try {
-    console.log(req.params.id);
-    console.log(req.body.status);
+    // console.log(req.params.id);
+    // console.log(req.body.status);
 
     const updatedData = await Order.findByIdAndUpdate(
       { _id: req.params.id },
@@ -29,7 +29,12 @@ const updateOrder = async (req, res) => {
         new: true,
       }
     );
-    console.log(updatedData);
+
+    //Emit event
+    const eventEmitter = req.app.get('eventEmitter');
+    eventEmitter.emit('orderUpdated', { updatedData :updatedData})
+    // console.log(updatedData._id);
+    
     return res.status(200).json({ message : "OK", updatedData });
   } catch (error) {
     console.log(error);
