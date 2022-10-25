@@ -10,10 +10,10 @@ const Emitter = require("events");
 const PORT = process.env.PORT || 8000;
 
 //import Routes
-const menu = require("./routes/menuRoute");
-const tableroute = require("./routes/tablesRoute");
-const userRoute = require("./routes/userRoute");
-const orderRoute = require("./routes/orderRoute");
+const menu = require("./routes/user/menuRoute");
+const tableroute = require("./routes/admin/tablesRoute");
+const userRoute = require("./routes/user/userRoute");
+const orderRoute = require("./routes/user/orders/orderRoute");
 const adminOrderListRoute = require("./routes/admin/adminOrderListRoute");
 
 //cors policy

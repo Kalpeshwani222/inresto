@@ -1,5 +1,5 @@
-const Order = require("../../model/orderModel");
-const Table = require("../../model/TablesModel");
+const Order = require("../../../model/orderModel");
+const Table = require("../../../model/TablesModel");
 
 const createOrder = async (req, res) => {
   const { currentUser, cartItems, subTotal, tableno } = req.body;

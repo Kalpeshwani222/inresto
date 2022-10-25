@@ -1,4 +1,5 @@
-const Table = require("../model/TablesModel");
+// const Table = require("../../model/TablesModel");
+ const Table = require("../../model/TablesModel");
 
 
 // const tables = [   

@@ -120,7 +120,6 @@ const AdminHome = () => {
                         {cur.tableno}
                       </h1>
                       <p>{cur.status}</p>
-
                       <button
                         style={{}}
                         onClick={() =>
@@ -132,6 +131,8 @@ const AdminHome = () => {
                       >
                         generate
                       </button>
+                      &nbsp;
+                      <button onClick={() => alert("Click")}>Free Table</button>
                     </div>
                   </>
                 )}
