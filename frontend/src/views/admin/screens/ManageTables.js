@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 import axios from "axios";
 import { saveAs } from "file-saver";
 
-const AdminHome = () => {
+const ManageTables = () => {
   const [qrcode, setQrcode] = useState("");
   const [table, setTables] = useState([]);
 
@@ -165,4 +165,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default ManageTables;

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../../actions/userAction";
+import { registerUser } from "../../../../actions/userAction";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-     const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   //   const userRegister = useSelector((state) => state.userRegister);
   //   const { loading, error, userInfo } = userRegister;
@@ -17,8 +17,8 @@ const Register = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const user = {name, email, password};
-     dispatch(registerUser(name, email, password));
+    const user = { name, email, password };
+    dispatch(registerUser(name, email, password));
   };
 
   return (

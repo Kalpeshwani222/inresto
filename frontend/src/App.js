@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import AdminHome from "./components/admin/AdminHome";
-import Home from "./components/Home";
-import CartScreen from "./components/user/screens/CartScreen";
-import MenuItems from "./components/user/screens/MenuItems";
-import Register from "./components/user/screens/Register";
-import Login from "./components/user/screens/Login";
-import OrderScreen from "./components/user/screens/order/OrderScreen";
-import AdminOrdersList from "./components/admin/AdminOrdersList";
-import ScanqrCode from "./components/user/screens/QR code/ScanqrCode";
-import OrderStatus from "./components/user/screens/order/OrderStatus";
+import ManageTables from "./views/admin/screens/ManageTables";
+import Home from "./views/Home";
+import CartScreen from "./views/user/screens/CartScreen";
+import MenuItems from "./views/user/screens/MenuItems";
+import Register from "./views/user/screens/auth/Register";
+import Login from "./views/user/screens/auth/Login";
+import OrderScreen from "./views/user/screens/order/OrderScreen";
+import AdminOrdersList from "./views/admin/screens/AdminOrdersList";
+import ScanqrCode from "./views/user/screens/QR code/ScanqrCode";
+import OrderStatus from "./views/user/screens/order/OrderStatus";
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/orders/:id" component={OrderStatus} exact />
 
         {/* admin routes */}
-        <Route path="/admin/home" component={AdminHome} exact />
+        <Route path="/admin/home" component={ManageTables} exact />
         <Route path="/admin/" component={AdminOrdersList} exact />
       </Switch>
     </BrowserRouter>

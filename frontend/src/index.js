@@ -4,7 +4,7 @@ import {Provider} from "react-redux";
 import store from "./store";
 import './index.css';
 import App from './App';
-import {socket_init} from "./socketApi";
+import {socket_init} from "./socket/socketApi";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

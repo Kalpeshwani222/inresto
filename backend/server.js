@@ -27,6 +27,7 @@ const eventEmitter = new Emitter();
 //bind the event emitter
 app.set("eventEmitter", eventEmitter);
 
+
 //JSON
 app.use(express.json());
 app.use(morgan("dev"));
@@ -44,10 +45,12 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+//create server
 const server = app.listen(PORT, () => {
   console.log(`app running on ${PORT}`);
 });
 
+//socket io connection
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
@@ -58,12 +61,13 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log("connected to socket.io");
 
-  //order_sdfrhg4386538fg
+  //join the room order_sdfrhg4386538fg 
   socket.on("join", (orderId) => {
     socket.join(orderId);
   });
 });
 
+//real time order update status in user sidd
 eventEmitter.on("orderUpdated", (data) => {
   io.to(`order_${data.updatedData._id}`).emit("orderUpdated", data.updatedData);
   //  console.log(data.updatedData._id);

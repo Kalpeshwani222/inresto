@@ -30,4 +30,11 @@ const getAllTables = async (req, res) => {
   res.json(tables);
 };
 
-module.exports = { addTable, getAllTables };
+const freeTable = async (req,res) =>{
+  if (!req.params.id) {
+    return res.status(403).json({ message: "Not true" });
+  }
+
+  
+}
+module.exports = { addTable, getAllTables,freeTable };

@@ -1,35 +1,33 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import {loginUser} from "../../../actions/userAction";
-import {useSelector,useDispatch} from "react-redux";
+import { loginUser } from "../../../../actions/userAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const Login = () => {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  useEffect(() =>{
-    if(localStorage.getItem('userInfo')){
-      window.location.href = "/"
+  useEffect(() => {
+    if (localStorage.getItem("userInfo")) {
+      window.location.href = "/";
     }
-  },[])
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-   dispatch(loginUser(email, password));
-
+    dispatch(loginUser(email, password));
   };
 
   return (
     <>
-       <section className="login-section">
+      <section className="login-section">
         <div className="mt-5 p-5">
-        <h4>Login</h4>
+          <h4>Login</h4>
           {/* {error && <span className="danger">{error}</span>} */}
           <form onSubmit={submitHandler}>
             <input
-            placeholder="Enter the email"
+              placeholder="Enter the email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -37,7 +35,7 @@ const Login = () => {
             <br />
             <br />
             <input
-            placeholder="Enter the password"
+              placeholder="Enter the password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -52,7 +50,7 @@ const Login = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

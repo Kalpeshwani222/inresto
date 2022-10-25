@@ -9,7 +9,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const MenuItems = () => {
 
-  
   const dispatch = useDispatch();
   const param = useParams();
   const itemsState = useSelector((state) => state.getAllItemsReducer);

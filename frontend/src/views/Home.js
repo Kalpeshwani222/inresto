@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import {
   Card,
-  CardMedia,
   CardActionArea,
   CardContent,
   Typography,
 } from "@mui/material";
-import { Link, useHistory } from "react-router-dom";
-const Home = () => {
-  const history = useHistory();
+import {  useHistory } from "react-router-dom";
 
-  const navigateScanQR = () => {
+const Home = () => {
+
+ const history = useHistory();
+
+ const navigateScanQR = () => {
     history.push("/scan-qr");
   };
+
   useEffect(() => {
     if (localStorage.getItem("userInfo")) {
       console.log("yes boss");
