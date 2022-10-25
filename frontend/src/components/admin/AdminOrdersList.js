@@ -11,6 +11,7 @@ import { Card } from "@mui/material";
 import socket from "../../socketApi";
 
 const AdminOrdersList = () => {
+
   const [ordersList, setOrdersList] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -28,17 +29,22 @@ const AdminOrdersList = () => {
     }
   };
 
-  useEffect(() => {
-    getOrdersList();
-  }, []);
+  // useEffect(() => {
+  //   getOrdersList();
+  // }, []);
+ 
 
   useEffect(() => {
+    getOrdersList();
     socket.emit("join", "adminRoom");
 
     socket.on("orderPlaced", (data) => {
-      setOrdersList([...ordersList, data]);
+      //  setOrdersList([...ordersList, data]);
+      console.log("I am calling");
+     setOrdersList(current => [data, ...current]);
+      
     });
-  });
+  },[]);
 
   const changeOrderStatus = async (val, id) => {
     console.log(val.target.value);
@@ -58,7 +64,6 @@ const AdminOrdersList = () => {
     if (data.message === "OK") {
       window.location.href = "/admin";
     }
-    console.log(data);
   };
 
   return (
@@ -135,6 +140,7 @@ const AdminOrdersList = () => {
                   <TableRow>
                     <TableCell size="small">Orders</TableCell>
                     <TableCell size="small">Status</TableCell>
+                    <TableCell>Table NO</TableCell>
                     <TableCell>Amount&nbsp;(RS)</TableCell>
                     {/* <TableCell>Placed At</TableCell> */}
                   </TableRow>
@@ -146,6 +152,7 @@ const AdminOrdersList = () => {
                     ordersList.map((order) => (
                       <TableRow>
                         <TableCell component="th" scope="row">
+                          {order.name}
                           {order.orderItems.map((item) => (
                             <p>
                               <br />
@@ -170,6 +177,7 @@ const AdminOrdersList = () => {
                             <option>delivered</option>
                           </select>
                         </TableCell>
+                        <TableCell>{order.tableno}</TableCell>
                         <TableCell>{order.orderAmount}</TableCell>
                       </TableRow>
                     ))
