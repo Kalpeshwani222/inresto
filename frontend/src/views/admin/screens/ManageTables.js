@@ -7,6 +7,7 @@ const ManageTables = () => {
   const [qrcode, setQrcode] = useState("");
   const [table, setTables] = useState([]);
 
+  //generate QR
   const GenerateQRCode = async (url, tableno) => {
     QRCode.toDataURL(
       url,
@@ -24,10 +25,12 @@ const ManageTables = () => {
     );
   };
 
+  //download QR
   const downloadQRCode = () => {
     saveAs(qrcode, `tableno`);
   };
 
+  //API call for get all the tables
   const getAllTables = async () => {
     try {
       const { data } = await axios.get(
@@ -37,6 +40,24 @@ const ManageTables = () => {
       setTables(data);
     } catch (error) {
       console.log(error.response.data.message);
+    }
+  };
+
+  //API call for update the Update the Table Status
+  const updateTableStatus = async (tableID) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.put(`/api/table/free/${tableID}`, config);
+      console.log(data);
+      if (data.message === "FREE") {
+      window.location.href = "/admin/home";
+    }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -132,7 +153,9 @@ const ManageTables = () => {
                         generate
                       </button>
                       &nbsp;
-                      <button onClick={() => alert("Click")}>Free Table</button>
+                      <button onClick={() => updateTableStatus(cur._id)}>
+                        Free Table
+                      </button>
                     </div>
                   </>
                 )}

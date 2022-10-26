@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getUserOrders } from "../../../../actions/orderAction";
+ import { getUserOrders } from "../../../../redux/actions/orderAction";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 

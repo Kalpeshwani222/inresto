@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Items from "../components/Items";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMenuItems } from "../../../actions/menuItemsAction";
+import { getAllMenuItems } from "../../../redux/actions/menuItemsAction";
 import Navbar from "../../Navbar";
 import { useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";

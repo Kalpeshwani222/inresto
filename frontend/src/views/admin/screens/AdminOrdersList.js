@@ -48,8 +48,8 @@ const AdminOrdersList = () => {
   },[]);
 
   const changeOrderStatus = async (val, id) => {
-    console.log(val.target.value);
-    console.log(id);
+    // console.log(val.target.value);
+    // console.log(id);
 
     const status = val.target.value;
     setOrderStatus(val.target.value);

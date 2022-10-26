@@ -6,7 +6,7 @@ const{addTable,getAllTables,freeTable}  = require("../../controller/admin/TableC
 router.route("/add-table").post(addTable);
 router.route("/get-all-tables").get(getAllTables);
 //free table
-router.route('/:id').put(freeTable);
+router.route('/free/:id').put(freeTable);
 
 
 

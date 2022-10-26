@@ -1,8 +1,6 @@
-// const Table = require("../../model/TablesModel");
- const Table = require("../../model/TablesModel");
+const Table = require("../../model/TablesModel");
 
-
-// const tables = [   
+// const tables = [
 //         {tableno:1,status:'free'},
 //         {tableno:2,status:'free'},
 //         {tableno:3,status:'occupied'},
@@ -15,14 +13,12 @@
 //         {tableno:10,status:'occupied'},
 //         ];
 
-
-//add the new Table 
+//add the new Table
 const addTable = async (req, res) => {
   //  Table.insertMany(tables).then(r=>console.log('done'))
 
   res.json("Table Added");
 };
-
 
 //Get All Tables
 const getAllTables = async (req, res) => {
@@ -30,11 +26,26 @@ const getAllTables = async (req, res) => {
   res.json(tables);
 };
 
-const freeTable = async (req,res) =>{
+//free the occupied Table
+const freeTable = async (req, res) => {
   if (!req.params.id) {
     return res.status(403).json({ message: "Not true" });
   }
 
-  
-}
-module.exports = { addTable, getAllTables,freeTable };
+  try {
+    const updatedTableStatus = await Table.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: { status: "free" },
+      },
+      {
+        new: true,
+      }
+    );
+
+    return res.status(200).json({ message: "FREE", updatedTableStatus });
+  } catch (error) {
+    console.log(error);
+  }
+};
+module.exports = { addTable, getAllTables, freeTable };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../actions/cartAction";
+import { addToCart } from "../../../redux/actions/cartAction";
 import { useParams } from "react-router-dom";
 import {
   Card,

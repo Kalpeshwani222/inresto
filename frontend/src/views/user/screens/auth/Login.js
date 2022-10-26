@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { loginUser } from "../../../../actions/userAction";
+import { loginUser } from "../../../../redux/actions/userAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const Login = () => {

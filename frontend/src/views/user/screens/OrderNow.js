@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams,Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { placeOrder } from "../../../actions/orderAction";
+import { placeOrder } from "../../../redux/actions/orderAction";
 
 const OrderNow = ({ subTotal }) => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../../Navbar";
-import { addToCart, deleteCart } from "../../../actions/cartAction";
+import { addToCart, deleteCart } from "../../../redux/actions/cartAction";
 import OrderNow from "./OrderNow";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useHistory } from "react-router-dom";
