@@ -24,7 +24,7 @@ const createOrder = async (req, res) => {
 
       //change the table status as occupied
       table.status = "occupied";
-      await table.save();
+      let tableData = await table.save();
     }
 
     const newOrder = await new Order({
@@ -38,9 +38,14 @@ const createOrder = async (req, res) => {
 
     //emit event
     const eventEmitter = req.app.get("eventEmitter");
+    //order
     eventEmitter.emit("orderPlaced", newOrder);
-
-    console.log(newOrder);
+    
+    //table
+    if(table){
+       eventEmitter.emit("tableBook", table);
+     }
+    
 
     res.status(201).json({
       message: "success",

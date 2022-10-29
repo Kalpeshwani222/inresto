@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Navbar from "../../Navbar";
+import Navbar from "../../header/Navbar";
 import { addToCart, deleteCart } from "../../../redux/actions/cartAction";
 import OrderNow from "./OrderNow";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -22,9 +22,9 @@ const CartScreen = () => {
   return (
     <>
       <section className="">
-        <ArrowBackIcon onClick={goback} style= {{
+        {/* <ArrowBackIcon onClick={goback} style= {{
           cursor:"pointer"
-        }} />
+        }} /> */}
         <div className="">
           <Navbar />
           {cartItems.map((item) => {

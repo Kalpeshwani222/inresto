@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Card } from "@mui/material";
 import socket from "../../../socket/socketApi";
-
+import addNotification from "react-push-notification"
 
 const AdminOrdersList = () => {
 
@@ -36,15 +36,28 @@ const AdminOrdersList = () => {
  
 
   useEffect(() => {
+    
     getOrdersList();
+
+    //join the socket room
     socket.emit("join", "adminRoom");
 
+    //receive the data from backend
     socket.on("orderPlaced", (data) => {
       //  setOrdersList([...ordersList, data]);
-      console.log("I am calling");
-     setOrdersList(current => [data, ...current]);
+      // console.log("I am calling");
       
-    });
+      //notify the admin
+      addNotification({
+        title:`Order Receive from Table no ${data.tableno}`,
+        message:`order Amount is  ${data.orderAmount} `,
+        duration:7000,
+        native:true,
+      })
+      
+      //update the orderList array
+     setOrdersList(current => [data, ...current]);
+     });
   },[]);
 
   const changeOrderStatus = async (val, id) => {
@@ -69,53 +82,6 @@ const AdminOrdersList = () => {
 
   return (
     <>
-      {/* <div>
-        {ordersList.length == 0 ? (
-          <h1>NOT any ORDERS</h1>
-        ) : (
-          ordersList.map((order) => (
-            <div
-              style={{
-                border: "1px solid",
-                width: "40rem",
-                marginRight: "auto",
-                marginLeft: "auto",
-                marginBottom: "1rem",
-              }}
-            >
-              {order.orderItems.map((item) => (
-                <div>
-                  <p>
-                    <br />
-                    {item.name}
-                    <p>
-                      {item.quantity} X {item.prices[0][item.variant]} =
-                      {item.price}
-                    </p>
-               
-                  </p>
-                </div>
-              ))}
-                  {order.status}
-              <select
-                value={order.status}
-                onChange={(e) => changeOrderStatus(e,order._id)}
-              >
-                <option>Order Placed</option>
-                <option>confimed</option>
-                <option>prepared</option>
-                <option>delivered</option>
-              </select>
-                
-                {orderStatus}
-              
-
-              <p>Order Amount : {order.orderAmount}</p>
-            </div>
-          ))
-        )}
-      </div> */}
-
       <section className="">
         <div className="">
           <Card

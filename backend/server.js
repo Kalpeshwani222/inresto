@@ -77,3 +77,8 @@ eventEmitter.on("orderUpdated", (data) => {
 eventEmitter.on("orderPlaced", (data) => {
   io.to("adminRoom").emit("orderPlaced", data);
 });
+
+//diplay the orders at real time in admin side
+eventEmitter.on("tableBook", (data) => {
+  io.to("adminRoom").emit("tableBook", data);
+});

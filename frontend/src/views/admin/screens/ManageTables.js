@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import QRCode from "qrcode";
 import axios from "axios";
 import { saveAs } from "file-saver";
+import socket from "../../../socket/socketApi";
+import addNotification from "react-push-notification";
 
 const ManageTables = () => {
   const [qrcode, setQrcode] = useState("");
@@ -54,8 +56,8 @@ const ManageTables = () => {
       const { data } = await axios.put(`/api/table/free/${tableID}`, config);
       console.log(data);
       if (data.message === "FREE") {
-      window.location.href = "/admin/home";
-    }
+        window.location.href = "/admin/home";
+      }
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +65,19 @@ const ManageTables = () => {
 
   useEffect(() => {
     getAllTables();
+
+    socket.emit("join", "adminRoom");
+
+    //receive the data from backend
+    socket.on("tableBook", (data) => {
+        addNotification({
+        title:`Table No ${data.tableno} Book`,
+        message:`order ID is  ${data._id} `,
+        duration:7000,
+        native:true,
+      })
+      getAllTables();
+    });
   }, []);
   return (
     <>
