@@ -36,7 +36,7 @@ const orderSchema = mongoose.Schema(
 
     status: {
       type: String,
-      default: "order_placed",
+      default: "Order Placed",
     },
   },
   { timetamps: true }

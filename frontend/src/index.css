@@ -17,3 +17,11 @@ td {
   border: 0.5px solid black;
   width: 2rem;
 }
+
+.deactive {
+  opacity: 0.38;
+}
+
+.active {
+  opacity: 2.38;
+}

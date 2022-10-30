@@ -22,7 +22,7 @@ const MenuItems = () => {
     <>
       <Navbar />
       <section>
-      <ArrowBackIcon />
+      {/* <ArrowBackIcon /> */}
         <div className="">
           {loading ? (
             <h1>load.........</h1>
