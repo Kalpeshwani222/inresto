@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
- import { getUserOrders } from "../../../../redux/actions/orderAction";
+import { getUserOrders } from "../../../../redux/actions/orderAction";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
-
+import Navbar from "../../../header/Navbar";
 
 const OrderScreen = () => {
   const history = useHistory();
@@ -18,16 +17,12 @@ const OrderScreen = () => {
       const res = await axios.post("/api/order/getorders", {
         userId: user._id,
       });
-     console.log(res);
+      console.log(res);
       setOrders(res.data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const orderState = useSelector(state => state.getUserOrderReducer);
-  // const {loading, error, orders} = orderState;
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
@@ -39,9 +34,8 @@ const OrderScreen = () => {
 
   return (
     <>
-      <div>
-
-      <h6>User specific Orders</h6>
+      <div className="">
+        <Navbar />
         {orders.length == 0 ? (
           <h1>NOT any ORDERS</h1>
         ) : (
@@ -49,15 +43,14 @@ const OrderScreen = () => {
             <div
               style={{
                 border: "1px solid",
-                width: "40rem",
+                // width: "40rem",
                 marginRight: "auto",
                 marginLeft: "auto",
                 marginBottom: "1rem",
               }}
-
-             onClick={() =>history.push(`/orders/${order._id}`)}
+              onClick={() => history.push(`/orders/${order._id}`)}
             >
-            <h2>{order._id}</h2>
+              <h2>{order._id}</h2>
               {order.orderItems.map((item) => (
                 <div>
                   <p>
@@ -72,7 +65,6 @@ const OrderScreen = () => {
                 </div>
               ))}
 
-           
               <p>Order Amount : {order.orderAmount}</p>
             </div>
           ))

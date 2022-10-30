@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import QrReader from "react-qr-reader";
 import { useHistory } from "react-router-dom";
+import Navbar from "../../../header/Navbar";
 
 const ScanqrCode = () => {
   const [showDialog, setDiaglog] = useState(false);
@@ -34,21 +35,37 @@ const ScanqrCode = () => {
 
   return (
     <>
-      {/* <h2>{precScan}</h2> */}
+    <div>
+      <div className="">
+           <Navbar />
 
-      {/* {!showDialog && !processing && ( */}
-      {precScan === "Not found" ? (
+      
+        <div  className="" style={{
+          background:"red",
+            display:"flex",
+            alignContent:"center",
+            justifyContent:"center",
+            alignItems:"center",
+           flexDirection:"column",
+          //  marginTop:"40%",
+           
+        }}>
+          {precScan === "Not found" ? (
         <>
-          {" "}
+          
           <QrReader
             facingMode={selected}
             delay={500}
             onError={handleError}
             onScan={handleScan}
-            style={{ width: "200px", heigth: "100px" }}
+            style={{ width: "240px", heigth: "100px" }}
           />
         </>
       ) : null}
+        </div>
+      </div>
+    </div>
+     
     </>
   );
 };

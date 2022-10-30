@@ -21,7 +21,13 @@ export const registerUser = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const loginUser = (email, password) => async dispatch => {
+export const logout =() => async (dispatch)=>{
+        localStorage.removeItem("userInfo");
+        dispatch({type:"USER_LOGOUT"});
+    };
+
+
+export const loginUser = (email, password) => async (dispatch) => {
   dispatch({ type: "USER_LOGIN_REQUEST" });
 
   try {
@@ -39,9 +45,9 @@ export const loginUser = (email, password) => async dispatch => {
       },
       config
     );
-console.log(res.data);
+    console.log(res.data);
     dispatch({ type: "USER_LOGIN_SUCCESS", payload: res.data });
-      
+
     localStorage.setItem("userInfo", JSON.stringify(res.data));
     window.location.href = "/";
   } catch (error) {

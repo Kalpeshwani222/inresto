@@ -9,13 +9,17 @@ import {
   CardContent,
   Typography,
   Button,
+  List,
+  Divider,
+  ListItem,
+  IconButton,
 } from "@mui/material";
-
-
+import CheckIcon from "@mui/icons-material/Check";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 
 const Items = ({ menuItem }) => {
-
-  
   const param = useParams();
   const [quantity, setQuantity] = useState(1);
   const [variant, setVariant] = useState("full");
@@ -30,7 +34,7 @@ const Items = ({ menuItem }) => {
 
   return (
     <>
-       <div className="col-lg-4">
+      <div className="col-lg-4">
         <Card sx={{ maxWidth: 345, marginTop: 2 }}>
           <CardActionArea>
             <img
@@ -78,6 +82,64 @@ const Items = ({ menuItem }) => {
           </CardActionArea>
         </Card>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <div>
+        <nav aria-label="main mailbox folders">
+          <List
+            style={{
+              margin: "10px",
+            }}
+          >
+            <ListItem
+              // disabled={step.status}
+              disablePadding
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete">
+                  <CheckIcon
+                    style={{
+                      color: "green",
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                </IconButton>
+              }
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  <img
+                    src="https://thumbs.dreamstime.com/z/beautiful-rain-forest-ang-ka-nature-trail-doi-inthanon-national-park-thailand-36703721.jpg"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                    }}
+                  />
+                </ListItemIcon>
+                <div className=""></div>
+                <ListItemText
+                  primary={menuItem.name}
+                  style={{
+                    marginLeft: "1rem",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+          </List>
+        </nav>
+      </div> */}
     </>
   );
 };

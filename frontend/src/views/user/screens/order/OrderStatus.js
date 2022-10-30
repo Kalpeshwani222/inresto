@@ -11,10 +11,11 @@ import { Card, Grid, IconButton } from "@mui/material";
 import { useParams } from "react-router-dom";
 import socket from "../../.././../socket/socketApi";
 import CheckIcon from "@mui/icons-material/Check";
+import Navbar from "../../../header/Navbar";
 
-const OrderStatus = () => {
 
-  
+
+const OrderStatus = () => {  
   const steps = [
     {
       id: 1,
@@ -74,6 +75,7 @@ const OrderStatus = () => {
 
   return (
     <>
+     <Navbar/>
       <div
         className="order_status"
         style={{
@@ -82,6 +84,7 @@ const OrderStatus = () => {
           alignItems: "center",
         }}
       >
+     
         <Box sx={{ flexGrow: 2, maxWidth: "90%" }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6} lg={12}>
@@ -92,7 +95,7 @@ const OrderStatus = () => {
               >
                 <h2>{orders._id}</h2>
 
-                {orders.status}
+                
                 <nav aria-label="main mailbox folders">
                   <List
                     style={{

@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import {  useHistory } from "react-router-dom";
+import Navbar from "./header/Navbar";
 
 const Home = () => {
 
@@ -25,6 +26,12 @@ const Home = () => {
 
   return (
     <>
+
+    <div className="">
+      <div>
+        <Navbar/>
+      </div>
+    </div>
       <Card sx={{ maxWidth: 345 }} onClick={navigateScanQR}>
         <CardActionArea>
           <CardContent>

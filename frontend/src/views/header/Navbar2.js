@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { history, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {logout} from "../../redux/actions/userAction"
+import { logout } from "../../redux/actions/userAction";
 import { useParams } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -21,7 +21,7 @@ import DrawerComp from "./DrawerComp";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 
-const Navbar = () => {
+const Navbar2 = () => {
   const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
@@ -99,24 +99,16 @@ const Navbar = () => {
           }}
         >
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2, color: "black" }}
-            >
-              {/* <MenuIcon /> */}
-              <ArrowBackIcon
-                onClick={() => history.goBack()}
-                style={{
-                  cursor: "pointer",
-                }}
-              />
-            </IconButton>
+              {
+                isMatch ? (
+                  <>
+                    <DrawerComp/>
+                  </>
+                ) : null
+              }
 
             <Typography
-            onClick={() => history.push("/")}
+              onClick={() => history.push("/")}
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
@@ -158,7 +150,6 @@ const Navbar = () => {
                           borderRadius: "50%",
                           width: "30px",
                           height: "30px",
-            
                         }}
                       />
                       {/* <Avatar/> */}
@@ -204,4 +195,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar2;
