@@ -35,7 +35,6 @@ const Navbar = () => {
   const userState = useSelector((state) => state.LoginUserReducer);
   const { userInfo } = userState;
 
-  console.log(userInfo);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -49,8 +48,8 @@ const Navbar = () => {
 
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  console.log(isMatch);
-  console.log(cartState.cartItems.length);
+  
+  // console.log(cartState.cartItems.length);
   return (
     <>
       {/* <p

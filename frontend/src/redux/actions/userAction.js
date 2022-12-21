@@ -45,10 +45,15 @@ export const loginUser = (email, password) => async (dispatch) => {
       },
       config
     );
-    console.log(res.data);
-    dispatch({ type: "USER_LOGIN_SUCCESS", payload: res.data });
+    var data = res.data;
 
-    localStorage.setItem("userInfo", JSON.stringify(res.data));
+    //add the one new field in localstorage
+     Object.assign(data,{"tableNo":""});
+
+    // console.log(data);
+    dispatch({ type: "USER_LOGIN_SUCCESS", payload: data });
+
+    localStorage.setItem("userInfo", JSON.stringify(data));
     window.location.href = "/";
   } catch (error) {
     dispatch({

@@ -11,11 +11,11 @@ const OrderNow = ({ subTotal }) => {
   const { userInfo } = userState;
 
   // console.log(param.tableno);
-
   // console.log(subTotal);
-
+   let localStorageData = JSON.parse(localStorage.getItem("userInfo"));
+  
   const ordernow = () => {
-    dispatch(placeOrder(param.tableno, subTotal));
+    dispatch(placeOrder(localStorageData['tableNo'], subTotal));
   };
 
   return (

@@ -1,0 +1,37 @@
+1. Searching
+2. Filtering
+     price -> Low High
+     rating 
+3. Pagination server side client side
+4. Rating 
+5. review (comments in product)
+6. Diplay the proper message  toast
+7. Display the Track orders and Past orders in diff tabs
+8. Add the Notification icons in User side to Display its current Notification.
+   - User orders update the Display in Notification tab.
+   - price reduce Notification
+9. Discount
+   - add the coupons to Discount the user order
+10. Payment gateway.
+   -  (stripe, Paytem)
+11. Admin Add Delete, Update the Items menu list.
+12. Admin add the item into the list it display in the user side at real time
+     update the redux state array.
+13. user will order the items then in Admin section in notification tab push the notification at real time.
+14. add the redis in app.
+    - user order the item store its ordering time into the radis cache.
+     and Logout the user automatically in 1/2 hours and free its acquired table.
+15. User can Cancel the order.
+   -  (if admin can't confirmed the order then user will Cancel it
+        but the admin can confirmed it then can't see the order Cancel button)
+16. Design the Login Register Page UI.
+17. ORder status change then automatically in user register email/mobile message send
+     order will confirmed or any other.
+18. without Login user will try to add the items in cart then it automatically redirect to the login.
+19. Reset password with OTP.
+20. in admin Dashboard display the Pie chart , Graph, total orders in day
+21. User will set the Range of the specific item purchase in his range then notifiy the user.
+22. Implement the Mobile Authentication for SMS.
+23. In Admin Dashboard completed orders is display in diff section.
+     - only shows the non completed orders in the list.
+24.
