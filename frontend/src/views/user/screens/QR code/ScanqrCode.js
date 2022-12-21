@@ -49,7 +49,7 @@ const ScanqrCode = () => {
       //set the updated data to the localstorage
       localStorage.setItem("userInfo", JSON.stringify(localStorageData));
 
-      window.location.href = `/menu-items/${tableno}`;
+      window.location.href = `/menu-items`;
     }
   }, [precScan]);
 

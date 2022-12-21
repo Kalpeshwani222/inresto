@@ -38,7 +38,7 @@ const Navbar = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    history.push(`/cart/${param.tableno}`);
+    history.push(`/cart`);
   };
 
   const logoutHandler = () => {

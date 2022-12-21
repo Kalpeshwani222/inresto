@@ -19,8 +19,8 @@ const App = () => {
         <Route path="/register" component={Register} exact />
         <Route path="/login" component={Login} exact />
         <Route path="/scan-qr" component={ScanqrCode} exact />
-        <Route path="/menu-items/:tableno" component={() => <MenuItems />} />
-        <Route path="/cart/:tableno" component={CartScreen} exact />
+        <Route path="/menu-items" component={() => <MenuItems />} />
+        <Route path="/cart" component={CartScreen} exact />
         <Route path="/orders" component={OrderScreen} exact />
         {/* for single order status */}
         <Route path="/orders/:id" component={OrderStatus} exact />
