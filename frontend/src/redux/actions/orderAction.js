@@ -7,7 +7,8 @@ export const placeOrder = (tableno, subTotal) => async (dispatch, getState) => {
   const cartItems = getState().cartReducer.cartItems;
 
   try {
-    const res = await axios.post("/api/order/neworder", {
+    const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order/neworder`,
+     {
       currentUser,
       cartItems,
       subTotal,
@@ -36,7 +37,8 @@ export const getUserOrders = () => async (dispatch, getState) => {
   dispatch({ type: "USER_ORDER_REQUEST" });
 
   try {
-    const res = await axios.post("/api/order/getorders", {
+    const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order/getorders`,
+     {
       userId: currentUser._id,
     });
 

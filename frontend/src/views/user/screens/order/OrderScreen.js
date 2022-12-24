@@ -14,7 +14,7 @@ const OrderScreen = () => {
 
   const getOrders = async () => {
     try {
-      const res = await axios.post("/api/order/getorders", {
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order/getorders`, {
         userId: user._id,
       });
       console.log(res);

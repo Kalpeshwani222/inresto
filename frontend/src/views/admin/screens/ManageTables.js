@@ -36,7 +36,7 @@ const ManageTables = () => {
   const getAllTables = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/table/get-all-tables"
+        `${process.env.REACT_APP_SERVER_URL}/api/table/get-all-tables`
       );
 
       setTables(data);
@@ -53,7 +53,7 @@ const ManageTables = () => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.put(`/api/table/free/${tableID}`, config);
+      const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/table/free/${tableID}`, config);
       console.log(data);
       if (data.message === "FREE") {
         window.location.href = "/admin/home";

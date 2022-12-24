@@ -21,7 +21,7 @@ const AdminOrdersList = () => {
   const getOrdersList = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("/api/admin/orders");
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/admin/orders`);
       setLoading(false);
       setOrdersList(data);
     } catch (error) {
@@ -74,7 +74,7 @@ const AdminOrdersList = () => {
       },
     };
 
-    const { data } = await axios.put(`/api/admin/${id}`, { status }, config);
+    const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/admin/${id}`, { status }, config);
     if (data.message === "OK") {
       window.location.href = "/admin";
     }

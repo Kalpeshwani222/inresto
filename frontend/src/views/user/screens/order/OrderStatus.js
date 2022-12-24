@@ -50,7 +50,7 @@ const OrderStatus = () => {
   useEffect(() => {
     const fetching = async () => {
       try {
-        const res = await axios.get(`/api/order/${id}`);
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/order/${id}`);
         setOrders(res.data);
       } catch (error) {
         console.log(error);
