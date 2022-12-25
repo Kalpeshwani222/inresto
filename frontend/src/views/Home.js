@@ -3,16 +3,19 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Slide,
   Typography,
 } from "@mui/material";
-import {  useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Navbar from "./header/Navbar";
+import UserCarousels from "./user/components/UserCarousels";
+import BottomNavbar from "./user/components/BottomNavbar";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 const Home = () => {
+  const history = useHistory();
 
- const history = useHistory();
-
- const navigateScanQR = () => {
+  const navigateScanQR = () => {
     history.push("/scan-qr");
   };
 
@@ -24,15 +27,27 @@ const Home = () => {
     }
   }, []);
 
+  //material UI breakpoints
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <>
-
-    <div className="">
-      <div>
-        <Navbar/>
+      <div className="">
+        <div>
+          <Navbar />
+        </div>
       </div>
-    </div>
-      <Card sx={{ maxWidth: 345 }} onClick={navigateScanQR}>
+
+      <UserCarousels />
+      <hr />
+      {isMatch ? (
+        <>
+          <BottomNavbar />
+        </>
+      ) : null}
+
+      {/* <Card sx={{ maxWidth: 345 }} onClick={navigateScanQR}>
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -58,7 +73,7 @@ const Home = () => {
             </Typography>
           </CardContent>
         </CardActionArea>
-      </Card>
+      </Card> */}
     </>
   );
 };

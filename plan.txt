@@ -1,3 +1,11 @@
+Navbar -> search, cart, profile, logo
+
+carousel 
+
+products
+
+
+
 //Simple Task
 
 1. Searching
