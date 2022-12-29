@@ -58,7 +58,7 @@ const Home = () => {
         </>
       ) : null}
 
-      {/* <Card sx={{ maxWidth: 345 }} onClick={navigateScanQR}>
+      <Card sx={{ maxWidth: 345 }} onClick={navigateScanQR}>
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -84,9 +84,9 @@ const Home = () => {
             </Typography>
           </CardContent>
         </CardActionArea>
-      </Card> */}
+      </Card>
 
-      <div className="products-section">
+      {/* <div className="products-section">
         <Grid
           container
           rowSpacing={1}
@@ -259,7 +259,7 @@ const Home = () => {
 
         
         </Grid>
-      </div>
+      </div> */}
 
       {/* <Card
           sx={{ maxWidth: 700, display: "flex" }}

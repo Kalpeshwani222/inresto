@@ -1,8 +1,14 @@
-Navbar -> search, cart, profile, logo
+Slider 
+Top sell products
 
-carousel 
+1) 5 products 
+  view all button
+2) see all the products
+  filters 
+3) single product screen
+4) footer
 
-products
+
 
 
 

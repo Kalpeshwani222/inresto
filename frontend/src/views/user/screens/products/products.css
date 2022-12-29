@@ -1,0 +1,124 @@
+/* header section */
+.products-bottom-header {
+  height: 40px;
+}
+
+.products-bottom-header .back-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.products-bottom-header .sort-by-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  flex: auto;
+}
+/* for mobile */
+.top-header-search .search-box {
+  padding: 7px 12px 7px 40px;
+  width: 100%;
+  font-size: 16px;
+  line-height: 26px;
+  background: #f2f2f2;
+  color: #4d4d4d;
+  opacity: 1;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  outline: none;
+  height: 45px;
+  border-radius: 10px;
+}
+.search-div {
+  position: fixed;
+  z-index: 2;
+  background: border-box;
+  background-color: #ffff;
+  height: 62px;
+  padding: 10px;
+}
+.custom-mobile-sort-button button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  flex: 1;
+  justify-content: center;
+  align-self: stretch;
+  align-items: center;
+  display: flex;
+}
+
+.mobile-filter-button-divider {
+  height: 26px;
+  width: 2px;
+  background-color: #d9d9d9;
+}
+
+/* filter section */
+.product-view-filters .filter-product-sections-grid {
+  display: flex;
+  justify-content: center;
+}
+
+.filter-product-sections-grid .sort-filter {
+  border: 1px solid #e8eaf6;
+  /* margin: 0px 12 px; */
+}
+.filter-product-sections-grid .sort-filter .filter-heading {
+  margin: 7px 5px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.sort-filter .price-heading {
+  line-height: 5px;
+  padding: 10px;
+}
+
+/* products */
+.main-products .main-prod-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-products .product-card {
+  box-shadow: none;
+  border: 1px solid #e8eaf6;
+}
+
+.main-products .products-section {
+  margin-bottom: 4rem;
+}
+
+.main-products .product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  position: relative;
+  margin: 5px;
+}
+
+/* for mobile screen also set remainder */
+.main-products .wrap-prod-nameprice {
+  width: 200px;
+  height: auto;
+}
+.main-products .product-title {
+  font-size: 18px;
+  line-height: 26px;
+  color: #1a181e;
+  font-weight: 500;
+}
+.main-products .product-sub {
+  font-size: 14px;
+  line-height: 18px;
+  color: #1a181e;
+  font-weight: 400;
+}
+.main-products .product-footer-part {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}

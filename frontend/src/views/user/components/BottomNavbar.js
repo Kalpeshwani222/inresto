@@ -43,7 +43,7 @@ const handleChange = (event, newValue) => {
   };
   return (
     <>
-        <BottomNavigation sx={{width:'100%', position:"absolute", bottom:'0' }} 
+        <BottomNavigation sx={{width:'100%', bottom:'0',position:"fixed", zIndex:"2" }} 
         value={value} 
         component={Box}
         boxShadow={5}
