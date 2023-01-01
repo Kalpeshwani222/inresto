@@ -102,91 +102,24 @@ const addMenu = async (req, res) => {
 
 const getAllMenu = async (req, res) => {
   //one page data
-  const resultPerPage = 2;
+  const resultPerPage = 4
+  
+  ;
   const itemCount = await Item.countDocuments();
 
 
   const ApiFeature = new apiFeatures(Item.find(),req.query)
   .search()
   .filter()
-  .pagination(resultPerPage);
+
+  let items = await ApiFeature.query;
+  let filteredItemsCount = items.length;
+
+   ApiFeature.pagination(resultPerPage);
   // const items = await Item.find();
-   const items = await ApiFeature.query;
-  res.json({items,itemCount});
+  // items = await ApiFeature.query;
+  res.json({items,itemCount, resultPerPage,filteredItemsCount});
 };
 
 
-//Filter Menu Items
-
-const filterMenu = async (req, res) => {
-  
-   const { query } = req;
-
-    const category = query.category || '';
-    const price = query.price || '';
-    const rating = query.rating || '';
-    const searchQuery = query.query || '';
-     
-
-    const queryFilter =
-      searchQuery && searchQuery !== 'all'
-        ? {
-            name: {
-              $regex: searchQuery,
-              $options: 'i',
-            },
-          }
-        : {};
-
-
-     const categoryFilter = category && category !== 'all' ? { category } : {};
-    
-     const ratingFilter =
-      rating && rating !== 'all'
-        ? {
-            rating: {
-              $gte: Number(rating),
-            },
-          }
-        : {};
-
-      const priceFilter =
-      price && price !== 'all'
-        ? {
-            // 1-50
-            price: {
-              $gte: Number(price.split('-')[0]),
-              $lte: Number(price.split('-')[1]),
-            },
-          }
-        : {};
-
-const products = await Item.find({
-      ...queryFilter,
-      ...categoryFilter,
-      ...priceFilter,
-      ...ratingFilter,
-    });
-
-    const countProducts = await Item.countDocuments({
-      ...queryFilter,
-      ...categoryFilter,
-      ...priceFilter,
-      ...ratingFilter,
-    });
-    res.send({
-      products,
-      countProducts,
-    });
-    
-
-};
-
-const menuCategory = async (req, res) => {
-  const categories = await Item.find().distinct('category');
-  res.send(categories);
-};
-
-
-
-module.exports = { addMenu, getAllMenu, filterMenu ,menuCategory};
+module.exports = { addMenu, getAllMenu};
