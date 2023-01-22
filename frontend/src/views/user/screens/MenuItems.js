@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useReducer } from "react";
 import Items from "../components/Items";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMenuItems,categoryFilter } from "../../../redux/actions/menuItemsAction";
+import {
+  getAllMenuItems,
+  categoryFilter,
+} from "../../../redux/actions/menuItemsAction";
 import Navbar from "../../header/Navbar2";
 import { useHistory } from "react-router-dom";
 import { useTheme, useMediaQuery, IconButton, Slider } from "@mui/material";
@@ -11,48 +14,79 @@ import axios from "axios";
 import { Box, Grid } from "@mui/material";
 import Pagination from "react-js-pagination";
 
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 
-const allcategory = [
-  "Noodles",
-    "Rice",
-    "Pizza",
-  "Burger"
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import Slide from "@mui/material/Slide";
 
-  
-  
-];
-
+const allcategory = ["Noodles", "Rice", "Pizza", "Burger"];
 
 const MenuItems = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-   const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("")
-  const [price, setPrice] = useState([0,1000]);
-  const [category, setCategory] = useState("")
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [price, setPrice] = useState([0, 1000]);
+  const [category, setCategory] = useState("");
 
   const itemsState = useSelector((state) => state.getAllItemsReducer);
-  const { loading, items, error, itemsCount, resultPerPage, filteredItemsCount } = itemsState;
+  const {
+    loading,
+    items,
+    error,
+    itemsCount,
+    resultPerPage,
+    filteredItemsCount,
+  } = itemsState;
 
-  const setCurrentPageNo = (e) =>{
+  const setCurrentPageNo = (e) => {
     setCurrentPage(e);
-  }
+  };
 
-  const priceHandler = (event,newPrice) =>{
-    setPrice(newPrice)
-  }
-  
+  const priceHandler = (event, newPrice) => {
+    setPrice(newPrice);
+  };
+
   useEffect(() => {
-    dispatch(getAllMenuItems(currentPage,price,category));
+    dispatch(getAllMenuItems(currentPage, price, category));
     console.log(category);
-  }, [dispatch,currentPage,price,category]);
+  }, [dispatch, currentPage, price, category]);
 
   let count = filteredItemsCount;
 
   //material UI breakpoints
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  //sort dial
+  const [open, setOpen] = useState(false);
+  const openFullScreenDialSort = () => {
+    setOpen(true);
+  };
+
+  const closeFullScreenDial = () => {
+    setOpen(false);
+  };
+
+
+  //filter dial
+  const [filterDialOpen,setFilterDialOpen] = useState(false); 
+  const openFilterDial = () => {
+    setFilterDialOpen(true);
+  };
+
+  const closeFilterDial = () => {
+    setFilterDialOpen(false);
+  };
+  
 
   return (
     <>
@@ -148,15 +182,70 @@ const MenuItems = () => {
                 display: "flex",
               }}
             >
-              <button type="button">
+              <button type="button" onClick={openFullScreenDialSort}>
                 <span>Sort</span>
               </button>
 
+              <Dialog fullScreen open={open} onClose={closeFullScreenDial}>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={closeFullScreenDial}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
+             SORT
+              </Dialog>
+
               <div className="mobile-filter-button-divider"></div>
 
-              <button type="button">
+              <button type="button" onClick={openFilterDial}>
                 <span>Filter</span>
               </button>
+
+           
+        
+              <Dialog fullScreen open={filterDialOpen} onClose={closeFilterDial}>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={closeFilterDial}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
+            <div className="price-filter">
+                  <p> Price Filter</p>
+
+                  <Slider
+                    value={price}
+                    onChange={priceHandler}
+                    valueLabelDisplay="on"
+                    aria-labelledby="range-slider"
+                    min={0}
+                    max={1000}
+                  ></Slider>
+                </div>
+
+                 <div className="category-filter">
+                  <p>Categories</p>
+
+                  {allcategory.map((cur) => (
+                    <li
+                      style={{
+                        listStyle: "none",
+                        margin: "0.4vmax",
+                        cursor: "pointer",
+                      }}
+                      key={cur}
+                      onClick={() => setCategory(cur)}
+                    >
+                      {cur}
+                    </li>
+                  ))}
+                </div>
+              </Dialog>
             </div>
           </div>
         </>
@@ -199,108 +288,105 @@ const MenuItems = () => {
                   }}
                 />
 
-                  <div className="price-filter">
-                    <p > Price Filter</p>
+                <div className="price-filter">
+                  <p> Price Filter</p>
 
-                  <Slider value={price}
-                      onChange={priceHandler}
-                      valueLabelDisplay="on"
-                      aria-labelledby="range-slider"
-                      min={0}
-                      max={1000}
-                   ></Slider>
-                  </div>
+                  <Slider
+                    value={price}
+                    onChange={priceHandler}
+                    valueLabelDisplay="on"
+                    aria-labelledby="range-slider"
+                    min={0}
+                    max={1000}
+                  ></Slider>
+                </div>
 
-                  <div className="category-filter">
-                    <p>Categories</p>
+                <div className="category-filter">
+                  <p>Categories</p>
 
-                    {
-                      allcategory.map((cur)=>(
-                        <li
-                        style={{
-                          listStyle:"none",
-                          margin:"0.4vmax",
-                          cursor:"pointer"
-                        }}
-                        key={cur}
-                        onClick={()=>setCategory(cur)}
-                        >{cur}</li>
-                      ))
-                    }
-                  </div>
-               
-               
+                  {allcategory.map((cur) => (
+                    <li
+                      style={{
+                        listStyle: "none",
+                        margin: "0.4vmax",
+                        cursor: "pointer",
+                      }}
+                      key={cur}
+                      onClick={() => setCategory(cur)}
+                    >
+                      {cur}
+                    </li>
+                  ))}
+                </div>
               </div>
             </Box>
           </Grid>
 
           {/* for displays products section */}
 
-          {
-            loading ? "loading..............." 
-            : <>
-                <Grid item xs={8}>
-            <Box>
-              <div className="main-products">
-                <Grid
-                  container
-                  rowSpacing={1}
-                  columnSpacing={1}
-                  className="main-prod-grid"
-                >
-                  {/* <ProductsScreen /> */}
-                  <div className="products-section">
+          {loading ? (
+            "loading..............."
+          ) : (
+            <>
+              <Grid item xs={8}>
+                <Box>
+                  <div className="main-products">
                     <Grid
                       container
                       rowSpacing={1}
                       columnSpacing={1}
                       className="main-prod-grid"
                     >
-                      {items.filter(filterItem =>(
-                        filterItem.name
-                        .toLowerCase()
-                    .includes(search.toLowerCase())
-                      )).map((product) => {
-                        return (
-                          <>
-                            <Items menuItem={product} />
-                          </>
-                        );
-                      })}
+                      {/* <ProductsScreen /> */}
+                      <div className="products-section">
+                        <Grid
+                          container
+                          rowSpacing={1}
+                          columnSpacing={1}
+                          className="main-prod-grid"
+                        >
+                          {items
+                            .filter((filterItem) =>
+                              filterItem.name
+                                .toLowerCase()
+                                .includes(search.toLowerCase())
+                            )
+                            .map((product) => {
+                              return (
+                                <>
+                                  <Items menuItem={product} />
+                                </>
+                              );
+                            })}
+                        </Grid>
+                      </div>
                     </Grid>
                   </div>
-                </Grid>
-              </div>
-            </Box>
-          </Grid>
+                </Box>
+              </Grid>
             </>
-          }
-         
+          )}
         </Grid>
-         
       </section>
-      
-      {
-        resultPerPage < count && (
-          <div className="pagination d-flex justify-content-center">
-               <Pagination
-          activePage={currentPage}
-          itemsCountPerPage={resultPerPage}
-          totalItemsCount={itemsCount}
-          onChange={setCurrentPageNo}
-          nextPageText = "Next"
-          prevPageText = "Prev"
-          firstPageText = "First"
-          lastPageText = "Last"
-          itemClass = "page-item"
-          linkClass = "page-link"
-          activeClass = "pageItemActive"
-          activeLinkClass = "pageLinkActive"
- 
-        />
-          </div>
-        )
-      }
+
+      {resultPerPage < count && (
+        <div className="pagination d-flex justify-content-center">
+          <Pagination
+            activePage={currentPage}
+            itemsCountPerPage={resultPerPage}
+            totalItemsCount={itemsCount}
+            onChange={setCurrentPageNo}
+            nextPageText="Next"
+            prevPageText="Prev"
+            firstPageText="First"
+            lastPageText="Last"
+            itemClass="page-item"
+            linkClass="page-link"
+            activeClass="pageItemActive"
+            activeLinkClass="pageLinkActive"
+          />
+        </div>
+      )}
     </>
   );
 };

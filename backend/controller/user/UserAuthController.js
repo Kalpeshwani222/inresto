@@ -1,84 +1,99 @@
 const User = require("../../model/UserModel");
-// const bcrypt = require("bcrypt");
-// const generateToken = require("../utils/generateToken");
-// const Token = require("../model/token");
-// const crypto = require("crypto");
-// const resetpassToken = require("../model/resetpass");
+const createError = require("http-errors");
+const { userSchema, loginSchema } = require("../../helpers/validate_schema");
+const {
+  signAccessToken,
+  VerifyAccessToken,
+} = require("../../helpers/jwt_helper");
+const Table = require("../../model/TablesModel");
 
 //register
-const userRegister = async (req, res) => {
-  const { name, email, password } = req.body;
-
-  if (!name || !email || !password) {
-    return res.status(409).json({ message: "All are required" });
-  }
-  const emailCheck = await User.findOne({ email });
-  if (emailCheck) {
-    return res.status(409).json({ message: "Email already used" });
-  }
-
-  const newUser = new User({ name, email, password });
-
+const userRegister = async (req, res, next) => {
   try {
-    newUser.save();
+    // const { name, email, password } = req.body;
+    // if (!name || !email || !password) {
+    //   throw createError.BadRequest();
+    // }
+
+    //joi validation
+    const result = await userSchema.validateAsync(req.body);
+
+    const doesExist = await User.findOne({ email: result.email });
+    if (doesExist) {
+      throw createError.Conflict(`${result.email} is already been register`);
+    }
+
+    const user = new User(result);
+
+    const savedUser = await user.save();
+    const accessToken = await signAccessToken(savedUser.id);
     return res.status(201).json({
       success: true,
-      message: "Register success",
+      // message: "Register success",
+      // user: savedUser,
+      accessToken,
     });
-
-    // const hashPassword = await bcrypt.hash(password, 10);
-
-    // //save user
-    // let user = await User.create({
-    //   name,
-    //   email,
-    //   password: hashPassword,
-    // });
-
-    // //save token to database
-    // const token = await new Token({
-    //   userId: user._id,
-    //   token: crypto.randomBytes(32).toString("hex"),
-    // }).save();
-
-    // return res.status(201).json({
-    //   message: "Email send success,please verify the email",
-    //   _id: user._id,
-    //   name: user.name,
-    //   email: user.email,
-    // });
   } catch (error) {
-    return res.status(400).json({ message: error });
+    if (error.isJoi === true) {
+      error.status = 422;
+      error.message = "something went wrong";
+    }
+    next(error);
   }
 };
 
 //login
-const userLogin = async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email });
-
-  if (!email || !password) {
-    return res.status(401).json({ message: "All fields are required" });
-  }
-
-  //email
-  if (!user) {
-    return res.status(401).json({ message: "Email not found" });
-  }
-
+const userLogin = async (req, res, next) => {
   try {
-    const presentUser = await User.findOne({ email, password });
-    const currentUser = {
-      name: presentUser.name,
-       email: presentUser.email,
-        _id: presentUser._id,
-    };
+    //joi validation
+    var result = await loginSchema.validateAsync(req.body);
 
-    res.status(200).send(currentUser);
+    const user = await User.findOne({ email: result.email });
+    if (!user) throw createError.NotFound("User not found");
+
+    const isMatch = await user.isValidPassword(result.password);
+    if (!isMatch) throw createError(401, "Username/password not valid");
+
+    const accessToken = await signAccessToken(user.id);
+
+    result["accessToken"] = accessToken;
+
+    res.send(result);
   } catch (error) {
-    return res.status(400).json({ message: "Error Occured" });
+    if (error.isJoi === true) {
+      return next(createError(400, "Invalid username/password"));
+    }
+    next(error);
   }
 };
 
-module.exports = { userLogin, userRegister };
+//logout user
+const logOutUser = async (req, res, next) => {
+  try {
+    const { table_no } = req.body;
+
+    //check the table_no is present or not
+    if (!table_no) throw createError.NotFound("You not any table occupied");
+
+    //check the table_no is valid or not
+    const findTableNO = await Table.findOne({ tableno: table_no });
+    if (!findTableNO) throw createError.NotFound("Table not found");
+
+    //table_no is valid update the table status
+    const updatedTableStatus = await Table.findOneAndUpdate(
+      { tableno: table_no },
+      {
+        $set: { status: "free" },
+      },
+      {
+        new: true,
+      }
+    );
+
+    return res.send(updatedTableStatus);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { userLogin, userRegister, logOutUser };

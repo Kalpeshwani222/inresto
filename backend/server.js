@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const createError = require('http-errors');
+const {VerifyAccessToken} = require("./helpers/jwt_helper");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
 const Emitter = require("events");
-
 const PORT = process.env.PORT || 8000;
 
 //import Routes
@@ -18,7 +19,6 @@ const adminOrderListRoute = require("./routes/admin/adminOrderListRoute");
 
 //cors policy
 app.use(cors());
-
 //database connection
 connectDB();
 
@@ -41,9 +41,28 @@ app.use("/api/order", orderRoute);
 app.use("/api/admin/", adminOrderListRoute);
 
 //test
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+app.get("/", VerifyAccessToken,(req, res) => {
+  res.send("OK");
+}); 
+
+
+app.use(async (req,res,next) =>{
+  // const error = new Error("Not found");
+  // error.status = 404   
+   // next(error)
+  next(createError.NotFound())
+})
+
+//handling error
+app.use((err,req,res,next)=>{
+    res.status(err.status || 500);
+    res.send({
+        error :{
+            status: err.status || 500,
+            message: err.message,
+        }
+    })
+})
 
 //create server
 const server = app.listen(PORT, () => {

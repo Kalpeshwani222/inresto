@@ -11,9 +11,13 @@ import AdminOrdersList from "./views/admin/screens/AdminOrdersList";
 import ScanqrCode from "./views/user/screens/QR code/ScanqrCode";
 import OrderStatus from "./views/user/screens/order/OrderStatus";
 import Products from "./views/user/screens/products/Product";
+import Dummy from "./views/user/Dummy";
 
 const App = () => {
   return (
+    
+    <>
+        
     <BrowserRouter>
       <Switch>
         <Route path="/" component={Home} exact />
@@ -35,8 +39,12 @@ const App = () => {
         {/* admin routes */}
         <Route path="/admin/home" component={ManageTables} exact />
         <Route path="/admin/" component={AdminOrdersList} exact />
+
+        <Route path="/dummy" component={Dummy} exact />
       </Switch>
     </BrowserRouter>
+    </>
+    
   );
 };
 

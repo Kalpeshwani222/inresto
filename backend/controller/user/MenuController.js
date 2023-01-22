@@ -5,20 +5,19 @@ const items = [
 
   {
     name: "Veg Noodles",
-    desc: "Veg Noodles With The Best Taste Ever 🐱",
-    category:'Noodles',
-    image:
-      "https://cdn3.mydukaan.io/app/image/200x200/?url=https://dukaan-core-file-service.s3.ap-southeast-1.amazonaws.com/upload_file_service/6b106403-9276-4c02-b446-1200a181733f/1667829777922-jpeg",
     varients: ["half", "full"],
-    price:100,
     prices: [
       {
         // half: 99,
         full: 199,
       },
     ],
-    rating: 4.5,
-    numReviews:10
+    price:100,
+    desc: "Veg Noodles With The Best Taste Ever 🐱",
+    category:'Noodles',
+    image:
+      "https://cdn3.mydukaan.io/app/image/200x200/?url=https://dukaan-core-file-service.s3.ap-southeast-1.amazonaws.com/upload_file_service/6b106403-9276-4c02-b446-1200a181733f/1667829777922-jpeg",
+  
   },
 
   {
@@ -34,8 +33,7 @@ const items = [
         full: 120,
       },
     ],
-     rating: 3,
-    numReviews:5
+    
 
   },
 
@@ -52,8 +50,7 @@ const items = [
         full: 109,
       },
     ],
-    rating: 2,
-    numReviews:12
+    
   },
 
   {
@@ -69,8 +66,7 @@ const items = [
         full: 50,
       },
     ],
-    rating: 5,
-    numReviews:7
+    
   },
 
   {
@@ -86,8 +82,7 @@ const items = [
         full: 50,
       },
     ],
-    rating: 5,
-    numReviews:7
+    
   },
 ];
 
@@ -102,9 +97,7 @@ const addMenu = async (req, res) => {
 
 const getAllMenu = async (req, res) => {
   //one page data
-  const resultPerPage = 4
-  
-  ;
+  const resultPerPage = 1;
   const itemCount = await Item.countDocuments();
 
 
