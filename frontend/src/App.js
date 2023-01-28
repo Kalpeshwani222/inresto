@@ -20,27 +20,35 @@ const App = () => {
         
     <BrowserRouter>
       <Switch>
+      
+      {/* login after show 2 options order from table or home */}
         <Route path="/" component={Home} exact />
+
+        {/* login and register */}
         <Route path="/register" component={Register} exact />
         <Route path="/login" component={Login} exact />
+      
+        {/* scan QR Screen */}
         <Route path="/scan-qr" component={ScanqrCode} exact />
+        
         <Route path="/menu-items" component={() => <MenuItems />} />
-
-          <Route path="/menu-items" component={() => <MenuItems />} />
-           
+   
            {/* shows all the products with filters*/}
         <Route path="/products" component={Products} exact />
 
+        {/* add to cart screen or order screen and order status */}
         <Route path="/cart" component={CartScreen} exact />
         <Route path="/orders" component={OrderScreen} exact />
         {/* for single order status */}
         <Route path="/orders/:id" component={OrderStatus} exact />
 
+
         {/* admin routes */}
         <Route path="/admin/home" component={ManageTables} exact />
         <Route path="/admin/" component={AdminOrdersList} exact />
-
         <Route path="/dummy" component={Dummy} exact />
+
+
       </Switch>
     </BrowserRouter>
     </>

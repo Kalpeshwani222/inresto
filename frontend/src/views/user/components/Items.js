@@ -16,7 +16,6 @@ import {
   CardActions,
 } from "@mui/material";
 
-
 const Items = ({ menuItem }) => {
   const param = useParams();
   const [quantity, setQuantity] = useState(1);
@@ -27,7 +26,7 @@ const Items = ({ menuItem }) => {
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
-    dispatch(addToCart(menuItem, variant, quantity));
+    dispatch(addToCart(menuItem, quantity));
   };
 
   return (
@@ -74,15 +73,16 @@ const Items = ({ menuItem }) => {
                   <CardActions className="product-footer-part">
                     <div className="price d-flex justify-content-start">
                       <p
-                        // style={{
-                        //   fontSize: "20px",
-                        //   lineHeight: "18px",
-                        //   color: "#1a181e",
-                        //   fontWeight: "400",
-                        // }}
+                      // style={{
+                      //   fontSize: "20px",
+                      //   lineHeight: "18px",
+                      //   color: "#1a181e",
+                      //   fontWeight: "400",
+                      // }}
                       >
                         {/* {menuItem.prices[0][variant] * quantity}  */}
-                       {menuItem.price} -/RS
+                        {menuItem.price}
+                        -/RS
                       </p>
                     </div>
 

@@ -125,7 +125,7 @@ const AdminOrdersList = () => {
                               <br />
                               {item.name}
                               <p>
-                                {item.quantity} X {item.prices[0][item.variant]}{" "}
+                                {item.quantity} X {item.price}
                                 ={item.price}
                               </p>
                             </p>

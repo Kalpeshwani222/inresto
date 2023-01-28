@@ -1,26 +1,17 @@
 import axios from "axios";
+import {GET_MENU_REQUEST,GET_MENU_SUCCESS,GET_MENU_FAIL, CLEAR_ERRORS} from "./../constants/productConstants";
 
-export const getAllMenuItems = (currentPage=1,price = [0,1000],category) => async(dispatch) =>{
-    dispatch({type:'GET_MENU_REQUEST'})
+export const getAllMenuItems = () => async(dispatch) =>{   
     try {
-        let link = `${process.env.REACT_APP_SERVER_URL}/api/menu?page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
-
-        if(category){
-             link = `${process.env.REACT_APP_SERVER_URL}/api/menu?page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}`;
-        }
-        const {data} = await axios.get(link)
-        //  console.log(data);
-        dispatch({type:'GET_MENU_SUCCESS',payload:data})
+         dispatch({type:GET_MENU_REQUEST})
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/menu`)        
+        dispatch({type:GET_MENU_SUCCESS,payload:res.data})
     } catch (error) {
-        dispatch({type:'GET_MENU_FAIL',payload:error})
+        dispatch({type:GET_MENU_FAIL,payload:error})
     }
 }
 
-
-export const categoryFilter = (data) =>{
-    return{
-        type:"CATEGORY_FILTER",
-        payload:data,
-    }
-    // console.log(data);
+export const clearErrors = () => async(dispatch) =>{   
+    dispatch({type : CLEAR_ERRORS});
 }
+

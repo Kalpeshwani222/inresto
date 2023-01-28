@@ -57,7 +57,9 @@ const userLogin = async (req, res, next) => {
     const accessToken = await signAccessToken(user.id);
 
     result["accessToken"] = accessToken;
-
+    result["_id"] = user.id;
+    result["name"] = user.name;
+ 
     res.send(result);
   } catch (error) {
     if (error.isJoi === true) {

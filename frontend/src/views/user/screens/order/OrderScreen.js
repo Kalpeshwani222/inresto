@@ -14,9 +14,12 @@ const OrderScreen = () => {
 
   const getOrders = async () => {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order/getorders`, {
-        userId: user._id,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/api/order/getorders`,
+        {
+          userId: user._id,
+        }
+      );
       console.log(res);
       setOrders(res.data);
     } catch (error) {
@@ -57,8 +60,7 @@ const OrderScreen = () => {
                     <br />
                     {item.name}
                     <p>
-                      {item.quantity} X {item.prices[0][item.variant]} =
-                      {item.price}
+                      {item.quantity} X {item.price} ={item.price}
                     </p>
                     <p>{}</p>
                   </p>

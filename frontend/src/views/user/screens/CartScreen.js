@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../../header/Navbar";
-import { addToCart, deleteCart } from "../../../redux/actions/cartAction";
+import {
+  addToCart,
+  deleteCart,
+  removeSingleItem,
+} from "../../../redux/actions/cartAction";
 import OrderNow from "./OrderNow";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useHistory } from "react-router-dom";
@@ -14,11 +18,22 @@ const CartScreen = () => {
 
   const dispatch = useDispatch();
 
-  const subTotal = cartItems.reduce((x, item) => x + item.price, 0);
-
+  // const subTotal = cartItems.reduce((x, item) => x + item.price, 0);
+  const [price, setPrice] = useState(0);
+  const total = () => {
+    let price = 0;
+    cartItems.map((ele, k) => {
+      price = ele.price * ele.quantity + price;
+    });
+    setPrice(price);
+  };
   const goback = () => {
     history.goBack();
   };
+
+  useEffect(() => {
+    total();
+  }, [total]);
   return (
     <>
       <section className="">
@@ -47,20 +62,16 @@ const CartScreen = () => {
                     alt="item-img"
                   />
                   <br />
-
                   <p>{item.name}</p>
                   <p>
-                    price : {item.quantity} X {item.prices[0][item.variant]} =
-                    {item.price}
+                    price : {item.quantity} X {item.price} =
+                    {item.price * item.quantity}
                   </p>
-
                   <h5>
                     &nbsp;
                     <button
                       onClick={() =>
-                        dispatch(
-                          addToCart(item, item.variant, item.quantity + 1)
-                        )
+                        dispatch(addToCart(item, item.quantity + 1))
                       }
                       style={{
                         cursor: "pointer",
@@ -71,10 +82,13 @@ const CartScreen = () => {
                     &nbsp;
                     {item.quantity}&nbsp;&nbsp;
                     <button
-                      onClick={() =>
-                        dispatch(
-                          addToCart(item, item.variant, item.quantity - 1)
-                        )
+                      onClick={
+                        item.quantity <= 1
+                          ? () => dispatch(deleteCart(item._id))
+                          : () =>
+                              dispatch(
+                                removeSingleItem(item, item.quantity - 1)
+                              )
                       }
                       style={{
                         cursor: "pointer",
@@ -83,32 +97,34 @@ const CartScreen = () => {
                       -
                     </button>
                   </h5>
-
+                  {/* remove from cart */}
                   <button
-                    onClick={() => dispatch(deleteCart(item))}
+                    onClick={() => dispatch(deleteCart(item._id))}
                     style={{
                       cursor: "pointer",
                     }}
                   >
                     delete
                   </button>
+                  &nbsp;
+                  {item.price}&nbsp;&nbsp;
                 </div>
               </>
             );
           })}
         </div>
 
-        {subTotal == 0 ? (
+        {price == 0 ? (
           <h1>NO ITEM ADDED</h1>
         ) : (
           <>
             <h1>
               payment
               <h4>subTotal</h4>
-              <h4>RS {subTotal} /- </h4>
+              <h4>RS {price} /- </h4>
             </h1>
 
-            <OrderNow subTotal={subTotal} />
+            <OrderNow subTotal={price} />
           </>
         )}
       </section>

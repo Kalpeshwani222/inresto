@@ -43,25 +43,17 @@ const MenuItems = () => {
     loading,
     items,
     error,
-    itemsCount,
-    resultPerPage,
-    filteredItemsCount,
   } = itemsState;
 
-  const setCurrentPageNo = (e) => {
-    setCurrentPage(e);
-  };
 
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
   };
-
+  console.log(items);
   useEffect(() => {
-    dispatch(getAllMenuItems(currentPage, price, category));
-    console.log(category);
-  }, [dispatch, currentPage, price, category]);
+    dispatch(getAllMenuItems());
+   }, []);
 
-  let count = filteredItemsCount;
 
   //material UI breakpoints
   const theme = useTheme();
@@ -345,19 +337,14 @@ const MenuItems = () => {
                           columnSpacing={1}
                           className="main-prod-grid"
                         >
-                          {items
-                            .filter((filterItem) =>
-                              filterItem.name
-                                .toLowerCase()
-                                .includes(search.toLowerCase())
-                            )
-                            .map((product) => {
-                              return (
-                                <>
-                                  <Items menuItem={product} />
-                                </>
-                              );
-                            })}
+                        { items && items.map((cur) => {
+                        return (
+                          <>
+                            <Items menuItem={cur} />
+                          </>
+                        );
+                      })}
+                            
                         </Grid>
                       </div>
                     </Grid>
@@ -369,24 +356,9 @@ const MenuItems = () => {
         </Grid>
       </section>
 
-      {resultPerPage < count && (
-        <div className="pagination d-flex justify-content-center">
-          <Pagination
-            activePage={currentPage}
-            itemsCountPerPage={resultPerPage}
-            totalItemsCount={itemsCount}
-            onChange={setCurrentPageNo}
-            nextPageText="Next"
-            prevPageText="Prev"
-            firstPageText="First"
-            lastPageText="Last"
-            itemClass="page-item"
-            linkClass="page-link"
-            activeClass="pageItemActive"
-            activeLinkClass="pageLinkActive"
-          />
-        </div>
-      )}
+      see more
+
+      
     </>
   );
 };
