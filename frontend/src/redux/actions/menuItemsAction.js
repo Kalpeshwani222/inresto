@@ -1,11 +1,19 @@
 import axios from "axios";
 import {GET_MENU_REQUEST,GET_MENU_SUCCESS,GET_MENU_FAIL, CLEAR_ERRORS} from "./../constants/productConstants";
 
-export const getAllMenuItems = () => async(dispatch) =>{   
+export const getAllMenuItems = (page,sort,sortOrder,filterCategory,search) => async(dispatch) =>{   
     try {
          dispatch({type:GET_MENU_REQUEST})
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/menu`)        
+
+       console.log(page,sort,sortOrder,filterCategory,search);
+        const url = `${process.env.REACT_APP_SERVER_URL}/api/menu?page=${page}&sort=${sort},${
+          sortOrder
+        }&category=${filterCategory}&search=${search}`;
+
+        // const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/menu`)
+        const res = await axios.get(url)        
         dispatch({type:GET_MENU_SUCCESS,payload:res.data})
+        console.log(res.data);
     } catch (error) {
         dispatch({type:GET_MENU_FAIL,payload:error})
     }

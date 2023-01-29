@@ -5,7 +5,7 @@ import {
   CLEAR_ERRORS,
 } from "./../constants/productConstants";
 
-export const getAllItemsReducer = (state = { items: [] }, action) => {
+export const getAllItemsReducer = (state = { items: {}, }, action) => {
   switch (action.type) {
     case GET_MENU_REQUEST:
       return {

@@ -13,7 +13,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { Box, Grid } from "@mui/material";
 import Pagination from "react-js-pagination";
-
+import { ArrowForwardIos } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
@@ -26,8 +26,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-
-const allcategory = ["Noodles", "Rice", "Pizza", "Burger"];
+import "./products/products.css";
 
 const MenuItems = () => {
   const dispatch = useDispatch();
@@ -39,12 +38,7 @@ const MenuItems = () => {
   const [category, setCategory] = useState("");
 
   const itemsState = useSelector((state) => state.getAllItemsReducer);
-  const {
-    loading,
-    items,
-    error,
-  } = itemsState;
-
+  const { loading, items, error } = itemsState;
 
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
@@ -52,8 +46,7 @@ const MenuItems = () => {
   console.log(items);
   useEffect(() => {
     dispatch(getAllMenuItems());
-   }, []);
-
+  }, []);
 
   //material UI breakpoints
   const theme = useTheme();
@@ -68,9 +61,8 @@ const MenuItems = () => {
     setOpen(false);
   };
 
-
   //filter dial
-  const [filterDialOpen,setFilterDialOpen] = useState(false); 
+  const [filterDialOpen, setFilterDialOpen] = useState(false);
   const openFilterDial = () => {
     setFilterDialOpen(true);
   };
@@ -78,53 +70,14 @@ const MenuItems = () => {
   const closeFilterDial = () => {
     setFilterDialOpen(false);
   };
-  
 
   return (
     <>
-      {/* <section>
-        <Navbar />
-        <div className="">
-          {loading ? (
-            <h1>load.........</h1>
-          ) : error ? (
-            <h1>{error}</h1>
-          ) : (
-            <>
-              
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Box sx={{ flexGrow: 2, maxWidth: "90%" }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} md={6} lg={12}>
-                      {items.map((cur) => {
-                        return (
-                          <>
-                            <Items menuItem={cur} />
-                          </>
-                        );
-                      })}
-                    </Grid>
-                  </Grid>
-                </Box>
-              </div>
-            </>
-          )}
-        </div>
-      </section> */}
-
       {/* display navbar only desktop hide in mobile and md screen sizes */}
       <Box sx={{ display: { xs: "none", md: "block" } }}>
         <Navbar />
       </Box>
       {/* end navbar */}
-
       {/* bottom bar shows only mobile  */}
       {isMatch ? (
         <>
@@ -132,7 +85,6 @@ const MenuItems = () => {
         </>
       ) : null}
       {/* end bottombar */}
-
       {/* SEARCH SORT FILTER SECTION IN MOBILE ONLY */}
       {isMatch ? (
         <>
@@ -187,7 +139,7 @@ const MenuItems = () => {
                 >
                   <CloseIcon />
                 </IconButton>
-             SORT
+                SORT
               </Dialog>
 
               <div className="mobile-filter-button-divider"></div>
@@ -196,9 +148,11 @@ const MenuItems = () => {
                 <span>Filter</span>
               </button>
 
-           
-        
-              <Dialog fullScreen open={filterDialOpen} onClose={closeFilterDial}>
+              <Dialog
+                fullScreen
+                open={filterDialOpen}
+                onClose={closeFilterDial}
+              >
                 <IconButton
                   edge="start"
                   color="inherit"
@@ -207,79 +161,6 @@ const MenuItems = () => {
                 >
                   <CloseIcon />
                 </IconButton>
-            <div className="price-filter">
-                  <p> Price Filter</p>
-
-                  <Slider
-                    value={price}
-                    onChange={priceHandler}
-                    valueLabelDisplay="on"
-                    aria-labelledby="range-slider"
-                    min={0}
-                    max={1000}
-                  ></Slider>
-                </div>
-
-                 <div className="category-filter">
-                  <p>Categories</p>
-
-                  {allcategory.map((cur) => (
-                    <li
-                      style={{
-                        listStyle: "none",
-                        margin: "0.4vmax",
-                        cursor: "pointer",
-                      }}
-                      key={cur}
-                      onClick={() => setCategory(cur)}
-                    >
-                      {cur}
-                    </li>
-                  ))}
-                </div>
-              </Dialog>
-            </div>
-          </div>
-        </>
-      ) : null}
-      {/* end FILTER */}
-
-      {/* topbar for sorting and backScrenn */}
-
-      <Box sx={{ display: { xs: "none", md: "block" } }}>
-        <div className="container d-flex justify-content-center products-bottom-header">
-          <div className="back-arrow">
-            <ArrowBackIcon />
-          </div>
-
-          <div className="sort-by-container">Sort by Discount</div>
-        </div>
-      </Box>
-
-      <hr
-        style={{
-          border: "1px solid #e8eaf6",
-          margin: "6px 1px",
-        }}
-      />
-
-      {/* filters & displays all the products */}
-      <section className="product-view-filters d-flex justify-content-center">
-        <Grid container spacing={1} className="filter-product-sections-grid">
-          {/* for filters section */}
-
-          <Grid item xs={2} sx={{ display: { xs: "none", md: "block" } }}>
-            <Box>
-              <div className="sort-filter">
-                <p className="filter-heading">Filters</p>
-
-                <hr
-                  style={{
-                    margin: " 0px",
-                    padding: " 0px",
-                  }}
-                />
-
                 <div className="price-filter">
                   <p> Price Filter</p>
 
@@ -295,32 +176,39 @@ const MenuItems = () => {
 
                 <div className="category-filter">
                   <p>Categories</p>
-
-                  {allcategory.map((cur) => (
-                    <li
-                      style={{
-                        listStyle: "none",
-                        margin: "0.4vmax",
-                        cursor: "pointer",
-                      }}
-                      key={cur}
-                      onClick={() => setCategory(cur)}
-                    >
-                      {cur}
-                    </li>
-                  ))}
                 </div>
-              </div>
-            </Box>
-          </Grid>
+              </Dialog>
+            </div>
+          </div>
+        </>
+      ) : null}
+      {/* end FILTER */}
+      {/* topbar for sorting and backScrenn */}
+      <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <div className="container d-flex justify-content-center products-bottom-header">
+          <div className="back-arrow">
+            <ArrowBackIcon />
+          </div>
 
+          <div className="sort-by-container">Sort by Discount</div>
+        </div>
+      </Box>
+      <hr
+        style={{
+          border: "1px solid #e8eaf6",
+          margin: "6px 1px",
+        }}
+      />
+
+      <section className="product-view-filters d-flex justify-content-center">
+        <Grid container spacing={1} className="filter-product-sections-grid">
           {/* for displays products section */}
 
           {loading ? (
             "loading..............."
           ) : (
             <>
-              <Grid item xs={8}>
+              <Grid item xs={10}>
                 <Box>
                   <div className="main-products">
                     <Grid
@@ -337,14 +225,14 @@ const MenuItems = () => {
                           columnSpacing={1}
                           className="main-prod-grid"
                         >
-                        { items && items.map((cur) => {
-                        return (
-                          <>
-                            <Items menuItem={cur} />
-                          </>
-                        );
-                      })}
-                            
+                          {items &&
+                            items.map((cur) => {
+                              return (
+                                <>
+                                  <Items menuItem={cur} />
+                                </>
+                              );
+                            })}
                         </Grid>
                       </div>
                     </Grid>
@@ -355,10 +243,36 @@ const MenuItems = () => {
           )}
         </Grid>
       </section>
-
-      see more
-
-      
+      <div
+        className="all-products-btn d-flex justify-content-center"
+        onClick={()=>  history.push("/products")}
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        <p
+          style={{
+            maxWidth: "202px",
+            fontWeight: "500",
+            backgroundColor: "#f2f2f2",
+            borderRadius: "4px",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "16px auto",
+            padding: "4px 6px 4px 16px",
+            display: "flex",
+            marginTop: "0px",
+          }}
+        >
+          See all products
+          <ArrowForwardIos
+            style={{
+              fontSize: "16px",
+              margin: "5px",
+            }}
+          />
+        </p>
+      </div>
     </>
   );
 };

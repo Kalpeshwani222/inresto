@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/cartAction";
 import { useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
-
+import "./../screens/products/products.css";
 import {
   Card,
   CardMedia,
@@ -16,7 +16,7 @@ import {
   CardActions,
 } from "@mui/material";
 
-const Items = ({ menuItem }) => {
+const Items = ({ menuItem,key }) => {
   const param = useParams();
   const [quantity, setQuantity] = useState(1);
   const [variant, setVariant] = useState("full");
@@ -31,7 +31,7 @@ const Items = ({ menuItem }) => {
 
   return (
     <>
-      <Grid item lg={6} spacing={1}>
+      <Grid item lg={6} spacing={1} sx={{ mt:2}} key={key}>
         <Box p={1}>
           <Card
             className="product-card"
@@ -49,38 +49,27 @@ const Items = ({ menuItem }) => {
               <CardContent sx={{ flex: "1 0 auto" }}>
                 <div className="wrap-prod-nameprice">
                   <Typography component="div" className="product-title ">
-                    {menuItem.name}
+                    {menuItem.name.slice(0,15)}
                   </Typography>
 
                   <Typography className="product-sub">
-                    {menuItem.desc}
+                    {menuItem.desc.slice(0, 55)}...
                   </Typography>
-                  {/* <select
-                    value={variant}
-                    onChange={(e) => setVariant(e.target.value)}
-                  >
-                    {menuItem.varients.map((cur) => {
-                      return (
-                        <>
-                          <option>{cur}</option>
-                        </>
-                      );
-                    })}
-                  </select> */}
+                 
                 </div>
 
                 <Box>
                   <CardActions className="product-footer-part">
                     <div className="price d-flex justify-content-start">
                       <p
-                      // style={{
-                      //   fontSize: "20px",
-                      //   lineHeight: "18px",
-                      //   color: "#1a181e",
-                      //   fontWeight: "400",
-                      // }}
+                      style={{
+                        fontSize: "17px",
+                        lineHeight: "18px",
+                        color: "#1a181e",
+                        fontWeight: "400",
+                      }}
                       >
-                        {/* {menuItem.prices[0][variant] * quantity}  */}
+                      
                         {menuItem.price}
                         -/RS
                       </p>
