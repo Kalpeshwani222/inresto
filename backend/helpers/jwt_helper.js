@@ -11,7 +11,7 @@ module.exports = {
             const secret = process.env.ACCESS_TOKEN_SECRET;
             
             const options = {
-                expiresIn: "20s",
+                expiresIn: "1h",
                 issuer : "kalpeshwani.com",
                 audience : userId, 
             }

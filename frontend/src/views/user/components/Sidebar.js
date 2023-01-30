@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Drawer, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useHistory } from "react-router-dom";
 
 const Sidebar = ({ categories, filterCategory, setFilterCategory }) => {
   const [openDrawer, setOpenDrawer] = useState(true);
@@ -44,14 +43,14 @@ const Sidebar = ({ categories, filterCategory, setFilterCategory }) => {
             }}
           >
             Category
-            <div className="" style={{}}>
+            <div className="">
               {categories &&
                 categories.map((category) => {
                   return (
                     <>
                       <div
                         className=""
-                        key={category}
+                        key={category.name}
                         style={{
                           minWidth: "90px",
                           display: "flex",
@@ -62,7 +61,7 @@ const Sidebar = ({ categories, filterCategory, setFilterCategory }) => {
                         <input
                           className=""
                           type="checkbox"
-                          value={category}
+                          value={category.name}
                           onChange={onChange}
                           style={{
                             height: "20px",
@@ -75,7 +74,7 @@ const Sidebar = ({ categories, filterCategory, setFilterCategory }) => {
                             margin: "5px",
                           }}
                         >
-                          {category}
+                          {category.name}
                         </p>
                       </div>
                     </>

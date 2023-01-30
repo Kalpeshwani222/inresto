@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
+import {Grid}  from "@mui/material";
 import Box from "@mui/material/Box";
-import "./products.css";
+import axios from "axios";
 import { useTheme, useMediaQuery } from "@mui/material";
 import TopbarSearchSortFilter from "../../components/TopbarSearchSortFilter";
 import SubNavbar from "../../components/SubNavbar";
@@ -10,18 +10,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllMenuItems } from "../../../../redux/actions/menuItemsAction";
 import Items from "../../components/Items";
 import Pagination from "../../components/Pagination";
+import Loading from "../../components/Loading";
 
 const Products = () => {
 
   const dispatch = useDispatch();
-  
   const itemsState = useSelector((state) => state.getAllItemsReducer);
   const { loading, items, error } = itemsState;
-const [obj, setObj] = useState(items);
+
   //material UI breakpoints
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
+  const [obj, setObj] = useState();
   const [sort, setSort] = useState({ sort: "price", order: "desc" });
   const [filterCategory, setFilterCategory] = useState([]);
   const [page, setPage] = useState(1);
@@ -39,11 +40,32 @@ const [obj, setObj] = useState(items);
     );
   }, [search, page, dispatch, sort, filterCategory]);
 
+//get all the category
+  useEffect(() => {
+    const getCategory = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/api/admin/category`
+        );
+        setObj(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCategory();
+  }, []);
+
   return (
     <>
       <div className="">
         <div className="">
-          <TopbarSearchSortFilter />
+          <TopbarSearchSortFilter
+            setSearch={(search) => setSearch(search)}
+            filterCategory={filterCategory}
+            setFilterCategory={(filterCategory) =>
+              setFilterCategory(filterCategory)
+            }
+          />
         </div>
 
         <div className="">
@@ -63,8 +85,7 @@ const [obj, setObj] = useState(items);
             <Grid item xs={2} sx={{ display: { xs: "none", md: "block" } }}>
               <Box>
                 <Sidebar
-                  // categories={items.category ? items.category : []}
-                  categories={obj.category ? obj.category : []}
+                  categories={obj ? obj : []}
                   filterCategory={filterCategory}
                   setFilterCategory={(filterCategory) =>
                     setFilterCategory(filterCategory)
@@ -91,11 +112,12 @@ const [obj, setObj] = useState(items);
                         columnSpacing={1}
                         className="main-prod-grid"
                       >
+                        {loading && <Loading />}
                         {items.items &&
                           items.items.map((cur, ind) => {
                             return (
                               <>
-                                <Items menuItem={cur} key={ind} />
+                                <Items menuItem={cur} />
                               </>
                             );
                           })}

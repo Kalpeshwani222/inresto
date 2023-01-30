@@ -17,11 +17,10 @@ import {
 } from "@mui/material";
 
 const Items = ({ menuItem,key }) => {
+  
   const param = useParams();
   const [quantity, setQuantity] = useState(1);
   const [variant, setVariant] = useState("full");
-
-  //  console.log(param.tableno);
 
   const dispatch = useDispatch();
 
@@ -31,7 +30,7 @@ const Items = ({ menuItem,key }) => {
 
   return (
     <>
-      <Grid item lg={6} spacing={1} sx={{ mt:2}} key={key}>
+      <Grid item lg={6} spacing={1} sx={{ mt:2}}>
         <Box p={1}>
           <Card
             className="product-card"

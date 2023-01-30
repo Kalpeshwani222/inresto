@@ -30,6 +30,7 @@ header section .products-bottom-header {
   border-radius: 10px;
 }
 .search-div {
+  width: 100%;
   position: fixed;
   z-index: 2;
   background: border-box;

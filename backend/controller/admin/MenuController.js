@@ -1,5 +1,4 @@
 const Item = require("../../model/ItemModel");
-const apiFeatures = require("../../utils/apiFeatures");
 
 const items = [
   // {
@@ -294,20 +293,6 @@ res.status(200).json(response);
   } catch (error) {
     console.log(error);
   }
-
-  //one page data
-  // const resultPerPage = 1;
-  // const itemCount = await Item.countDocuments();
-
-  // const ApiFeature = new apiFeatures(Item.find(), req.query).search().filter();
-
-  // let items = await ApiFeature.query;
-  // let filteredItemsCount = items.length;
-
-  // ApiFeature.pagination(resultPerPage);
-  // // const items = await Item.find();
-  // // items = await ApiFeature.query;
-  // res.json({ items, itemCount, resultPerPage, filteredItemsCount });
 };
 
 module.exports = { addMenu, getAllMenu };

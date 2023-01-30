@@ -16,7 +16,7 @@ const tableroute = require("./routes/admin/tablesRoute");
 const userRoute = require("./routes/user/userRoute");
 const orderRoute = require("./routes/user/orders/orderRoute");
 const adminOrderListRoute = require("./routes/admin/adminOrderListRoute");
-
+const categoryRoute = require("./routes/admin/categoryRoute");
 //cors policy
 app.use(cors());
 //database connection
@@ -39,7 +39,7 @@ app.use("/api/auth/user", userRoute);
 app.use("/api/order", orderRoute);
 
 app.use("/api/admin/", adminOrderListRoute);
-
+app.use("/api/admin/", categoryRoute);
 //test
 app.get("/", VerifyAccessToken,(req, res) => {
   res.send("OK");
