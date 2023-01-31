@@ -21,22 +21,12 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 // import Typography from '@mui/material/Typography';
 
-import ShareIcon from "@mui/icons-material/Share";
-
 const Home = () => {
   const history = useHistory();
 
   const navigateScanQR = () => {
-    history.push("/scan-qr");
+    history.push("/scanqr");
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("userInfo")) {
-      console.log("yes boss");
-    } else {
-      window.location.href = "/login";
-    }
-  }, []);
 
   //material UI breakpoints
   const theme = useTheme();

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import ManageTables from "./views/admin/screens/ManageTables";
 import Home from "./views/Home";
 import CartScreen from "./views/user/screens/CartScreen";
@@ -12,47 +12,126 @@ import ScanqrCode from "./views/user/screens/QR code/ScanqrCode";
 import OrderStatus from "./views/user/screens/order/OrderStatus";
 import Products from "./views/user/screens/products/Product";
 import Dummy from "./views/user/Dummy";
+import ProtectedRoutes from "./ProtectedRoutes";
+import { useSelector, useDispatch } from "react-redux";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.LoginUserReducer);
+  const { error, success, loading, userInfo } = userLogin;
+
   return (
-    
     <>
-        
-    <BrowserRouter>
-      <Switch>
-      
-      {/* login after show 2 options order from table or home */}
-        <Route path="/" component={Home} exact />
+      <HashRouter>
+        {/* <Route path="/" component={Login} exact />
+        <ProtectedRoutes
+          path="/admin/dashboard"
+          component={AdminDashboard}
+          user={userInfo}
+        />
+        <ProtectedRoutes
+          path="/admin/users"
+          component={CustomersList}
+          user={userInfo}
+        />
+        <ProtectedRoutes
+          path="/admin/category"
+          component={CategoryScreen}
+          user={userInfo}
+          exact
+        />
+        <ProtectedRoutes
+          path="/admin/category/:id"
+          component={SubcategoryScreen}
+          user={userInfo}
+          exact
+        />
+        <ProtectedRoutes
+          path="/admin/manage_products/:id"
+          component={ManageProducts}
+          user={userInfo}
+          exact
+        />
+        <ProtectedRoutes
+          path="/admin/manage_subproducts/:id"
+          component={ManageSubProduct}
+          user={userInfo}
+          exact
+        />
+        <ProtectedRoutes
+          path="/admin/brand"
+          component={ManageBrands}
+          user={userInfo}
+        />
+        <ProtectedRoutes
+          path="/admin/keywords"
+          component={AdminManageKeywords}
+          user={userInfo}
+        /> */}
 
         {/* login and register */}
-        <Route path="/register" component={Register} exact />
-        <Route path="/login" component={Login} exact />
-      
-        {/* scan QR Screen */}
-        <Route path="/scan-qr" component={ScanqrCode} exact />
-        
-        <Route path="/menu/:table" component={() => <MenuItems />} />
-   
-           {/* shows all the products with filters*/}
-        <Route path="/products" component={Products} exact />
+        <Switch>
+          <Route path="/register" component={Register} exact/>
+          <Route path="/login" component={Login} exact />
+          <Route path="/" component={Home} exact />
 
-        {/* add to cart screen or order screen and order status */}
-        <Route path="/cart" component={CartScreen} exact />
-        <Route path="/orders" component={OrderScreen} exact />
-        {/* for single order status */}
-        <Route path="/orders/:id" component={OrderStatus} exact />
+          {/* <ProtectedRoutes 
+          path="/"
+          component={Home} 
+          user={userInfo} 
+          exact /> */}
+
+          <ProtectedRoutes
+            path="/scanqr"
+            component={ScanqrCode}
+            user={userInfo}
+            exact
+          />
+
+          <ProtectedRoutes
+            path="/menu/:id"
+            component={MenuItems}
+            user={userInfo}
+            exact
+          />
+
+          <ProtectedRoutes
+            path="/products"
+            component={Products}
+            user={userInfo}
+            exact
+          />
+
+          <ProtectedRoutes
+            path="/cart"
+            component={CartScreen}
+            user={userInfo}
+            exact
+          />
+
+          <ProtectedRoutes
+            path="/orders"
+            component={OrderScreen}
+            user={userInfo}
+            exact
+          />
+
+          <ProtectedRoutes
+            path="/orders/:id"
+            component={OrderStatus}
+            user={userInfo}
+            exact
+          />
 
 
-        {/* admin routes */}
-        <Route path="/admin/home" component={ManageTables} exact />
-        <Route path="/admin/" component={AdminOrdersList} exact />
-        <Route path="/dummy" component={Dummy} exact />
+          {/* admin */}
 
-
-      </Switch>
-    </BrowserRouter>
+          <Route path="/admin/home" component={ManageTables}  />
+        <Route path="/admin/" component={AdminOrdersList}  />
+        <Route path="/dummy" component={Dummy}  />
+        </Switch>
+      </HashRouter>
     </>
-    
   );
 };
 

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import QrReader from "react-qr-reader";
 import Navbar from "../../../header/Navbar";
 import { useSelector } from "react-redux";
+import {Redirect, useHistory} from "react-router-dom";
 
 const ScanqrCode = () => {
+  const history = useHistory();
+
   const [showDialog, setDiaglog] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [precScan, setPrecScan] = useState("Not found");
@@ -49,7 +52,7 @@ const ScanqrCode = () => {
       //set the updated data to the localstorage
       localStorage.setItem("userInfo", JSON.stringify(localStorageData));
 
-      window.location.href = `/menu/${tableno}`;
+      history.push(`/menu/${tableno}`)
     }
   }, [precScan]);
 

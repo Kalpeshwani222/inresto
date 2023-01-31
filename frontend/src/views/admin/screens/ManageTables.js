@@ -122,7 +122,7 @@ const ManageTables = () => {
                         style={{}}
                         onClick={() =>
                           GenerateQRCode(
-                            `http://localhost:3000/menu-items/${cur.tableno}`,
+                            `${process.env.REACT_APP_HOSTED_URL}/menu/${cur.tableno}`,
                             cur.tableno
                           )
                         }
