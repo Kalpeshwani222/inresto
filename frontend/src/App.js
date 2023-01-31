@@ -31,7 +31,7 @@ const App = () => {
         {/* scan QR Screen */}
         <Route path="/scan-qr" component={ScanqrCode} exact />
         
-        <Route path="/menu-items" component={() => <MenuItems />} />
+        <Route path="/menu/:table" component={() => <MenuItems />} />
    
            {/* shows all the products with filters*/}
         <Route path="/products" component={Products} exact />

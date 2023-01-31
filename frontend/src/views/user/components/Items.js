@@ -30,8 +30,8 @@ const Items = ({ menuItem,key }) => {
 
   return (
     <>
-      <Grid item lg={6} spacing={1} sx={{ mt:2}}>
-        <Box p={1}>
+      <Grid item lg={6} sx={{ mt:1}}>
+        <Box >
           <Card
             className="product-card"
             sx={{ maxWidth: 700, display: "flex" }}

@@ -54,8 +54,9 @@ const SubNavbar = ({ setSearch, sort, setSort }) => {
                 className=""
                 defaultValue={sort.sort}
               >
+              <option value="desc">&uarr;Price high to low</option>
                 <option value="asc">&darr; Price low to high</option>
-                <option value="desc">&uarr;Price high to low</option>
+                
               </select>
             </div>
           </Tooltip>

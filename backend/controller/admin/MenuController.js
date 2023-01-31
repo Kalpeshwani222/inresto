@@ -285,7 +285,6 @@ const getAllMenu = async (req, res) => {
 			total,
 			page: page + 1,
 			limit,
-			category: categoryOptions,
 			items,
 		};
 res.status(200).json(response);

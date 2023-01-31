@@ -114,7 +114,7 @@ const Products = () => {
                       >
                         {loading && <Loading />}
                         {items.items &&
-                          items.items.map((cur, ind) => {
+                          items.items.map((cur) => {
                             return (
                               <>
                                 <Items menuItem={cur} />

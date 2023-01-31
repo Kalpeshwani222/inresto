@@ -4,16 +4,16 @@ import Navbar from "./../../header/Navbar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BottomNavbar from "./../components/BottomNavbar";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton } from "@mui/material";
+import { IconButton,Typography } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-const TopbarSearchSortFilter = ({
-  setSearch,
-  filterCategory,
-  setFilterCategory,
-}) => {
+const TopbarSearchSortFilter = ({ setSearch,filterCategory,setFilterCategory}) => {
+
+  const history = useHistory();
+
   //material UI breakpoints
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -83,7 +83,20 @@ const TopbarSearchSortFilter = ({
           >
             <div className="search-div d-flex justify-content-center products-bottom-header">
               <div className="back-arrow">
-                <ArrowBackIcon />
+                     <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            <ArrowBackIcon
+              style={{
+                fontSize: "30px",
+                cursor: "pointer",
+              }}
+              onClick={() => history.goBack()}
+            />
+          </Typography>
               </div>
               <input
                 type="text"
@@ -174,6 +187,10 @@ const TopbarSearchSortFilter = ({
                 <span>Sort</span>
               </button>
             </div>
+            <hr style={{
+              border: "1px solid #e8eaf6",
+              marginTop: "12px",
+            }}/>
           </div>
         </>
       ) : null}
