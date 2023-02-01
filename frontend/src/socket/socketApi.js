@@ -1,7 +1,8 @@
 import io from "socket.io-client";
 
-const ENDPOINT = "http://localhost:8000";
-const socket = io.connect("http://localhost:8000");
+const ENDPOINT = process.env.REACT_APP_SERVER_URL;
+
+const socket = io.connect(process.env.REACT_APP_SERVER_URL);
 
 export default socket;
 
