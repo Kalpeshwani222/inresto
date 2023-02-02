@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Card } from "@mui/material";
 import socket from "../../../socket/socketApi";
-import addNotification from "react-push-notification"
+import addNotification from "react-push-notification";
 
 const AdminOrdersList = () => {
 
@@ -21,7 +21,9 @@ const AdminOrdersList = () => {
   const getOrdersList = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/admin/orders`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/api/admin/orders`
+      );
       setLoading(false);
       setOrdersList(data);
     } catch (error) {
@@ -30,13 +32,7 @@ const AdminOrdersList = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getOrdersList();
-  // }, []);
- 
-
   useEffect(() => {
-    
     getOrdersList();
 
     //join the socket room
@@ -44,41 +40,43 @@ const AdminOrdersList = () => {
 
     //receive the data from backend
     socket.on("orderPlaced", (data) => {
-      //  setOrdersList([...ordersList, data]);
-      // console.log("I am calling");
-      
+    
+
       //notify the admin
       addNotification({
-        title:`Order Receive from Table no ${data.tableno}`,
-        message:`order Amount is  ${data.orderAmount} `,
-        duration:7000,
-        native:true,
-      })
-      
+        title: `Order Receive from Table no ${data.tableno}`,
+        message: `order Amount is  ${data.orderAmount} `,
+        duration: 7000,
+        native: true,
+      });
+
       //update the orderList array
-     setOrdersList(current => [data, ...current]);
-     });
-  },[]);
+      setOrdersList((current) => [data, ...current]);
+    });
+  }, []);
 
+  
+  //change order status
   const changeOrderStatus = async (val, id) => {
-    // console.log(val.target.value);
-    // console.log(id);
-
     const status = val.target.value;
     setOrderStatus(val.target.value);
-    //  e.preventDefault();
-
+  
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
 
-    const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/admin/${id}`, { status }, config);
-    if (data.message === "OK") {
-      window.location.href = "/admin";
-    }
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_SERVER_URL}/api/admin/${id}`,
+      { status },
+      config
+    );
+    // if (data.message === "OK") {
+    //   window.location.href = "/admin";
+    // }
   };
+
 
   return (
     <>
@@ -125,8 +123,7 @@ const AdminOrdersList = () => {
                               <br />
                               {item.name}
                               <p>
-                                {item.quantity} X {item.price}
-                                ={item.price}
+                                {item.quantity} X {item.price}={item.price}
                               </p>
                             </p>
                           ))}

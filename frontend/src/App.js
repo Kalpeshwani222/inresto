@@ -71,7 +71,7 @@ const App = () => {
 
         {/* login and register */}
         <Switch>
-          <Route path="/register" component={Register} exact/>
+          <Route path="/register" component={Register} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/" component={Home} exact />
 
@@ -123,12 +123,11 @@ const App = () => {
             exact
           />
 
-
           {/* admin */}
 
-          <Route path="/admin/home" component={ManageTables}  />
-        <Route path="/admin/" component={AdminOrdersList}  />
-        <Route path="/dummy" component={Dummy}  />
+          <Route path="/admin/tables" component={ManageTables} />
+          <Route path="/admin/" component={AdminOrdersList} />
+          <Route path="/dummy" component={Dummy} />
         </Switch>
       </HashRouter>
     </>

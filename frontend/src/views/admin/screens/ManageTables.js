@@ -4,8 +4,11 @@ import axios from "axios";
 import { saveAs } from "file-saver";
 import socket from "../../../socket/socketApi";
 import addNotification from "react-push-notification";
+import { useHistory } from "react-router-dom";
 
 const ManageTables = () => {
+
+  const history = useHistory();
   const [qrcode, setQrcode] = useState("");
   const [table, setTables] = useState([]);
 
@@ -53,11 +56,11 @@ const ManageTables = () => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/table/free/${tableID}`, config);
-      console.log(data);
-      if (data.message === "FREE") {
-        window.location.href = "/admin/home";
-      }
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/api/table/free/${tableID}`,
+        config
+      );
+      history.push("./admin");
     } catch (error) {
       console.log(error);
     }
@@ -70,12 +73,12 @@ const ManageTables = () => {
 
     //receive the data from backend
     socket.on("tableBook", (data) => {
-        addNotification({
-        title:`Table No ${data.tableno} Book`,
-        message:`order ID is  ${data._id} `,
-        duration:7000,
-        native:true,
-      })
+      addNotification({
+        title: `Table No ${data.tableno} Book`,
+        message: `order ID is  ${data._id} `,
+        duration: 7000,
+        native: true,
+      });
       getAllTables();
     });
   }, []);
@@ -160,7 +163,7 @@ const ManageTables = () => {
                         style={{}}
                         onClick={() =>
                           GenerateQRCode(
-                            `http://localhost:3000/menu/${cur.tableno}`,
+                            `${process.env.REACT_APP_HOSTED_URL}/menu/${cur.tableno}`,
                             cur.tableno
                           )
                         }
