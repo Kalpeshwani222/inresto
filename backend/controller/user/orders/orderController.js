@@ -1,5 +1,6 @@
 const Order = require("../../../model/orderModel");
 const Table = require("../../../model/TablesModel");
+const eventEmitter = require('../../../helpers/eventEmit');
 
 const createOrder = async (req, res) => {
   const { currentUser, cartItems, subTotal, tableno } = req.body;
@@ -37,7 +38,7 @@ const createOrder = async (req, res) => {
     }).save();
 
     //emit event
-    const eventEmitter = req.app.get("eventEmitter");
+    // const eventEmitter = req.app.get("eventEmitter");
     //order
     eventEmitter.emit("orderPlaced", newOrder);
     

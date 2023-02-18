@@ -1,4 +1,5 @@
 const Order = require("../../model/orderModel");
+const eventEmitter = require('../../helpers/eventEmit');
 
 const orderList = async (req, res) => {
   try {
@@ -31,7 +32,7 @@ const updateOrder = async (req, res) => {
     );
 
     //Emit event
-    const eventEmitter = req.app.get('eventEmitter');
+    // const eventEmitter = req.app.get('eventEmitter');
     eventEmitter.emit('orderUpdated', { updatedData :updatedData})
     // console.log(updatedData._id);
     

@@ -1,5 +1,6 @@
 const UserNotifi = require("../model/userNotifiModel");
-const eventEmitter = require('../server');
+const eventEmitter = require("../helpers/eventEmit");
+
 
 const userOrderNotification = async (notifiData) => {
     
@@ -9,12 +10,8 @@ const userOrderNotification = async (notifiData) => {
     orderId: notifiData._id
   }).save();
 
-   //emit event
-
-    //order
-    // eventEmitter.emit("orderNotification", res);
-
-  // console.log(res);
+   //emit event order
+     eventEmitter.emit("orderNotification", res);
 };
 
 

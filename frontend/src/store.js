@@ -5,7 +5,7 @@ import {getAllItemsReducer} from "./redux/reducers/menuItemsReducer"
 import {cartReducer} from "./redux/reducers/cartReducer";
 import {RegisterUserReducer,LoginUserReducer} from './redux/reducers/userReducer';
 import {placeOrderReducer,getUserOrderReducer} from "./redux/reducers/orderReducer"
-
+import { userNotificationsReducer} from "./redux/reducers/userNotifiReducer";
 
 
 //data is present then convert it to JSON form otherwise [].
@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
     LoginUserReducer:LoginUserReducer, 
     placeOrderReducer : placeOrderReducer,
     // getUserOrderReducer:getUserOrderReducer,
+    userNotifications : userNotificationsReducer,
 });
 
 

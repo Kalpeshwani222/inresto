@@ -167,7 +167,7 @@ const Navbar = () => {
 
               {/* notifications */}
               <Box sx={{ display: { xs: "none", lg: "block" } }}>
-                <UserNotifications userId={userInfo ? userInfo._id : null}/>
+                <UserNotifications/>
               </Box>
 
               {/* cart */}

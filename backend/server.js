@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const createError = require('http-errors');
+const createError = require("http-errors");
 // const {VerifyAccessToken} = require("./helpers/jwt_helper");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
-const Emitter = require("events");
+// const Emitter = require("events");
+const eventEmitter = require("./helpers/eventEmit");
 const PORT = process.env.PORT || 8000;
 
 //import Routes
@@ -25,10 +26,9 @@ app.use(cors());
 connectDB();
 
 //Event emitter
-const eventEmitter = new Emitter();
+// const eventEmitter = new Emitter();
 //bind the event emitter
-app.set("eventEmitter", eventEmitter);
-
+// app.set("eventEmitter", eventEmitter);
 
 //JSON
 app.use(express.json());
@@ -41,32 +41,30 @@ app.use("/api/auth/user", userRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/notification", notificationRoute);
 
-
 app.use("/api/admin/", adminOrderListRoute);
 app.use("/api/admin/", categoryRoute);
 //test
-app.get("/",(req, res) => {
+app.get("/", (req, res) => {
   res.send("OK");
-}); 
+});
 
-
-app.use(async (req,res,next) =>{
+app.use(async (req, res, next) => {
   // const error = new Error("Not found");
-  // error.status = 404   
-   // next(error)
-  next(createError.NotFound())
-})
+  // error.status = 404
+  // next(error)
+  next(createError.NotFound());
+});
 
 //handling error
-app.use((err,req,res,next)=>{
-    res.status(err.status || 500);
-    res.send({
-        error :{
-            status: err.status || 500,
-            message: err.message,
-        }
-    })
-})
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message,
+    },
+  });
+});
 
 //create server
 const server = app.listen(PORT, () => {
@@ -84,7 +82,7 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log("connected to socket.io");
 
-  //join the room order_sdfrhg4386538fg 
+  //join the room order_sdfrhg4386538fg
   socket.on("join", (orderId) => {
     socket.join(orderId);
   });
@@ -93,8 +91,8 @@ io.on("connection", (socket) => {
 //real time order update status in user sidd
 eventEmitter.on("orderUpdated", (data) => {
   io.to(`order_${data.updatedData._id}`).emit("orderUpdated", data.updatedData);
-    // console.log(data.updatedData);
-    userOrderNotification(data.updatedData);
+  // console.log(data.updatedData);
+  userOrderNotification(data.updatedData);
 });
 
 //diplay the orders at real time in admin side
@@ -107,12 +105,7 @@ eventEmitter.on("tableBook", (data) => {
   io.to("adminRoom").emit("tableBook", data);
 });
 
-//diplay the User Notifications at real time 
-// eventEmitter.on("orderNotification", (data) => {
-//   // io.to("userRoom").emit("orderNotification", data);
-//   console.log(data);
-// });
-
-
-
-module.exports = eventEmitter;
+//diplay the User Notifications at real time
+eventEmitter.on("orderNotification", (data) => {
+   io.to("userRoom").emit("orderNotification", data);
+});

@@ -9,12 +9,11 @@ import {
   Box,
 } from "@mui/material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import axios from "axios";
 import { yellow } from "@mui/material/colors";
 import moment from "moment";
-// import socket from "../../.././../socket/socketApi";
 import socket from "../../socket/socketApi";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getUserNotifications } from "../../redux/actions/userNotifiAction";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(yellow[500]),
@@ -24,25 +23,30 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const UserNotifications = ({ userId }) => {
+const UserNotifications = () => {
+  
+  const dispatch = useDispatch();
   const [notifishow, setNotifiShow] = useState(false);
-  const [notifications, setnotifications] = useState([]);
 
-  const notificationsList = async () => {
-    try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/api/notification/orderstatus/${userId}`
-      );
-      setnotifications(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //category load state
+  const userNotificationState = useSelector((state) => state.userNotifications);
+  const { userNoti, loading } = userNotificationState;
+  
+  
   useEffect(() => {
-    notificationsList();
-  }, []);
-
- 
+    // notificationsList();
+    dispatch(getUserNotifications());
+    //join userRoom
+    socket.emit("join", "userRoom");
+    
+    //on it userRoom socket
+    socket.on("orderNotification", (data) => { 
+      dispatch({
+        type: 'ADD_NOTIFICATION',
+        payload: data
+      });
+    });
+  }, [dispatch]);
 
   return (
     <>
@@ -52,10 +56,7 @@ const UserNotifications = ({ userId }) => {
         color="inherit"
         onClick={() => setNotifiShow(!notifishow)}
       >
-        <Badge
-          badgeContent={notifications ? notifications.length : null}
-          color="error"
-        >
+        <Badge badgeContent={userNoti ? userNoti.length : null} color="error">
           <NotificationsNoneIcon sx={{ color: "black" }} />
         </Badge>
       </IconButton>
@@ -73,22 +74,24 @@ const UserNotifications = ({ userId }) => {
         onClick={() => setNotifiShow(false)}
       >
         <Box sx={{ m: 1 }}>
-          {notifications.map((noti) => {
-            return (
-              <>
-                <MenuItem>
-                  <p style={{ color: "red" }}>
-                    {" "}
-                    {noti.orderId.slice(18, 24)} :{" "}
-                    <span style={{ color: "black" }}>{noti.message}</span>
-                    <span style={{ color: "gray", marginLeft: "5px" }}>
-                      {moment(noti.createdAt).format("Do h:mm a")}
-                    </span>
-                  </p>
-                </MenuItem>
-              </>
-            );
-          })}
+          {userNoti
+            ? userNoti.map((noti) => {
+                return (
+                  <>
+                    <MenuItem>
+                      <p style={{ color: "red" }}>
+                        {" "}
+                        {noti.orderId.slice(18, 24)} :{" "}
+                        <span style={{ color: "black" }}>{noti.message}</span>
+                        <span style={{ color: "gray", marginLeft: "5px" }}>
+                          {moment(noti.createdAt).format("Do h:mm a")}
+                        </span>
+                      </p>
+                    </MenuItem>
+                  </>
+                );
+              })
+            : null}
         </Box>
         <Box
           style={{
