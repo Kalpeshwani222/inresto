@@ -59,6 +59,7 @@ const userLogin = async (req, res, next) => {
     result["accessToken"] = accessToken;
     result["_id"] = user.id;
     result["name"] = user.name;
+    result["role"] = user.role;
  
     res.send(result);
   } catch (error) {

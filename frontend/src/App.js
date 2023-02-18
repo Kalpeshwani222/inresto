@@ -14,6 +14,7 @@ import Products from "./views/user/screens/products/Product";
 import Dummy from "./views/user/Dummy";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { useSelector, useDispatch } from "react-redux";
+import UserRoutes from "./routes/UserRoutes";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,52 +24,6 @@ const App = () => {
   return (
     <>
       <HashRouter>
-        {/* <Route path="/" component={Login} exact />
-        <ProtectedRoutes
-          path="/admin/dashboard"
-          component={AdminDashboard}
-          user={userInfo}
-        />
-        <ProtectedRoutes
-          path="/admin/users"
-          component={CustomersList}
-          user={userInfo}
-        />
-        <ProtectedRoutes
-          path="/admin/category"
-          component={CategoryScreen}
-          user={userInfo}
-          exact
-        />
-        <ProtectedRoutes
-          path="/admin/category/:id"
-          component={SubcategoryScreen}
-          user={userInfo}
-          exact
-        />
-        <ProtectedRoutes
-          path="/admin/manage_products/:id"
-          component={ManageProducts}
-          user={userInfo}
-          exact
-        />
-        <ProtectedRoutes
-          path="/admin/manage_subproducts/:id"
-          component={ManageSubProduct}
-          user={userInfo}
-          exact
-        />
-        <ProtectedRoutes
-          path="/admin/brand"
-          component={ManageBrands}
-          user={userInfo}
-        />
-        <ProtectedRoutes
-          path="/admin/keywords"
-          component={AdminManageKeywords}
-          user={userInfo}
-        /> */}
-
         {/* login and register */}
         <Switch>
           <Route path="/register" component={Register} exact />

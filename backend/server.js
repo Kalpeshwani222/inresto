@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const createError = require('http-errors');
-const {VerifyAccessToken} = require("./helpers/jwt_helper");
+// const {VerifyAccessToken} = require("./helpers/jwt_helper");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -15,8 +15,10 @@ const menu = require("./routes/user/menuRoute");
 const tableroute = require("./routes/admin/tablesRoute");
 const userRoute = require("./routes/user/userRoute");
 const orderRoute = require("./routes/user/orders/orderRoute");
+const notificationRoute = require("./routes/user/notificationRoute");
 const adminOrderListRoute = require("./routes/admin/adminOrderListRoute");
 const categoryRoute = require("./routes/admin/categoryRoute");
+const { userOrderNotification } = require("./helpers/userNotifi_helper");
 //cors policy
 app.use(cors());
 //database connection
@@ -37,11 +39,13 @@ app.use("/api/", menu);
 app.use("/api/table", tableroute);
 app.use("/api/auth/user", userRoute);
 app.use("/api/order", orderRoute);
+app.use("/api/notification", notificationRoute);
+
 
 app.use("/api/admin/", adminOrderListRoute);
 app.use("/api/admin/", categoryRoute);
 //test
-app.get("/", VerifyAccessToken,(req, res) => {
+app.get("/",(req, res) => {
   res.send("OK");
 }); 
 
@@ -89,7 +93,8 @@ io.on("connection", (socket) => {
 //real time order update status in user sidd
 eventEmitter.on("orderUpdated", (data) => {
   io.to(`order_${data.updatedData._id}`).emit("orderUpdated", data.updatedData);
-  //  console.log(data.updatedData._id);
+    // console.log(data.updatedData);
+    userOrderNotification(data.updatedData);
 });
 
 //diplay the orders at real time in admin side
@@ -101,3 +106,13 @@ eventEmitter.on("orderPlaced", (data) => {
 eventEmitter.on("tableBook", (data) => {
   io.to("adminRoom").emit("tableBook", data);
 });
+
+//diplay the User Notifications at real time 
+// eventEmitter.on("orderNotification", (data) => {
+//   // io.to("userRoom").emit("orderNotification", data);
+//   console.log(data);
+// });
+
+
+
+module.exports = eventEmitter;

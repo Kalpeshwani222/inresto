@@ -28,6 +28,8 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 
+import UserNotifications from "./UserNotifications";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -69,11 +71,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  const [show, setShow] = useState(false);
-
   const dispatch = useDispatch();
   const param = useParams();
   const history = useHistory();
+
+  const [show, setShow] = useState(false);
+  // const [notifishow, setNotifiShow] = useState(false);
 
   //cart state
   const cartState = useSelector((state) => state.cartReducer);
@@ -81,7 +84,7 @@ const Navbar = () => {
   //user state
   const userState = useSelector((state) => state.LoginUserReducer);
   const { userInfo } = userState;
-
+  
   const handleClick = (e) => {
     e.preventDefault();
     history.push(`/cart`);
@@ -162,6 +165,12 @@ const Navbar = () => {
               </Box> */}
               {/* end search box */}
 
+              {/* notifications */}
+              <Box sx={{ display: { xs: "none", lg: "block" } }}>
+                <UserNotifications userId={userInfo ? userInfo._id : null}/>
+              </Box>
+
+              {/* cart */}
               <Box sx={{ display: { xs: "none", lg: "block" } }}>
                 <IconButton
                   size="large"
@@ -198,7 +207,7 @@ const Navbar = () => {
               {userInfo ? (
                 <>
                   {/* <Box sx={{ flexGrow: 0, marginLeft: "auto" }}> */}
-                   <Box sx={{ display: { xs: "none", lg: "block" } }}>
+                  <Box sx={{ display: { xs: "none", lg: "block" } }}>
                     <div>
                       <IconButton
                         size="large"
