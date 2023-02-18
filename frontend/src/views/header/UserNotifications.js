@@ -14,6 +14,7 @@ import moment from "moment";
 import socket from "../../socket/socketApi";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserNotifications } from "../../redux/actions/userNotifiAction";
+import addNotification from "react-push-notification";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(yellow[500]),
@@ -34,7 +35,6 @@ const UserNotifications = () => {
   
   
   useEffect(() => {
-    // notificationsList();
     dispatch(getUserNotifications());
     //join userRoom
     socket.emit("join", "userRoom");
@@ -45,6 +45,13 @@ const UserNotifications = () => {
         type: 'ADD_NOTIFICATION',
         payload: data
       });
+       //notify the admin
+      // addNotification({
+      //   title: `Order Notification`,
+      //   message: `${data.message} `,
+      //   duration: 4000,
+      //   native: true,
+      // });
     });
   }, [dispatch]);
 
