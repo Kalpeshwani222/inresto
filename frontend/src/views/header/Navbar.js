@@ -145,7 +145,9 @@ const Navbar = () => {
                 </Search>
               </Box> */}
               {/* end search box */}
-
+      
+      {userInfo ? (
+                <>
               {/* notifications */}
               <Box>
                 <UserNotifications/>
@@ -185,8 +187,7 @@ const Navbar = () => {
                 </IconButton>
               </Box>
 
-              {userInfo ? (
-                <>
+            
                   {/* <Box sx={{ flexGrow: 0, marginLeft: "auto" }}> */}
                   <Box sx={{ display: { xs: "none", lg: "block" } }}>
                     <div>

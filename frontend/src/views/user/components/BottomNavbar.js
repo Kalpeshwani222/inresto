@@ -15,17 +15,17 @@ const navigationData = [
   },
   {
     label: "QR Scan",
-    value: "scanqr",
+    value: "/scanqr",
     icon: <QrCodeScannerIcon />
   },
   {
     label: "cart",
-    value: "cart",
+    value: "/cart",
     icon: <ShoppingBagIcon />
   },
   {
     label: "Account",
-    value: "account",
+    value: "/account",
     icon: <PersonOutlineIcon />
   },
 
