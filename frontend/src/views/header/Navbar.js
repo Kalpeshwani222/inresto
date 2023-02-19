@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { history, useHistory, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/userAction";
 import { useParams } from "react-router-dom";
@@ -15,17 +15,10 @@ import {
   Box,
   IconButton,
   Button,
-  Backdrop,
-  CircularProgress,
-  makeStyles,
-  CssBaseline,
 } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
-import DrawerComp from "./DrawerComp";
-import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 
 import UserNotifications from "./UserNotifications";
@@ -113,19 +106,7 @@ const Navbar = () => {
         >
           <div>
             <Toolbar>
-              {/* {
-                isMatch ? (
-                  <>
-                    <DrawerComp />
-                  </>
-                ) : (
-                  <>
-                     Other Tabs 
-                  </>
-                )
-               
-                
-              } */}
+            
               <Typography
                 // onClick={() => history.push("/")}
                 variant="h6"
@@ -166,7 +147,7 @@ const Navbar = () => {
               {/* end search box */}
 
               {/* notifications */}
-              <Box sx={{ display: { xs: "none", lg: "block" } }}>
+              <Box>
                 <UserNotifications/>
               </Box>
 

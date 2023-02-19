@@ -25,27 +25,25 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 const UserNotifications = () => {
-  
   const dispatch = useDispatch();
   const [notifishow, setNotifiShow] = useState(false);
 
   //category load state
   const userNotificationState = useSelector((state) => state.userNotifications);
   const { userNoti, loading } = userNotificationState;
-  
-  
+
   useEffect(() => {
     dispatch(getUserNotifications());
     //join userRoom
     socket.emit("join", "userRoom");
-    
+
     //on it userRoom socket
-    socket.on("orderNotification", (data) => { 
+    socket.on("orderNotification", (data) => {
       dispatch({
-        type: 'ADD_NOTIFICATION',
-        payload: data
+        type: "ADD_NOTIFICATION",
+        payload: data,
       });
-       //notify the admin
+      //notify the admin
       // addNotification({
       //   title: `Order Notification`,
       //   message: `${data.message} `,

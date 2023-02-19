@@ -5,7 +5,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {useHistory} from "react-router-dom";
-
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 
 const navigationData = [
   {
@@ -14,7 +14,12 @@ const navigationData = [
     icon: <HomeIcon />
   },
   {
-    label: "Cart",
+    label: "QR Scan",
+    value: "scanqr",
+    icon: <QrCodeScannerIcon />
+  },
+  {
+    label: "cart",
     value: "cart",
     icon: <ShoppingBagIcon />
   },
