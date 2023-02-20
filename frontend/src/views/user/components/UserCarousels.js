@@ -35,8 +35,7 @@ const PreviousBtn = (props) => {
 
   return (
     <div className={className} onClick={onClick}>
-      <ArrowBackIos className="ArrowBackIos"
-      />
+      <ArrowBackIos className="ArrowBackIos" />
     </div>
   );
 };
@@ -45,8 +44,7 @@ const NextBtn = (props) => {
   const { className, onClick } = props;
   return (
     <div className={className} onClick={onClick}>
-      <ArrowForwardIos className="ArrowForwardIos"
-      />
+      <ArrowForwardIos className="ArrowForwardIos" />
     </div>
   );
 };
@@ -60,36 +58,33 @@ const UserCarousels = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    //   autoplay: true,
+     autoplay: true,
     autoplaySpeed: 2000,
-    responsive:[
-        {
-            breakpoint:600,
-            settings:{
-                slidesToShow:1
-            }
+    centerMode: true,
+    responsive: [
+      {
+        breakpoint: 426,
+        settings: {
+          slidesToShow: 1,
+          centerMode: false,
         },
-         {
-            breakpoint:992,
-            settings:{
-                slidesToShow:1.3
-            }
-        },
+      },
 
-        {
-            breakpoint:1245,
-            settings:{
-                slidesToShow:1.5
-            }
+       {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 2,
+          centerMode: false,
         },
-        
-         {
-            breakpoint:1400,
-            settings:{
-                slidesToShow:3
-            }
+      },
+       {
+        breakpoint: 943,
+        settings: {
+          slidesToShow: 2,
+          centerMode: false,
         },
-    ]
+      },
+    ],
   };
   return (
     <>
@@ -104,14 +99,21 @@ const UserCarousels = () => {
 
             return (
               <>
-                <div key={id}>
-                  <img className="slider-img"
+                <div key={id} style={{ }}>
+                  <img
+                    className="slider-img"
                     src={cur.image}
                     alt={id}
                     style={{
-                      width: "25.5rem",
-                      height: "160px",
-                      borderRadius: "15px",
+                      
+                      // width: "25.5rem",
+                      // height: "160px",
+                       borderRadius: "25px",
+                      // margin: "1rem",
+                      width:"100%",
+                      height:"150px",
+                      objectFit:'contain',
+                      
                     }}
                   />
                 </div>
