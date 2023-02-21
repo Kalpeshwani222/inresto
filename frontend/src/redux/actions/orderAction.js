@@ -16,7 +16,7 @@ export const placeOrder = (tableno, subTotal) => async (dispatch, getState) => {
     });
 
     dispatch({ type: "PLACE_ORDER_SUCCESS" });
-    console.log(res.data);
+    // console.log(res.data);
     //remove all the ITEMS from localstorage
     localStorage.removeItem("cartItems");
   } catch (error) {
@@ -25,7 +25,7 @@ export const placeOrder = (tableno, subTotal) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
 
-    console.log(message);
+    // console.log(message);
 
     dispatch({ type: "PLACE_ORDER_FAIL" });
   }
@@ -44,7 +44,7 @@ export const getUserOrders = () => async (dispatch, getState) => {
 
     dispatch({ type: "USER_ORDER_SUCCESS", payload: res.data });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     dispatch({ type: "USER_ORDER_FAIL", payload: error });
   }
 };

@@ -19,7 +19,7 @@ const ScanqrCode = () => {
   const { userInfo } = userState;
 
   const handleScan = async (scanData) => {
-    console.log(`loaded data data`, scanData);
+    // console.log(`loaded data data`, scanData);
     if (scanData && scanData !== "" && !showDialog && !processing) {
       setPrecScan(scanData);
       setDiaglog(true);

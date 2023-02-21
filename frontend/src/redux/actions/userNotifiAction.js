@@ -10,7 +10,7 @@ export const getUserNotifications = () => async (dispatch, getState) => {
 
     dispatch({ type: "USER_NOTIFICATION_SUCCESS", payload: res.data });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     const message =
       error.response && error.response.data.message
         ? error.response.data.message

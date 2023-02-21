@@ -44,7 +44,7 @@ const BottomNavbar = () => {
 const handleChange = (event, newValue) => {
     setValue(newValue);
      history.push(newValue);
-    console.log(newValue);
+    // console.log(newValue);
   };
   return (
     <>

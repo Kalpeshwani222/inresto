@@ -85,7 +85,7 @@ const Navbar = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    history.push("/login");
+    history.push("/");
   };
 
   const theme = useTheme();

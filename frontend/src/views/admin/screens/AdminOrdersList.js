@@ -28,7 +28,7 @@ const AdminOrdersList = () => {
       setOrdersList(data);
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      // console.log(error);
     }
   };
 

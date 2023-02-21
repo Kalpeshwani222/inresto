@@ -20,7 +20,7 @@ const OrderScreen = () => {
           userId: user._id,
         }
       );
-      console.log(res);
+      // console.log(res);
       setOrders(res.data);
     } catch (error) {
       console.log(error);

@@ -27,19 +27,20 @@ const App = () => {
         {/* login and register */}
         <Switch>
           <Route path="/register" component={Register} exact />
-          <Route path="/login" component={Login} exact />
-          <Route path="/" component={Home} exact />
+          <Route path="/" component={Login} exact />
 
-          {/* <ProtectedRoutes 
-          path="/"
+          <ProtectedRoutes 
+          path="/home"
           component={Home} 
           user={userInfo} 
-          exact /> */}
+           role="user"
+          exact />
 
           <ProtectedRoutes
             path="/scanqr"
             component={ScanqrCode}
             user={userInfo}
+            role="user"
             exact
           />
 
@@ -47,6 +48,7 @@ const App = () => {
             path="/menu/:id"
             component={MenuItems}
             user={userInfo}
+             role="user"
             exact
           />
 
@@ -54,6 +56,7 @@ const App = () => {
             path="/products"
             component={Products}
             user={userInfo}
+             role="user"
             exact
           />
 
@@ -61,6 +64,7 @@ const App = () => {
             path="/cart"
             component={CartScreen}
             user={userInfo}
+             role="user"
             exact
           />
 
@@ -68,6 +72,7 @@ const App = () => {
             path="/orders"
             component={OrderScreen}
             user={userInfo}
+             role="user"
             exact
           />
 
@@ -75,14 +80,31 @@ const App = () => {
             path="/orders/:id"
             component={OrderStatus}
             user={userInfo}
+             role="user"
             exact
           />
 
           {/* admin */}
+           <ProtectedRoutes
+            path="/admin/tables"
+            component={ManageTables}
+            user={userInfo}
+            role="admin"
+            exact
+          />
+            <ProtectedRoutes
+            path="/admin"
+            component={AdminOrdersList}
+            user={userInfo}
+            role="admin"
+            exact
+          />
 
-          <Route path="/admin/tables" component={ManageTables} />
-          <Route path="/admin/" component={AdminOrdersList} />
-          <Route path="/dummy" component={Dummy} />
+          {/* <Route path="/admin/tables" component={ManageTables} />
+          <Route path="/admin/" component={AdminOrdersList} /> */}
+
+
+          {/* <Route path="/dummy" component={Dummy} /> */}
         </Switch>
       </HashRouter>
     </>

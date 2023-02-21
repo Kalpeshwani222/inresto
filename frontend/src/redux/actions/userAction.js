@@ -10,7 +10,6 @@ import {
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAIL,
 } from "../constants/userConstants";
-import { runLogoutTimer } from "../reducers/userReducer";
 
 export const registerUser = (name, email, password) => async (dispatch) => {
   try {
@@ -41,33 +40,23 @@ export const registerUser = (name, email, password) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch, getState) => {
-  // localStorage.removeItem("userInfo");
-  // dispatch({ type: "USER_LOGOUT" });
-  try {
-    const userDetails = getState().LoginUserReducer.userInfo;
-    //   const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/auth/user/logout`, {
-    //   headers: {
-    //    Authorization : `Bearer ${data.accessToken}`
-    //   },
-    // });
-    // const config = {
-    //       headers: {
-    //         emailId: "admin@gmail.com",
-    //         password: "LP9+o/EsEfCQCrR+f7KZPw==",
-    //       },
-    //     };
-    await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/auth/user/logout`,
-      {
-        table_no: userDetails.tableNo,
-      }
-    );
-    dispatch({ type: USER_LOGOUT_SUCCESS });
-    localStorage.removeItem("userInfo");
-  } catch (error) {
-    dispatch({ type: USER_LOGOUT_FAIL });
-    console.log(error);
-  }
+  localStorage.removeItem("userInfo");
+  dispatch({ type: "USER_LOGOUT" });
+  // try {
+  //   const userDetails = getState().LoginUserReducer.userInfo;
+
+  //   await axios.post(
+  //     `${process.env.REACT_APP_SERVER_URL}/api/auth/user/logout`,
+  //     {
+  //       table_no: userDetails.tableNo,
+  //     }
+  //   );
+  //   localStorage.removeItem("userInfo");
+  //   dispatch({ type: USER_LOGOUT_SUCCESS });
+  // } catch (error) {
+  //   dispatch({ type: USER_LOGOUT_FAIL });
+  
+  // }
 };
 
 export const loginUser = (email, password) => async (dispatch) => {
@@ -95,7 +84,11 @@ export const loginUser = (email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-    window.location.href = "/";
+    if (data.role === "admin") {
+      window.location.href = "/#/admin";
+    } else {
+      window.location.href = "/#/home";
+    }
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
