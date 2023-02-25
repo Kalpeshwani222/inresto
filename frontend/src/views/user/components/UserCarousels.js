@@ -90,11 +90,7 @@ const UserCarousels = () => {
   return (
     <>
       <div
-        className="carousels-div"
-        style={{
-          marginTop: "5rem",
-        }}
-      >
+        className="carousels-div" >
         <Slider
           // prevArrow={<PreviousBtn />}
           // nextArrow={<NextBtn />}

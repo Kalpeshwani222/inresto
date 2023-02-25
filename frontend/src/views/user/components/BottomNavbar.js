@@ -10,7 +10,7 @@ import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 const navigationData = [
   {
     label: "Home",
-    value: "",
+    value: "/home",
     icon: <HomeIcon />
   },
   {
