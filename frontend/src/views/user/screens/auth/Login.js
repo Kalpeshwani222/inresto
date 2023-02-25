@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import { loginUser } from "../../../../redux/actions/userAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -21,22 +21,39 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.LoginUserReducer);
-  const { loading, error, success,userInfo } = userLogin;
+  const { loading, error, success, userInfo } = userLogin;
 
   useEffect(() => {
-      if(userInfo === null){
-        window.location.href = "/#/";
-      }
-      else if(userInfo.role === 'user'){
-         window.location.href = "/#/home";
-      }
-     else if(userInfo.role === 'admin'){
-         window.location.href = "/#/admin";
-      }
-      }, []);
+    if (error) {
+      toast.error(`${error}`, {
+        position: "top-center",
+      });
+    }
+    if (success) {
+      toast.success(`User Login Successfully`, {
+        position: "top-center",
+      });
+    }
+  }, [error, success]);
+
+  useEffect(() => {
+    if (userInfo === null) {
+      window.location.href = "/#/";
+    } else if (userInfo.role === "user") {
+      window.location.href = "/#/home";
+    } else if (userInfo.role === "admin") {
+      window.location.href = "/#/admin";
+    }
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!password || !email) {
+      return toast.error("All are required", {
+        position: "top-center",
+        duration: 3000,
+      });
+    }
     dispatch(loginUser(email, password));
   };
 
@@ -53,17 +70,6 @@ const Login = () => {
           >
             Login
           </h3>
-        </div>
-        <div className="errorMsg d-flex justify-content-center">
-          <p
-            style={{
-              color: "red",
-            }}
-          >
-            {error && error}
-
-            {success && "user login success"}
-          </p>
         </div>
         <div className="register-fields">
           <ThemeProvider theme={theme}>
@@ -132,6 +138,7 @@ const Login = () => {
           </ThemeProvider>
         </div>
       </section>
+      <Toaster />
     </>
   );
 };

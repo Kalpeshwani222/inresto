@@ -70,10 +70,9 @@ const Navbar = () => {
               marginLeft: isMatch ? "5px" : "1.5rem",
               marginRight: isMatch ? "5px" : "1.5rem",
             }}
-            className="py-2"
+            // className="py-2"
           >
             <Typography
-              // onClick={() => history.push("/")}
               variant="h6"
               component="div"
               sx={{ flexGrow: 1, marginLeft: "8px" }}
@@ -88,8 +87,10 @@ const Navbar = () => {
                   alt="Logo"
                   src="/images/logo.svg"
                   style={{
-                    height: "3rem",
-                    width: "7rem",
+                    // height: "3rem",
+                    // width: "7rem",
+                    height: isMatch ? "2rem" : "3rem",
+                    width: isMatch ? "4renm" : "7rem",
                   }}
                 />
               </Link>
