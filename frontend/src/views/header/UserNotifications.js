@@ -9,6 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { yellow } from "@mui/material/colors";
 import moment from "moment";
 import socket from "../../socket/socketApi";
@@ -62,7 +63,7 @@ const UserNotifications = () => {
         onClick={() => setNotifiShow(!notifishow)}
       >
         <Badge badgeContent={userNoti ? userNoti.length : null} color="error">
-          <NotificationsNoneIcon sx={{ color: "black" }} />
+          <NotificationsNoneOutlinedIcon  sx={{color:"white", fontSize:"1.7rem"}} />
         </Badge>
       </IconButton>
 

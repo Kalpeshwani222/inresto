@@ -31,7 +31,7 @@ const ScanqrCode = () => {
 
   useEffect(() => {
     if (precScan === "Not found") {
-      console.error("exe");
+      // console.error("exe");
     } else {
       let urlString = precScan;
       let tableno = urlString.substring(urlString.lastIndexOf("/") + 1);

@@ -26,7 +26,7 @@ const data = [
   {
     id: 4,
     image:
-      "https://cdn3.mydukaan.io/app/image/420x420/?url=https://dukaan-us.s3.amazonaws.com/5885408/21b71ee3-2baa-4293-8e8b-33140c85b024/1645359885952-f9c6672e-2234-4c01-a873-bf0f1c0ff7ff.jpeg",
+      "https://cdn3.mydukaan.io/app/image/600x600/?url=https://dukaan-us.s3.amazonaws.com/730950/570a0a01-8039-4174-b518-9bf54edfe5fb/image-38aa007c-d468-4d67-9b5f-e50075e0649d.png",
   },
 ];
 
@@ -53,12 +53,13 @@ const UserCarousels = () => {
   const [images, setImages] = useState(data);
 
   const settings = {
-    // dots: true,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-     autoplay: true,
+    centerPadding: "20px",
+    autoplay: true,
     autoplaySpeed: 2000,
     centerMode: true,
     responsive: [
@@ -70,14 +71,14 @@ const UserCarousels = () => {
         },
       },
 
-       {
+      {
         breakpoint: 769,
         settings: {
           slidesToShow: 2,
           centerMode: false,
         },
       },
-       {
+      {
         breakpoint: 943,
         settings: {
           slidesToShow: 2,
@@ -88,10 +89,15 @@ const UserCarousels = () => {
   };
   return (
     <>
-      <div className="carousels-div">
+      <div
+        className="carousels-div"
+        style={{
+          marginTop: "5rem",
+        }}
+      >
         <Slider
-          prevArrow={<PreviousBtn />}
-          nextArrow={<NextBtn />}
+          // prevArrow={<PreviousBtn />}
+          // nextArrow={<NextBtn />}
           {...settings}
         >
           {images.map((cur) => {
@@ -99,22 +105,17 @@ const UserCarousels = () => {
 
             return (
               <>
-                <div key={id} style={{ }}>
+                <div
+                  key={id}
+                  style={{
+                    margin: "0",
+                    maxHeight: "180px",
+                  }}
+                >
                   <img
                     className="slider-img"
                     src={cur.image}
-                    alt={id}
-                    style={{
-                      
-                      // width: "25.5rem",
-                      // height: "160px",
-                       borderRadius: "25px",
-                      // margin: "1rem",
-                      width:"100%",
-                      height:"150px",
-                      objectFit:'contain',
-                      
-                    }}
+                    alt="sliderimages"
                   />
                 </div>
               </>

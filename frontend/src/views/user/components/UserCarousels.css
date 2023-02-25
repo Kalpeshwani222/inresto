@@ -1,8 +1,7 @@
-.slick-arrow.slick-prev {
+/* .slick-arrow.slick-prev {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #fcfcfc; */
   background-color: hsla(0, 0%, 100%, 0.98);
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 11%);
   width: 40px;
@@ -13,13 +12,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #fcfcfc; */
   background-color: hsla(0, 0%, 100%, 0.98);
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 11%);
   width: 40px;
   height: 105px;
   z-index: 1;
-}
+} */
 .slick-prev {
   left: 0;
   border-top-right-radius: 7px;
@@ -41,23 +39,28 @@
   font-weight: 700;
   font-size: 34px;
 }
-
-/* style={{
-                      width: "25.5rem",
-                      height: "160px",
-                      borderRadius: "15px",
-                    }} */
 .slider-img {
-  width: 25.5rem;
-  height: 160;
+  max-width: 100%;
   border-radius: 15px;
+  padding: 5px;
+  height: 180;
+  object-fit: contain;
 }
 .carousels-div {
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 15px;
-  margin-right: 7rem;
-  margin-left: 7rem;
+  width: 90%;
+  height: 200px;
 }
-
+.slick-dots {
+  bottom: 10px;
+}
+.dot-style {
+  margin: 0 5px;
+  cursor: pointer;
+  color: "red";
+}
 .slick-prev::before {
   display: none;
 }
@@ -71,37 +74,17 @@
 }
 @media (max-width: 600px) {
   .carousels-div {
-    margin-top: 7px;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    width: 100%;
+    height: 200px;
   }
   .slider-img {
-    /* margin: 4px; */
-    width: 4rem;
-    height: 160;
+    max-width: 100%;
     border-radius: 15px;
-  }
-
-  .slick-arrow.slick-next,
-  .slick-arrow.slick-prev {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fcfcfc;
-    width: 20px;
-    height: 60px;
-    z-index: 1;
-  }
-  .top-work-contribution .top-work-heading {
-    margin-top: 2rem;
-  }
-  .top-work-contribution .top_work-slider-div .slider_image {
-    width: 200px;
-    height: 210px;
-    border-radius: 15px;
-  }
-
-  .top-work-contribution .top_work-slider-div .slick-dots {
-    margin-bottom: 6rem;
+    padding: 5px;
+    height: 180;
+    object-fit: contain;
   }
 }

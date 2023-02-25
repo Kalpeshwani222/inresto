@@ -21,13 +21,19 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.LoginUserReducer);
-  const { loading, error, success } = userLogin;
+  const { loading, error, success,userInfo } = userLogin;
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("userInfo")) {
-  //     window.location.href = "/";
-  //   }
-  // }, []);
+  useEffect(() => {
+      if(userInfo === null){
+        window.location.href = "/#/";
+      }
+      else if(userInfo.role === 'user'){
+         window.location.href = "/#/home";
+      }
+     else if(userInfo.role === 'admin'){
+         window.location.href = "/#/admin";
+      }
+      }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
