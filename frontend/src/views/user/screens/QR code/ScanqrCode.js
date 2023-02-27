@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import QrReader from "react-qr-reader";
-import Navbar from "../../../header/Navbar";
 import { useSelector } from "react-redux";
-import {Redirect, useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import "./qr.css";
+import ClearIcon from "@mui/icons-material/Clear";
+import { IconButton } from "@mui/material";
 
 const ScanqrCode = () => {
   const history = useHistory();
@@ -19,10 +21,9 @@ const ScanqrCode = () => {
   const { userInfo } = userState;
 
   const handleScan = async (scanData) => {
-    // console.log(`loaded data data`, scanData);
     if (scanData && scanData !== "" && !showDialog && !processing) {
-      setPrecScan(scanData);
-      setDiaglog(true);
+        setPrecScan(scanData);
+        setDiaglog(true);
     }
   };
   const handleError = (err) => {
@@ -31,8 +32,10 @@ const ScanqrCode = () => {
 
   useEffect(() => {
     if (precScan === "Not found") {
-      // console.error("exe");
-    } else {
+
+    }else if(!precScan.includes(process.env.REACT_APP_HOSTED_URL)){
+        setErrorMessage("Not Sure What Went Wrong. Try Scanning Again Please Using The QR in Table.");
+    }else {
       let urlString = precScan;
       let tableno = urlString.substring(urlString.lastIndexOf("/") + 1);
 
@@ -52,41 +55,48 @@ const ScanqrCode = () => {
       //set the updated data to the localstorage
       localStorage.setItem("userInfo", JSON.stringify(localStorageData));
 
-      history.push(`/menu/${tableno}`)
+      history.push(`/menu/${tableno}`);
     }
   }, [precScan]);
 
   return (
     <>
-      <div>
-        <div className="">
-          <Navbar />
-
-          <div
-            className=""
+      <section className="qrscan">
+        <IconButton
+          onClick={() => history.goBack()}
+          edge="start"
+          color="inherit"
+          className="close-btn"
+          aria-label="close"
+        >
+          <ClearIcon
             style={{
-              display: "flex",
-              alignContent: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              //  marginTop:"40%",
+              color: "white",
+              fontSize: "2.5rem",
             }}
-          >
-            {precScan === "Not found" ? (
-              <>
-                <QrReader
-                  facingMode={selected}
-                  delay={500}
-                  onError={handleError}
-                  onScan={handleScan}
-                  style={{ width: "240px", heigth: "100px" }}
-                />
-              </>
-            ) : null}
-          </div>
+          />
+        </IconButton>
+        <br />
+        <br />
+        <br />
+        <div className="btn-para">
+          <p>Scan QR code To Explore A Menu Made From 100% Safe Ingredients</p>
         </div>
-      </div>
+        <div className="qrdiv">
+          {precScan === "Not found" ? (
+            <>
+              <QrReader
+                facingMode={selected}
+                delay={500}
+                onError={handleError}
+                onScan={handleScan}
+                className="qr-scanner"
+              />
+            </>
+          ) : null}
+        </div>
+        <p>{errorMessage}</p>
+      </section>
     </>
   );
 };
