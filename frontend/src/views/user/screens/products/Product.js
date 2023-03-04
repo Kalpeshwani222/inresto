@@ -78,6 +78,7 @@ const Products = () => {
         <div className="">
           <TopbarSearchSortFilter
             setSearch={(search) => setSearch(search)}
+             setPage={setPage}
             filterCategory={filterCategory}
             setFilterCategory={(filterCategory) =>
               setFilterCategory(filterCategory)

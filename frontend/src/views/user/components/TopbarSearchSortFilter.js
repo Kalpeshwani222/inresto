@@ -10,7 +10,7 @@ import Dialog from "@mui/material/Dialog";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const TopbarSearchSortFilter = ({ setSearch,filterCategory,setFilterCategory}) => {
+const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCategory}) => {
 
   const history = useHistory();
 
@@ -31,6 +31,7 @@ const TopbarSearchSortFilter = ({ setSearch,filterCategory,setFilterCategory}) =
   };
 
   const onChange = ({ currentTarget: input }) => {
+    setPage(1);
     if (input.checked) {
       const state = [...filterCategory, input.value];
       setFilterCategory(state);
