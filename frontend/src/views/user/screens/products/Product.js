@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Grid}  from "@mui/material";
+import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import { useTheme, useMediaQuery } from "@mui/material";
@@ -7,16 +7,20 @@ import TopbarSearchSortFilter from "../../components/TopbarSearchSortFilter";
 import SubNavbar from "../../components/SubNavbar";
 import Sidebar from "../../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMenuItems } from "../../../../redux/actions/menuItemsAction";
+import {
+  getAllMenuItems,
+  loadMoreMenuItems,
+} from "../../../../redux/actions/menuItemsAction";
 import Items from "../../components/Items";
-import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Products = () => {
-
   const dispatch = useDispatch();
   const itemsState = useSelector((state) => state.getAllItemsReducer);
-  const { loading, items, error } = itemsState;
+  const { loading, items, error, loadingMore } = itemsState;
+
+  const showLoadMore = items.item && items.item.length < items.total;
 
   //material UI breakpoints
   const theme = useTheme();
@@ -38,9 +42,9 @@ const Products = () => {
         search
       )
     );
-  }, [search, page, dispatch, sort, filterCategory]);
+  }, [search, dispatch, sort, filterCategory]);
 
-//get all the category
+  //get all the category
   useEffect(() => {
     const getCategory = async () => {
       try {
@@ -54,6 +58,19 @@ const Products = () => {
     };
     getCategory();
   }, []);
+
+  const loadMore = () => {
+    setPage(page + 1);
+    dispatch(
+      loadMoreMenuItems(
+        page + 1,
+        sort.sort,
+        sort.order,
+        filterCategory.toString(),
+        search
+      )
+    );
+  };
 
   return (
     <>
@@ -87,6 +104,7 @@ const Products = () => {
                 <Sidebar
                   categories={obj ? obj : []}
                   filterCategory={filterCategory}
+                  setPage={setPage}
                   setFilterCategory={(filterCategory) =>
                     setFilterCategory(filterCategory)
                   }
@@ -113,8 +131,8 @@ const Products = () => {
                         className="main-prod-grid"
                       >
                         {loading && <Loading />}
-                        {items.items &&
-                          items.items.map((cur) => {
+                        {items.item &&
+                          items.item.map((cur) => {
                             return (
                               <>
                                 <Items menuItem={cur} />
@@ -122,12 +140,11 @@ const Products = () => {
                             );
                           })}
                       </Grid>
-                      <Pagination
-                        page={page}
-                        limit={items.limit ? items.limit : 0}
-                        total={items.total ? items.total : 0}
-                        setPage={(page) => setPage(page)}
-                      />
+                      {showLoadMore && (
+                        <button variant="outline-primary" onClick={loadMore}>
+                          {loadingMore ? "Loading..." : "Load More"}
+                        </button>
+                      )}
                     </div>
                   </Grid>
                 </div>

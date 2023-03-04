@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Drawer, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const Sidebar = ({ categories, filterCategory, setFilterCategory }) => {
+const Sidebar = ({ categories, filterCategory, setFilterCategory ,setPage}) => {
   const [openDrawer, setOpenDrawer] = useState(true);
   const [show, setShow] = useState(false);
 
   const onChange = ({ currentTarget: input }) => {
+    setPage(1);
     if (input.checked) {
       const state = [...filterCategory, input.value];
       setFilterCategory(state);

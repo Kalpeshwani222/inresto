@@ -67,7 +67,7 @@ const MenuItems = () => {
           />
         </div>
 
-        <div className="main-item-section product-view-filters d-flex justify-content-center">
+        <div className="main-item-section product-view-filters d-flex justify-content-center mt-5">
           <Grid container spacing={1} className="filter-product-sections-grid">
             {/* for displays products section */}
             <Grid item xs={8}>

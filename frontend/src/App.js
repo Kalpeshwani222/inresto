@@ -46,7 +46,8 @@ const App = () => {
 
           <ProtectedRoutes
             path="/menu/:id"
-            component={MenuItems}
+            // component={MenuItems}
+            component={Products}
             user={userInfo}
              role="user"
             exact

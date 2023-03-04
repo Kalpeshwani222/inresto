@@ -34,6 +34,6 @@
   align-items: center;
   justify-content: center;
 }
-p {
+.qrscan p {
   color: red;
 }
