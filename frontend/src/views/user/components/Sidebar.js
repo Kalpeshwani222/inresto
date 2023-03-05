@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Drawer, IconButton } from "@mui/material";
+import { Drawer, IconButton ,Box} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Sidebar = ({ categories, filterCategory, setFilterCategory ,setPage}) => {
@@ -19,7 +19,7 @@ const Sidebar = ({ categories, filterCategory, setFilterCategory ,setPage}) => {
 
   return (
     <>
-      <div
+      {/* <div
         style={{
           marginTop: "1rem",
         }}
@@ -91,7 +91,69 @@ const Sidebar = ({ categories, filterCategory, setFilterCategory ,setPage}) => {
         onClick={() => setOpenDrawer(!openDrawer)}
       >
         <MenuIcon />
-      </IconButton>
+      </IconButton> */}
+      
+      
+      <Box
+      flex={2}
+      p={2}
+      mt={2}
+      >
+    <Box position='fixed'  sx={{
+        display: {
+          xs: "none",
+          sm: "block",
+          border:"1px solid #e6e6e6",
+          borderRadius:'8px'
+        },
+      }}>
+         <div
+            style={{
+              margin: "1rem",
+            }}
+          >
+            Category
+            <div className="">
+              {categories &&
+                categories.map((category) => {
+                  return (
+                    <>
+                      <div
+                        className=""
+                        key={category.name}
+                        style={{
+                          minWidth: "90px",
+                          display: "flex",
+                          alignItems: "center",
+                          margin: "2px 0",
+                        }}
+                      >
+                        <input
+                          className=""
+                          type="checkbox"
+                          value={category.name}
+                          onChange={onChange}
+                          style={{
+                            height: "20px",
+                            width: "18px",
+                          }}
+                        />
+                        <p
+                          className=""
+                          style={{
+                            margin: "5px",
+                          }}
+                        >
+                          {category.name}
+                        </p>
+                      </div>
+                    </>
+                  );
+                })}
+            </div>
+              </div>
+      </Box>
+    </Box>
     </>
   );
 };

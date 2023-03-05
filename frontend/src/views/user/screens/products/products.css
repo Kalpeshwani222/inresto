@@ -84,7 +84,8 @@ header section .products-bottom-header {
 
 .main-products .product-card {
   box-shadow: none;
-  border: 1px solid #e8eaf6;
+  border: 1px solid #e6e6f8;
+  border-radius: 8px;
 }
 
 .main-products .products-section {
@@ -109,7 +110,7 @@ header section .products-bottom-header {
   font-size: 18px;
   line-height: 26px;
   color: #1a181e;
-  font-weight: 500;
+  /* font-weight: 500; */
 }
 .main-products .product-sub {
   font-size: 14px;

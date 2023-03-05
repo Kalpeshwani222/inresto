@@ -4,14 +4,19 @@ import Navbar from "./../../header/Navbar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BottomNavbar from "./../components/BottomNavbar";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton,Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCategory}) => {
-
+const TopbarSearchSortFilter = ({
+  setSearch,
+  setPage,
+  filterCategory,
+  sort, setSort ,
+  setFilterCategory,
+}) => {
   const history = useHistory();
 
   //material UI breakpoints
@@ -20,14 +25,30 @@ const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCate
 
   const [obj, setObj] = useState();
   const [checked, setChecked] = useState(false);
-  //Filter dial
+  
   const [openFilter, setOpenFilter] = useState(false);
+  const [openSort, setOpenSort] = useState(false);
+
+
   const openFilterDial = () => {
     setOpenFilter(true);
   };
 
   const closeFilterDial = () => {
     setOpenFilter(false);
+  };
+
+  const openSortDial = () => {
+    setOpenSort(true);
+  };
+
+  const closeSortDial = () => {
+    setOpenSort(false);
+  };
+
+  const setSearchVal = (val) => {
+    setPage(1);
+    setSearch(val);
   };
 
   const onChange = ({ currentTarget: input }) => {
@@ -40,6 +61,17 @@ const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCate
       setFilterCategory(state);
     }
   };
+
+  //low -> && high -> low
+  const onSelectChange = ({ currentTarget: input }) => {
+    setPage(1);
+    if (input.value === "asc") {
+      setSort({ sort: sort.sort, order: "asc" });
+    } else {
+      setSort({ sort: sort.sort, order: "desc" });
+    }
+  };
+
 
   //get all categories
   useEffect(() => {
@@ -84,26 +116,28 @@ const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCate
           >
             <div className="search-div d-flex justify-content-center products-bottom-header">
               <div className="back-arrow">
-                     <Typography
-            sx={{ flex: "1 1 100%" }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            <ArrowBackIcon
-              style={{
-                fontSize: "30px",
-                cursor: "pointer",
-              }}
-              onClick={() => history.goBack()}
-            />
-          </Typography>
+                <Typography
+                  sx={{ flex: "1 1 100%" }}
+                  variant="h6"
+                  id="tableTitle"
+                  component="div"
+                >
+                  <ArrowBackIcon
+                    style={{
+                      fontSize: "30px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => history.goBack()}
+                  />
+                </Typography>
               </div>
               <input
                 type="text"
                 className="search-box"
                 placeholder="Search for products..."
-                onChange={({ currentTarget: input }) => setSearch(input.value)}
+                onChange={({ currentTarget: input }) =>
+                  setSearchVal(input.value)
+                }
               />{" "}
             </div>
 
@@ -126,16 +160,42 @@ const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCate
               </button>
 
               <Dialog fullScreen open={openFilter} onClose={closeFilterDial}>
-                <IconButton
-                  edge="start"
-                  color="inherit"
-                  onClick={closeFilterDial}
-                  aria-label="close"
+                <div
+                  className="d-flex justify-content-between"
+                  style={{
+                    height: "50px",
+                    // backgroundColor: "red",
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "10px",
+                  }}
                 >
-                  <CloseIcon />
-                </IconButton>
+                  <p style={{ fontSize: "20px" }}>Filter</p>
 
-                <div className="">
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    onClick={closeFilterDial}
+                    aria-label="close"
+                  >
+                    <CloseIcon style={{ fontSize: "32px" }} />
+                  </IconButton>
+                </div>
+                <hr
+                  style={{
+                    padding: "0px",
+                    margin: "0px",
+                    marginTop: "-10px",
+                  }}
+                />
+
+                <div
+                  className=""
+                  style={{
+                    marginRight: "auto",
+                    marginLeft: "auto",
+                  }}
+                >
                   {obj &&
                     obj.map((category) => {
                       return (
@@ -161,14 +221,16 @@ const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCate
                               value={category.name}
                               onChange={onChange}
                               style={{
-                                height: "20px",
-                                width: "18px",
+                                height: "24px",
+                                width: "21px",
                               }}
                             />
                             <p
                               className=""
                               style={{
                                 margin: "5px",
+                                marginLeft: "20px",
+                                fontSize:"17.5px"
                               }}
                             >
                               {category.name}
@@ -184,14 +246,61 @@ const TopbarSearchSortFilter = ({ setSearch,setPage,filterCategory,setFilterCate
 
               <div className="mobile-filter-button-divider"></div>
 
-              <button type="button">
+              <button type="button" onClick={openSortDial}>
                 <span>Sort</span>
               </button>
+
+
+               <Dialog fullScreen open={openSort} onClose={closeSortDial}>
+                <div
+                  className="d-flex justify-content-between"
+                  style={{
+                    height: "50px",
+                    // backgroundColor: "red",
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "10px",
+                  }}
+                >
+                  <p style={{ fontSize: "20px" }}>Sort</p>
+
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    onClick={closeSortDial}
+                    aria-label="close"
+                  >
+                    <CloseIcon style={{ fontSize: "32px" }} />
+                  </IconButton>
+                </div>
+                <hr
+                  style={{
+                    padding: "0px",
+                    margin: "0px",
+                    marginTop: "-10px",
+                  }}
+                />
+
+                  <div className="">
+              <select
+                onChange={onSelectChange}
+                className=""
+                defaultValue={sort.sort}
+              >
+              <option value="desc">&uarr;Price high to low</option>
+                <option value="asc">&darr; Price low to high</option>
+                
+              </select>
             </div>
-            <hr style={{
-              border: "1px solid #e8eaf6",
-              marginTop: "12px",
-            }}/>
+                
+              </Dialog>
+            </div>
+            <hr
+              style={{
+                border: "1px solid #e8eaf6",
+                marginTop: "12px",
+              }}
+            />
           </div>
         </>
       ) : null}

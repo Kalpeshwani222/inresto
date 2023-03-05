@@ -31,23 +31,23 @@ const Items = ({ menuItem,key }) => {
   return (
     <>
       <Grid item lg={6} sx={{ mt:1}}>
-        <Box >
+        <Box>
           <Card
             className="product-card"
-            sx={{ maxWidth: 700, display: "flex" }}
+            sx={{ maxWidth: 450, display: "flex" }}
           >
             <CardActionArea sx={{ display: "flex" }}>
               <CardMedia
                 component="img"
                 sx={{ width: 151 }}
                 image={menuItem.image}
-                alt="Live from space album cover"
+                alt="cover-img"
                 className="product-image"
               />
 
               <CardContent sx={{ flex: "1 0 auto" }}>
                 <div className="wrap-prod-nameprice">
-                  <Typography component="div" className="product-title ">
+                  <Typography component="div" className="product-title">
                     {menuItem.name.slice(0,15)}
                   </Typography>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import { useTheme, useMediaQuery } from "@mui/material";
@@ -80,94 +80,104 @@ const Products = () => {
             setSearch={(search) => setSearch(search)}
             setPage={setPage}
             filterCategory={filterCategory}
+            sort={sort}
+            setSort={(sort) => setSort(sort)}
             setFilterCategory={(filterCategory) =>
-              setFilterCategory(filterCategory)
+            setFilterCategory(filterCategory)
+            
             }
           />
         </div>
+        <Container>
+          <div className="">
+            {/* topbar for sorting and backScrenn */}
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              <SubNavbar
+                sort={sort}
+                setSort={(sort) => setSort(sort)}
+                setSearch={(search) => setSearch(search)}
+              />
+            </Box>
+            {/* end */}
+          </div>
 
-        <div className="">
-          {/* topbar for sorting and backScrenn */}
-          <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <SubNavbar
-              sort={sort}
-              setSort={(sort) => setSort(sort)}
-              setSearch={(search) => setSearch(search)}
-            />
-          </Box>
-          {/* end */}
-        </div>
-
-        <div className="main-item-section product-view-filters d-flex justify-content-center">
-          <Grid container spacing={1} className="filter-product-sections-grid">
-            <Grid item xs={2} sx={{ display: { xs: "none", md: "block" } }}>
-              <Box>
-                <Sidebar
-                  categories={obj ? obj : []}
-                  filterCategory={filterCategory}
-                  setPage={setPage}
-                  setFilterCategory={(filterCategory) =>
+          <div className="main-item-section product-view-filters d-flex justify-content-center">
+            <Grid
+              container
+              spacing={1}
+              className="filter-product-sections-grid"
+            >
+              <Grid item xs={2} sx={{ display: { xs: "none", md: "block" } }}>
+                <Box>
+                  <Sidebar
+                    categories={obj ? obj : []}
+                    filterCategory={filterCategory}
+                    setPage={setPage}
+                    setFilterCategory={(filterCategory) =>
                     setFilterCategory(filterCategory)
-                  }
-                />
-              </Box>
-            </Grid>
+                    }
+                  />
+                </Box>
+              </Grid>
 
-            {/* for displays products section */}
-            <Grid item xs={8}>
-              <Box>
-                <div className="main-products">
-                  <Grid
-                    container
-                    rowSpacing={1}
-                    columnSpacing={1}
-                    className="main-prod-grid"
-                  >
-                    {/* <ProductsScreen /> */}
-                    <div className="products-section">
-                    {loading && <Loading />}
-                     <InfiniteScroll
+              {/* for displays products section */}
+              <Grid item xs={8}>
+                <Box>
+                  <div className="main-products">
+                    <Grid
+                      container
+                      rowSpacing={1}
+                      columnSpacing={1}
+                      className="main-prod-grid"
+                    >
+                      {/* <ProductsScreen /> */}
+                      <div className="products-section">
+                        {loading && <Loading />}
+                        <InfiniteScroll
                           dataLength={items.item && items.item.length}
                           next={loadMore}
                           hasMore={showLoadMore}
-                          loader={<p style={{
-                            marginRight:"auto",
-                            marginLeft:'auto',
-                            fontSize:"18px"
-                          }}>Loading..........</p>}
+                          loader={
+                            <p
+                              style={{
+                                marginRight: "auto",
+                                marginLeft: "auto",
+                                fontSize: "18px",
+                              }}
+                            >
+                              Loading..........
+                            </p>
+                          }
                         >
-                      <Grid
-                        container
-                        rowSpacing={1}
-                        columnSpacing={1}
-                        className="main-prod-grid"
-                      >
-                        
-
-                       
-                          {items.item &&
-                            items.item.map((cur) => {
-                              return (
-                                <>
-                                  <Items menuItem={cur} />
-                                </>
-                              );
-                            })}
-                        
-                      </Grid>
-                      </InfiniteScroll>
-                      {/* {showLoadMore && (
+                          <Grid
+                            container
+                            rowSpacing={1}
+                            columnSpacing={1}
+                            className="main-prod-grid"
+                          >
+                            {items.item &&
+                              items.item.map((cur) => {
+                                return (
+                                  <>
+                                    <Items menuItem={cur} />
+                                  </>
+                                );
+                              })}
+                          </Grid>
+                        </InfiniteScroll>
+                        {/* {showLoadMore && (
                         <button variant="outline-primary" onClick={loadMore}>
                           {loadingMore ? "Loading..." : "Load More"}
                         </button>
                       )} */}
-                    </div>
-                  </Grid>
-                </div>
-              </Box>
+                      </div>
+                    </Grid>
+                  </div>
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </div>
+          </div>
+        </Container>
       </div>
     </>
   );
