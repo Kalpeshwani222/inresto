@@ -78,7 +78,7 @@ const Products = () => {
         <div className="">
           <TopbarSearchSortFilter
             setSearch={(search) => setSearch(search)}
-             setPage={setPage}
+            setPage={setPage}
             filterCategory={filterCategory}
             setFilterCategory={(filterCategory) =>
               setFilterCategory(filterCategory)
@@ -125,27 +125,42 @@ const Products = () => {
                   >
                     {/* <ProductsScreen /> */}
                     <div className="products-section">
+                    {loading && <Loading />}
+                     <InfiniteScroll
+                          dataLength={items.item && items.item.length}
+                          next={loadMore}
+                          hasMore={showLoadMore}
+                          loader={<p style={{
+                            marginRight:"auto",
+                            marginLeft:'auto',
+                            fontSize:"18px"
+                          }}>Loading..........</p>}
+                        >
                       <Grid
                         container
                         rowSpacing={1}
                         columnSpacing={1}
                         className="main-prod-grid"
                       >
-                        {loading && <Loading />}
-                        {items.item &&
-                          items.item.map((cur) => {
-                            return (
-                              <>
-                                <Items menuItem={cur} />
-                              </>
-                            );
-                          })}
+                        
+
+                       
+                          {items.item &&
+                            items.item.map((cur) => {
+                              return (
+                                <>
+                                  <Items menuItem={cur} />
+                                </>
+                              );
+                            })}
+                        
                       </Grid>
-                      {showLoadMore && (
+                      </InfiniteScroll>
+                      {/* {showLoadMore && (
                         <button variant="outline-primary" onClick={loadMore}>
                           {loadingMore ? "Loading..." : "Load More"}
                         </button>
-                      )}
+                      )} */}
                     </div>
                   </Grid>
                 </div>

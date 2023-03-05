@@ -231,14 +231,10 @@ const addMenu = async (req, res) => {
 };
 
 //Get All Menu Items
-
 const getAllMenu = async (req, res) => {
-  // const items = await Item.find();
-  // res.json(items);
-
   try {
     const page = parseInt(req.query.page) - 1 || 0;
-    const limit = parseInt(req.query.limit) || 6;
+    const limit = parseInt(req.query.limit) || 8;
 
     const search = req.query.search || "";
     let sort = req.query.sort || "rating";
