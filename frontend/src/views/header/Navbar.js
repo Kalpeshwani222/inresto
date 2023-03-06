@@ -173,13 +173,7 @@ const Navbar = () => {
           </Toolbar>
         </AppBar>
 
-        <hr
-          style={{
-            margin: "0px",
-            padding: "0px",
-          }}
-        />
-      </div>
+              </div>
     </>
   );
 };

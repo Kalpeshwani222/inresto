@@ -60,7 +60,7 @@ const OrderStatus = () => {
     fetching();
   }, [id]);
 
-  console.log(orders);
+  // console.log(orders);
 
   useEffect(() => {
     if (orders) {
@@ -82,6 +82,7 @@ const OrderStatus = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          marginTop:"5rem"
         }}
       >
      
@@ -93,7 +94,12 @@ const OrderStatus = () => {
                   marginTop: "1rem",
                 }}
               >
-                <h2>{orders._id}</h2>
+               {/* {noti.orderId.slice(18, 24)} :{" "} */}
+                <h4 style={{
+                  margin:"10px"
+                }}>Order Number  <span style={{
+                  color:"red"
+                }}>#{ orders && orders._id.slice(16,24)}</span></h4>
 
                 
                 <nav aria-label="main mailbox folders">

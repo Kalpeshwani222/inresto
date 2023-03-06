@@ -1,35 +1,36 @@
-import React, { useEffect } from "react";
-import { useParams,Link } from "react-router-dom";
+import React from "react";
+import {  Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { placeOrder } from "../../../redux/actions/orderAction";
+import { Button } from "@mui/material";
 
 const OrderNow = ({ subTotal }) => {
   const dispatch = useDispatch();
-  const param = useParams();
 
   const userState = useSelector((state) => state.LoginUserReducer);
   const { userInfo } = userState;
+  let localStorageData = JSON.parse(localStorage.getItem("userInfo"));
 
-  // console.log(param.tableno);
-  // console.log(subTotal);
-   let localStorageData = JSON.parse(localStorage.getItem("userInfo"));
-  
   const ordernow = () => {
-    dispatch(placeOrder(localStorageData['tableNo'], subTotal));
+    dispatch(placeOrder(localStorageData["tableNo"], subTotal));
   };
 
   return (
     <>
       {userInfo ? (
         <>
-          <button
+          <Button
+            variant="contained"
             onClick={() => ordernow()}
             style={{
               cursor: "pointer",
+              marginBottom: "1rem",
+              backgroundColor: "#10b981",
             }}
           >
+            {" "}
             Order Now
-          </button>
+          </Button>
         </>
       ) : (
         <Link to="/login">Login</Link>

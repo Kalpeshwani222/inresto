@@ -26,7 +26,7 @@ export const getAllMenuItems =
 export const loadMoreMenuItems =
   (page, sort, sortOrder, filterCategory, search) => async (dispatch) => {
     try {
-      console.log(page);
+      // console.log(page);
       dispatch({ type: LOAD_MORE_ITEMS_REQUEST });
       const url = `${process.env.REACT_APP_SERVER_URL}/api/menu?page=${page}&sort=${sort},${sortOrder}&category=${filterCategory}&search=${search}`;
       const res = await axios.get(url);
