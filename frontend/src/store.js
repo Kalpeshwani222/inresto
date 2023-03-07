@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     cartReducer : cartReducer,
     RegisterUserReducer:RegisterUserReducer,
     LoginUserReducer:LoginUserReducer, 
-    placeOrderReducer : placeOrderReducer,
+    createOrder : placeOrderReducer,
     // getUserOrderReducer:getUserOrderReducer,
     userNotifications : userNotificationsReducer,
 });

@@ -1,8 +1,9 @@
 const Order = require("../../../model/orderModel");
 const Table = require("../../../model/TablesModel");
 const eventEmitter = require('../../../helpers/eventEmit');
+const createError = require("http-errors");
 
-const createOrder = async (req, res) => {
+const createOrder = async (req, res,next) => {
   const { currentUser, cartItems, subTotal, tableno } = req.body;
 
   try {
@@ -10,23 +11,14 @@ const createOrder = async (req, res) => {
 
     //table not found
     if (!table) {
-      console.log("table no not found");
-      return res.status(400).json({
-        message: "table not found",
-      });
-    } else {
-      //table found then change the table status
-
-      if (table.status == "occupied") {
-        return res.status(403).json({
-          message: "Table already occupied",
-        });
-      }
-
-      //change the table status as occupied
+       throw createError.NotFound("Opps Table not found");
+    } 
+    if(table.status === "occupied") throw createError.Conflict("Opps Table Occupied");
+   
+    //change the table status as occupied
       table.status = "occupied";
       let tableData = await table.save();
-    }
+
 
     const newOrder = await new Order({
       name: currentUser.name,
@@ -46,14 +38,13 @@ const createOrder = async (req, res) => {
     if(table){
        eventEmitter.emit("tableBook", table);
      }
-    
 
     res.status(201).json({
-      message: "success",
+      message: "order placed successfully",
       data: newOrder,
     });
   } catch (error) {
-    res.status(500).send({ message: error });
+      next(error);
   }
 };
 

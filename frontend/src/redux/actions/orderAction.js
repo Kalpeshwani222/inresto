@@ -1,34 +1,32 @@
 import axios from "axios";
 
 export const placeOrder = (tableno, subTotal) => async (dispatch, getState) => {
-  dispatch({ type: "PLACE_ORDER_REQUEST" });
-
   const currentUser = getState().LoginUserReducer.userInfo;
   const cartItems = getState().cartReducer.cartItems;
-
   try {
-    const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order/neworder`,
-     {
-      currentUser,
-      cartItems,
-      subTotal,
-      tableno,
-    });
+    dispatch({ type: "PLACE_ORDER_REQUEST" });
+    const res = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/order/neworder`,
+      {
+        currentUser,
+        cartItems,
+        subTotal,
+        tableno,
+      }
+    );
+    dispatch({ type: "PLACE_ORDER_SUCCESS", payload: res.data });
 
-    dispatch({ type: "PLACE_ORDER_SUCCESS" });
-    // console.log(res.data);
-    //remove all the ITEMS from localstorage
-    localStorage.removeItem("cartItems");
   } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-
-    // console.log(message);
-
-    dispatch({ type: "PLACE_ORDER_FAIL" });
+    const message = error.response && error.response.data.error.message;
+    dispatch({ type: "PLACE_ORDER_FAIL", payload: message });
   }
+};
+
+
+export const removeAllItemsFromCart = () =>(dispatch) => {
+   //remove all the ITEMS from localstorage
+    localStorage.removeItem("cartItems");
+  dispatch({ type: "REMOVE_ALL_ITEMS_FROM_CART" });
 };
 
 export const getUserOrders = () => async (dispatch, getState) => {
@@ -37,10 +35,12 @@ export const getUserOrders = () => async (dispatch, getState) => {
   dispatch({ type: "USER_ORDER_REQUEST" });
 
   try {
-    const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order/getorders`,
-     {
-      userId: currentUser._id,
-    });
+    const res = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/order/getorders`,
+      {
+        userId: currentUser._id,
+      }
+    );
 
     dispatch({ type: "USER_ORDER_SUCCESS", payload: res.data });
   } catch (error) {

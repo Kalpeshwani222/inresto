@@ -6,11 +6,11 @@ import { Button } from "@mui/material";
 
 const OrderNow = ({ subTotal }) => {
   const dispatch = useDispatch();
-
+//user state
   const userState = useSelector((state) => state.LoginUserReducer);
   const { userInfo } = userState;
-  let localStorageData = JSON.parse(localStorage.getItem("userInfo"));
 
+  let localStorageData = JSON.parse(localStorage.getItem("userInfo"));
   const ordernow = () => {
     dispatch(placeOrder(localStorageData["tableNo"], subTotal));
   };

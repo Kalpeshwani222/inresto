@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/cartAction";
-import { useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import "./../screens/products/products.css";
 import {
@@ -15,22 +14,23 @@ import {
   Box,
   CardActions,
 } from "@mui/material";
+import toast, { Toaster } from "react-hot-toast";
 
-const Items = ({ menuItem,key }) => {
-  
-  const param = useParams();
+const Items = ({ menuItem }) => {
   const [quantity, setQuantity] = useState(1);
-  const [variant, setVariant] = useState("full");
 
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
     dispatch(addToCart(menuItem, quantity));
+    toast.success(`Add Successfully`, {
+      position: "top-center",
+    });
   };
 
   return (
     <>
-      <Grid item lg={6} sx={{ mt:1}}>
+      <Grid item lg={6} sx={{ mt: 1 }}>
         <Box>
           <Card
             className="product-card"
@@ -48,27 +48,25 @@ const Items = ({ menuItem,key }) => {
               <CardContent sx={{ flex: "1 0 auto" }}>
                 <div className="wrap-prod-nameprice">
                   <Typography component="div" className="product-title">
-                    {menuItem.name.slice(0,15)}
+                    {menuItem.name.slice(0, 15)}
                   </Typography>
 
                   <Typography className="product-sub">
                     {menuItem.desc.slice(0, 55)}...
                   </Typography>
-                 
                 </div>
 
                 <Box>
                   <CardActions className="product-footer-part">
                     <div className="price d-flex justify-content-start">
                       <p
-                      style={{
-                        fontSize: "17px",
-                        lineHeight: "18px",
-                        color: "#1a181e",
-                        fontWeight: "400",
-                      }}
+                        style={{
+                          fontSize: "17px",
+                          lineHeight: "18px",
+                          color: "#1a181e",
+                          fontWeight: "400",
+                        }}
                       >
-                      
                         {menuItem.price}
                         -/RS
                       </p>
@@ -90,6 +88,7 @@ const Items = ({ menuItem,key }) => {
           </Card>
         </Box>
       </Grid>
+      <Toaster />
     </>
   );
 };

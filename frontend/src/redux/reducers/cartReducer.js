@@ -43,8 +43,16 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           cartItems: data,
         };
       }
-
+    
+    case 'REMOVE_ALL_ITEMS_FROM_CART':
+      return {
+        ...state,
+        cartItems: [],
+      };
+    
     default:
       return state;
   }
 };
+
+
