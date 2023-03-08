@@ -9,7 +9,8 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
+import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 const TopbarSearchSortFilter = ({
   setSearch,
   setPage,
@@ -156,7 +157,7 @@ const TopbarSearchSortFilter = ({
             >
               {/* filter */}
               <button type="button" onClick={openFilterDial}>
-                <span>Filter</span>
+                <span> <FilterListOutlinedIcon sx={{ml:2, fontSize:'400'}}/>Filter</span>
               </button>
 
               <Dialog fullScreen open={openFilter} onClose={closeFilterDial}>
@@ -247,7 +248,7 @@ const TopbarSearchSortFilter = ({
               <div className="mobile-filter-button-divider"></div>
 
               <button type="button" onClick={openSortDial}>
-                <span>Sort</span>
+                 <span> <ImportExportOutlinedIcon sx={{ml:2, fontSize:'400'}}/>Sort</span>
               </button>
 
 
