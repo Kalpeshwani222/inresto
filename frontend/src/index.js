@@ -5,7 +5,7 @@ import store from "./store";
 import './index.css';
 import App from './App';
 import {socket_init} from "./socket/socketApi";
-
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,4 +15,4 @@ root.render(
 );
 
 socket_init();
-
+serviceWorkerRegistration.register();
