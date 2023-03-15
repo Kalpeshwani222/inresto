@@ -1,52 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { getUserOrders } from "../../../../redux/actions/orderAction";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import Navbar from "../../../header/Navbar";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const OrderScreen = () => {
+
   const history = useHistory();
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.LoginUserReducer.userInfo);
-
-  const getOrders = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/order/getorders`,
-        {
-          userId: user._id,
-        }
-      );
-      // console.log(res);
-      setOrders(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //orders list state
+  const ordersState = useSelector((state) => state.userOrders);
+  const { loading, orders } = ordersState;
 
   useEffect(() => {
-    if (user) {
-      getOrders();
-    } else {
-      history.push("/login");
-    }
+    dispatch(getUserOrders());
   }, []);
 
   return (
     <>
       <div className="">
-        <Navbar />
-        {orders.length == 0 ? (
-          <h1>NOT any ORDERS</h1>
-        ) : (
+      {
+        loading && <LoadingScreen/>
+      }
+        {orders &&
           orders.map((order) => (
             <div
               style={{
                 border: "1px solid",
-                // width: "40rem",
                 marginRight: "auto",
                 marginLeft: "auto",
                 marginBottom: "1rem",
@@ -69,8 +50,7 @@ const OrderScreen = () => {
 
               <p>Order Amount : {order.orderAmount}</p>
             </div>
-          ))
-        )}
+          ))}
       </div>
     </>
   );

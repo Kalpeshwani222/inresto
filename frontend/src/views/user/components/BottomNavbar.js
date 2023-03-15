@@ -25,7 +25,7 @@ const navigationData = [
   },
   {
     label: "Account",
-    value: "/account",
+    value: "/profile",
     icon: <PersonOutlineIcon />
   },
 

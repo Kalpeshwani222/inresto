@@ -41,7 +41,7 @@ export const registerUser = (name, email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch, getState) => {
   localStorage.removeItem("userInfo");
-  dispatch({ type: "USER_LOGOUT" });
+  dispatch({ type: "USER_LOGOUT_SUCCESS" });
   // try {
   //   const userDetails = getState().LoginUserReducer.userInfo;
 

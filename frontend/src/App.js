@@ -15,6 +15,7 @@ import Dummy from "./views/user/Dummy";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { useSelector, useDispatch } from "react-redux";
 import UserRoutes from "./routes/UserRoutes";
+import Profile from "./views/user/screens/profile/Profile";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -80,6 +81,13 @@ const App = () => {
           <ProtectedRoutes
             path="/orders/:id"
             component={OrderStatus}
+            user={userInfo}
+             role="user"
+            exact
+          />
+            <ProtectedRoutes
+            path="/profile"
+            component={Profile}
             user={userInfo}
              role="user"
             exact
