@@ -5,9 +5,9 @@ import { saveAs } from "file-saver";
 import socket from "../../../socket/socketApi";
 import addNotification from "react-push-notification";
 import { useHistory } from "react-router-dom";
-
+import { Box } from "@mui/material";
+import AdminLayout from "../components/AdminLayout";
 const ManageTables = () => {
-
   const history = useHistory();
   const [qrcode, setQrcode] = useState("");
   const [table, setTables] = useState([]);
@@ -84,124 +84,127 @@ const ManageTables = () => {
   }, []);
   return (
     <>
-      {/* all tables */}
-      <table
-        style={{
-          width: "100%",
-          margin: "5rem",
-        }}
-      >
-        <tr>
-          {table.map((cur, ind) => {
-            return (
+      <AdminLayout>
+        <Box component="main" sx={{ flexGrow: 1, p: 1, mt: 2 }}>
+          <table
+            style={{
+              width: "100%",
+              // margin: "5rem",
+            }}
+          >
+            <tr>
+              {table.map((cur, ind) => {
+                return (
+                  <>
+                    {cur.status === "free" ? (
+                      <>
+                        <div
+                          style={{
+                            width: "200px",
+                            height: "130px",
+                            border: "1px solid",
+                            margin: "1px",
+                            display: "flex",
+                            justifyContent: "center",
+                            display: "inline-block",
+                            backgroundColor: "green",
+                          }}
+                        >
+                          <h1
+                            style={{
+                              marginRight: "auto",
+                              marginLeft: "auto",
+                              alignItems: "center",
+                              textAlign: "center",
+                            }}
+                          >
+                            {cur.tableno}
+                          </h1>
+                          <p>{cur.status}</p>
+
+                          <button
+                            style={{}}
+                            onClick={() =>
+                              GenerateQRCode(
+                                `${process.env.REACT_APP_HOSTED_URL}/menu/${cur.tableno}`,
+                                cur.tableno
+                              )
+                            }
+                          >
+                            Generate
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          style={{
+                            width: "200px",
+                            height: "130px",
+                            border: "1px solid",
+                            margin: "1px",
+                            display: "flex",
+                            justifyContent: "center",
+                            display: "inline-block",
+                            backgroundColor: "red",
+                          }}
+                        >
+                          <h1
+                            style={{
+                              marginRight: "auto",
+                              marginLeft: "auto",
+                              alignItems: "center",
+                              textAlign: "center",
+                            }}
+                          >
+                            {cur.tableno}
+                          </h1>
+                          <p>{cur.status}</p>
+                          <button
+                            style={{}}
+                            onClick={() =>
+                              GenerateQRCode(
+                                `${process.env.REACT_APP_HOSTED_URL}/menu/${cur.tableno}`,
+                                cur.tableno
+                              )
+                            }
+                          >
+                            generate
+                          </button>
+                          &nbsp;
+                          <button onClick={() => updateTableStatus(cur._id)}>
+                            Free Table
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </>
+                );
+              })}
+            </tr>
+          </table>
+
+          <div className="qrCodeimg">
+            {qrcode && (
               <>
-                {cur.status === "free" ? (
-                  <>
-                    <div
-                      style={{
-                        width: "200px",
-                        height: "130px",
-                        border: "1px solid",
-                        margin: "1px",
-                        display: "flex",
-                        justifyContent: "center",
-                        display: "inline-block",
-                        backgroundColor: "green",
-                      }}
-                    >
-                      <h1
-                        style={{
-                          marginRight: "auto",
-                          marginLeft: "auto",
-                          alignItems: "center",
-                          textAlign: "center",
-                        }}
-                      >
-                        {cur.tableno}
-                      </h1>
-                      <p>{cur.status}</p>
+                <img
+                  src={qrcode}
+                  style={{
+                    width: "200px",
+                    height: "200px",
+                    display: "block",
+                    alignItems: "center",
+                  }}
+                />
 
-                      <button
-                        style={{}}
-                        onClick={() =>
-                          GenerateQRCode(
-                            `${process.env.REACT_APP_HOSTED_URL}/menu/${cur.tableno}`,
-                            cur.tableno
-                          )
-                        }
-                      >
-                        Generate
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      style={{
-                        width: "200px",
-                        height: "130px",
-                        border: "1px solid",
-                        margin: "1px",
-                        display: "flex",
-                        justifyContent: "center",
-                        display: "inline-block",
-                        backgroundColor: "red",
-                      }}
-                    >
-                      <h1
-                        style={{
-                          marginRight: "auto",
-                          marginLeft: "auto",
-                          alignItems: "center",
-                          textAlign: "center",
-                        }}
-                      >
-                        {cur.tableno}
-                      </h1>
-                      <p>{cur.status}</p>
-                      <button
-                        style={{}}
-                        onClick={() =>
-                          GenerateQRCode(
-                            `${process.env.REACT_APP_HOSTED_URL}/menu/${cur.tableno}`,
-                            cur.tableno
-                          )
-                        }
-                      >
-                        generate
-                      </button>
-                      &nbsp;
-                      <button onClick={() => updateTableStatus(cur._id)}>
-                        Free Table
-                      </button>
-                    </div>
-                  </>
-                )}
+                <button type="submit" onClick={() => downloadQRCode()}>
+                  Download
+                </button>
               </>
-            );
-          })}
-        </tr>
-      </table>
-
-      <div className="qrCodeimg">
-        {qrcode && (
-          <>
-            <img
-              src={qrcode}
-              style={{
-                width: "200px",
-                height: "200px",
-                display: "block",
-                alignItems: "center",
-              }}
-            />
-
-            <button type="submit" onClick={() => downloadQRCode()}>
-              Download
-            </button>
-          </>
-        )}
-      </div>
+            )}
+          </div>
+        </Box>
+      </AdminLayout>
     </>
   );
 };

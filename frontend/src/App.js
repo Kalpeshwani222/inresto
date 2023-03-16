@@ -16,6 +16,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import { useSelector, useDispatch } from "react-redux";
 import UserRoutes from "./routes/UserRoutes";
 import Profile from "./views/user/screens/profile/Profile";
+import Dashboard from "./views/admin/screens/Dashboard";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -94,6 +95,15 @@ const App = () => {
           />
 
           {/* admin */}
+
+          <ProtectedRoutes
+            path="/dashboard"
+            component={Dashboard}
+            user={userInfo}
+            role="admin"
+            exact
+          />
+
            <ProtectedRoutes
             path="/admin/tables"
             component={ManageTables}

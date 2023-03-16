@@ -85,7 +85,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
     localStorage.setItem("userInfo", JSON.stringify(data));
     if (data.role === "admin") {
-      window.location.href = "/#/admin";
+      window.location.href = "/#/dashboard";
     } else {
       window.location.href = "/#/home";
     }

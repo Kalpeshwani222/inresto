@@ -7,12 +7,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Card } from "@mui/material";
+import { Card, Box } from "@mui/material";
 import socket from "../../../socket/socketApi";
 import addNotification from "react-push-notification";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import AdminLayout from "../components/AdminLayout";
 
 const AdminOrdersList = () => {
-
   const [ordersList, setOrdersList] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -40,8 +42,6 @@ const AdminOrdersList = () => {
 
     //receive the data from backend
     socket.on("orderPlaced", (data) => {
-    
-
       //notify the admin
       addNotification({
         title: `Order Receive from Table no ${data.tableno}`,
@@ -55,12 +55,11 @@ const AdminOrdersList = () => {
     });
   }, []);
 
-  
   //change order status
   const changeOrderStatus = async (val, id) => {
     const status = val.target.value;
     setOrderStatus(val.target.value);
-  
+
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -77,16 +76,15 @@ const AdminOrdersList = () => {
     // }
   };
 
-
   return (
     <>
-      <section className="">
-        <div className="">
+      <AdminLayout>
+        <Box component="main" sx={{ flexGrow: 1, p: 1, mt: 2 }}>
           <Card
             style={{
               alignContent: "center",
               alignItems: "center",
-              margin: "2rem",
+              // margin: "2rem",
             }}
           >
             <TableContainer
@@ -150,8 +148,8 @@ const AdminOrdersList = () => {
               </Table>
             </TableContainer>
           </Card>
-        </div>
-      </section>
+        </Box>
+      </AdminLayout>
     </>
   );
 };
