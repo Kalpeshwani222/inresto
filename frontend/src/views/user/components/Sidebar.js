@@ -131,7 +131,7 @@ const Sidebar = ({ categories, filterCategory, setFilterCategory ,setPage}) => {
                         <input
                           className=""
                           type="checkbox"
-                          value={category.name}
+                          value={category._id}
                           onChange={onChange}
                           style={{
                             height: "20px",

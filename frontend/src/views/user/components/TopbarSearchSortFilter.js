@@ -9,13 +9,14 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import ImportExportOutlinedIcon from '@mui/icons-material/ImportExportOutlined';
-import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
+import ImportExportOutlinedIcon from "@mui/icons-material/ImportExportOutlined";
+import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 const TopbarSearchSortFilter = ({
   setSearch,
   setPage,
   filterCategory,
-  sort, setSort ,
+  sort,
+  setSort,
   setFilterCategory,
 }) => {
   const history = useHistory();
@@ -26,10 +27,9 @@ const TopbarSearchSortFilter = ({
 
   const [obj, setObj] = useState();
   const [checked, setChecked] = useState(false);
-  
+
   const [openFilter, setOpenFilter] = useState(false);
   const [openSort, setOpenSort] = useState(false);
-
 
   const openFilterDial = () => {
     setOpenFilter(true);
@@ -72,7 +72,6 @@ const TopbarSearchSortFilter = ({
       setSort({ sort: sort.sort, order: "desc" });
     }
   };
-
 
   //get all categories
   useEffect(() => {
@@ -157,7 +156,11 @@ const TopbarSearchSortFilter = ({
             >
               {/* filter */}
               <button type="button" onClick={openFilterDial}>
-                <span> <FilterListOutlinedIcon sx={{ml:2, fontSize:'400'}}/>Filter</span>
+                <span>
+                  {" "}
+                  <FilterListOutlinedIcon sx={{ ml: 2, fontSize: "400" }} />
+                  Filter
+                </span>
               </button>
 
               <Dialog fullScreen open={openFilter} onClose={closeFilterDial}>
@@ -215,11 +218,11 @@ const TopbarSearchSortFilter = ({
                               className=""
                               type="checkbox"
                               checked={
-                                filterCategory.includes(category.name)
+                                filterCategory.includes(category._id)
                                   ? true
                                   : false
                               }
-                              value={category.name}
+                              value={category._id}
                               onChange={onChange}
                               style={{
                                 height: "24px",
@@ -231,7 +234,7 @@ const TopbarSearchSortFilter = ({
                               style={{
                                 margin: "5px",
                                 marginLeft: "20px",
-                                fontSize:"17.5px"
+                                fontSize: "17.5px",
                               }}
                             >
                               {category.name}
@@ -248,11 +251,14 @@ const TopbarSearchSortFilter = ({
               <div className="mobile-filter-button-divider"></div>
 
               <button type="button" onClick={openSortDial}>
-                 <span> <ImportExportOutlinedIcon sx={{ml:2, fontSize:'400'}}/>Sort</span>
+                <span>
+                  {" "}
+                  <ImportExportOutlinedIcon sx={{ ml: 2, fontSize: "400" }} />
+                  Sort
+                </span>
               </button>
 
-
-               <Dialog fullScreen open={openSort} onClose={closeSortDial}>
+              <Dialog fullScreen open={openSort} onClose={closeSortDial}>
                 <div
                   className="d-flex justify-content-between"
                   style={{
@@ -282,18 +288,16 @@ const TopbarSearchSortFilter = ({
                   }}
                 />
 
-                  <div className="">
-              <select
-                onChange={onSelectChange}
-                className=""
-                defaultValue={sort.sort}
-              >
-              <option value="desc">&uarr;Price high to low</option>
-                <option value="asc">&darr; Price low to high</option>
-                
-              </select>
-            </div>
-                
+                <div className="">
+                  <select
+                    onChange={onSelectChange}
+                    className=""
+                    defaultValue={sort.sort}
+                  >
+                    <option value="desc">&uarr;Price high to low</option>
+                    <option value="asc">&darr; Price low to high</option>
+                  </select>
+                </div>
               </Dialog>
             </div>
             <hr
