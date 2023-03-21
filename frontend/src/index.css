@@ -11,12 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-table,
+/* table,
 th,
 td {
   border: 0.5px solid black;
   width: 2rem;
-}
+} */
 
 .deactive {
   opacity: 0.38;

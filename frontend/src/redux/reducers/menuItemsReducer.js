@@ -6,6 +6,10 @@ import {
   LOAD_MORE_ITEMS_FAIL,
   LOAD_MORE_ITEMS_REQUEST,
   LOAD_MORE_ITEMS_SUCCESS,
+  ADD_MENU_ITEMS_REQUEST,
+  ADD_MENU_ITEMS_SUCCESS,
+  ADD_MENU_ITEMS_FAIL,
+  ADD_MENU_ITEMS_RESET,
 } from "./../constants/productConstants";
 
 export const getAllItemsReducer = (
@@ -48,7 +52,7 @@ export const getAllItemsReducer = (
         items: {
           page: action.payload.page,
           total: action.payload.total,
-          item: [...state.items.item,...action.payload.items],
+          item: [...state.items.item, ...action.payload.items],
         },
       };
 
@@ -64,6 +68,30 @@ export const getAllItemsReducer = (
         ...state,
         error: null,
       };
+
+    default:
+      return state;
+  }
+};
+
+//ADMIN => add the MENU ITEM
+
+export const addMenuItemReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADD_MENU_ITEMS_REQUEST:
+      return { loading: true };
+
+    case ADD_MENU_ITEMS_SUCCESS:
+      return { loading: false, success: true };
+
+    case ADD_MENU_ITEMS_FAIL:
+      return { loading: false, error: action.payload };
+
+    case ADD_MENU_ITEMS_RESET:
+      return { success: false };
+
+    case "CLEAR_ERRORS":
+      return { error: null };
 
     default:
       return state;

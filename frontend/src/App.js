@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import UserRoutes from "./routes/UserRoutes";
 import Profile from "./views/user/screens/profile/Profile";
 import Dashboard from "./views/admin/screens/Dashboard";
+import ProductList from "./views/admin/screens/ProductList";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -114,6 +115,14 @@ const App = () => {
             <ProtectedRoutes
             path="/admin"
             component={AdminOrdersList}
+            user={userInfo}
+            role="admin"
+            exact
+          />
+
+          <ProtectedRoutes
+            path="/admin/products"
+            component={ProductList}
             user={userInfo}
             role="admin"
             exact

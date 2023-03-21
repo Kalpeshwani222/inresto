@@ -113,7 +113,7 @@ export default function Sidebar({open}) {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              history.push("/dashboard");
+              history.push("/admin/products");
             }}
           >
             <ListItemButton

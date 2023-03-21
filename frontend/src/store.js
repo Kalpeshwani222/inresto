@@ -1,7 +1,7 @@
 import {createStore,combineReducers,applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from "redux-devtools-extension";
-import {getAllItemsReducer} from "./redux/reducers/menuItemsReducer"
+import {getAllItemsReducer,addMenuItemReducer} from "./redux/reducers/menuItemsReducer"
 import {cartReducer} from "./redux/reducers/cartReducer";
 import {RegisterUserReducer,LoginUserReducer} from './redux/reducers/userReducer';
 import {placeOrderReducer,getUserOrderReducer} from "./redux/reducers/orderReducer"
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
     createOrder : placeOrderReducer,
     userOrders:getUserOrderReducer,
     userNotifications : userNotificationsReducer,
+    addMenu : addMenuItemReducer,
 });
 
 
