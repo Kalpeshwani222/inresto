@@ -13,10 +13,17 @@ import {
   Grid,
   Box,
   CardActions,
+  useTheme,
+  useMediaQuery,
+  Divider,
 } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 
 const Items = ({ menuItem }) => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
+
   const [quantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch();
@@ -30,7 +37,7 @@ const Items = ({ menuItem }) => {
 
   return (
     <>
-      <Grid item lg={6} sx={{ mt: 1 }}>
+      <Grid item lg={6} sx={{ mt: 0.5 }}>
         <Box>
           <Card
             className="product-card"
@@ -45,7 +52,17 @@ const Items = ({ menuItem }) => {
                 className="product-image"
               />
 
-              <CardContent sx={{ flex: "1 0 auto" }}>
+              <CardContent
+                sx={{
+                  flex: "1 0 auto",
+                  ...(isSmallScreen && {
+                    padding: "9px",
+                  }),
+                  ...(isLargeScreen && {
+                    padding: "12px",
+                  }),
+                }}
+              >
                 <div className="wrap-prod-nameprice">
                   <Typography component="div" className="product-title">
                     {menuItem.name.slice(0, 15)}
@@ -74,6 +91,9 @@ const Items = ({ menuItem }) => {
 
                     <div className="add-to-bag-button-with-variants d-flex justify-content-end">
                       <Button
+                      sx={{
+                       height:'31px' 
+                      }}
                         variant="outlined"
                         onClick={addToCartHandler}
                         endIcon={<AddIcon />}
@@ -87,6 +107,15 @@ const Items = ({ menuItem }) => {
             </CardActionArea>
           </Card>
         </Box>
+        <Divider
+          sx={{ display: { xs: "block", lg: "none" } }}
+          style={{
+            margin: "0px",
+            padding: "0px",
+            height: "1.5px",
+            color: "#e6e6f8",
+          }}
+        />
       </Grid>
       <Toaster />
     </>

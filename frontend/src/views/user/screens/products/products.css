@@ -84,7 +84,7 @@ header section .products-bottom-header {
 
 .main-products .product-card {
   box-shadow: none;
-  border: 1px solid #e6e6f8;
+  /* border: 1px solid #e6e6f8; */
   border-radius: 8px;
 }
 
@@ -121,5 +121,14 @@ header section .products-bottom-header {
 .main-products .product-footer-part {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
+}
+
+/* mobile product card css*/
+@media (max-width: 600px) {
+  .main-products .product-image {
+    width: 85px;
+    height: 85px;
+    margin: 2px;
+  }
 }
