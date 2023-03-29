@@ -1,0 +1,26 @@
+.order-status {
+  font-size: 0.78rem;
+  border: 1px solid rgb(213, 214, 215);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 75px;
+  line-height: 1.4rem;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+}
+
+.order-placed {
+  background-color: #cae1fb;
+}
+.order-prepared {
+  background-color: #ffffcc;
+}
+.order-confimed {
+  background-color: #d8bcf6;
+}
+.order-deliver {
+  background-color: #cfffeb;
+}

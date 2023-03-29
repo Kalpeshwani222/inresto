@@ -1,9 +1,16 @@
 const Order = require("../../model/orderModel");
-const eventEmitter = require('../../helpers/eventEmit');
+const eventEmitter = require("../../helpers/eventEmit");
 
 const orderList = async (req, res) => {
   try {
-    const orders = await Order.find().sort({$natural:-1});
+    const { status } = req.query;
+
+    let query = {};
+
+    if (status) {
+      query.status = status;
+    }
+    const orders = await Order.find(query).sort({ $natural: -1 });
     res.send(orders);
   } catch (error) {
     res.status(400).send({
@@ -33,10 +40,10 @@ const updateOrder = async (req, res) => {
 
     //Emit event
     // const eventEmitter = req.app.get('eventEmitter');
-    eventEmitter.emit('orderUpdated', { updatedData :updatedData})
+    eventEmitter.emit("orderUpdated", { updatedData: updatedData });
     // console.log(updatedData._id);
-    
-    return res.status(200).json({ message : "OK", updatedData });
+
+    return res.status(200).json({ message: "OK", updatedData });
   } catch (error) {
     console.log(error);
   }

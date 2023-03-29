@@ -38,9 +38,13 @@ const orderSchema = mongoose.Schema(
       type: String,
       default: "Order Placed",
     },
+
+     createdAt: {
+    type: Date,
+    default: Date.now,
   },
-  { timetamps: true }
-);
+  
+  },);
 
 
 const order = mongoose.model("order", orderSchema);

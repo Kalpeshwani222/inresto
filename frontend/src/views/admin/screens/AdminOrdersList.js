@@ -7,24 +7,48 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Card, Box } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Divider,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import socket from "../../../socket/socketApi";
 import addNotification from "react-push-notification";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
 import AdminLayout from "../components/AdminLayout";
+import "./orderList.css";
+import OrderFilters from "../components/OrderFilters";
+
+const columns = [
+  { id: "1", label: "SR NO", minWidth: 20 },
+  { id: "2", label: "Time", minWidth: 100 },
+  { id: "3", label: "Name", minWidth: 120 },
+  { id: "4", label: "Email/Phone", minWidth: 120 },
+  { id: "5", label: "Amount", minWidth: 80 },
+  { id: "6", label: "Table no", minWidth: 80 },
+  { id: "7", label: "Status", minWidth: 100 },
+  { id: "8", label: "Action", minWidth: 120 },
+  { id: "9", label: "Details", minWidth: 70 },
+];
 
 const AdminOrdersList = () => {
   const [ordersList, setOrdersList] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const [orderStatus, setOrderStatus] = useState(null);
+  const [statusFilter, setStatusFilter] = useState("");
+  const [status, setStatus] = useState([
+    "Order Placed",
+    "confimed",
+    "prepared",
+    "delivered",
+    "none"
+  ]);
 
   const getOrdersList = async () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/api/admin/orders`
+        `${process.env.REACT_APP_SERVER_URL}/api/admin/orders?status=${statusFilter}`
       );
       setLoading(false);
       setOrdersList(data);
@@ -53,101 +77,165 @@ const AdminOrdersList = () => {
       //update the orderList array
       setOrdersList((current) => [data, ...current]);
     });
-  }, []);
+  }, [statusFilter]);
 
   //change order status
   const changeOrderStatus = async (val, id) => {
-    const status = val.target.value;
-    setOrderStatus(val.target.value);
+    try {
+      const status = val.target.value;
+      // setOrderStatus(val.target.value);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const { data } = await axios.put(
-      `${process.env.REACT_APP_SERVER_URL}/api/admin/${id}`,
-      { status },
-      config
-    );
-    // if (data.message === "OK") {
-    //   window.location.href = "/admin";
-    // }
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/api/admin/${id}`,
+        { status },
+        config
+      );
+      getOrdersList();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
       <AdminLayout>
         <Box component="main" sx={{ flexGrow: 1, p: 1, mt: 2 }}>
-          <Card
-            style={{
-              alignContent: "center",
-              alignItems: "center",
-              // margin: "2rem",
-            }}
-          >
-            <TableContainer
-              component={Paper}
+          <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ padding: "10px" }}
+            >
+              Orders List
+            </Typography>
+            <Divider />
+
+            <Box
+              height={40}
+              sx={{ m: 1.8 }}
               style={{
-                margin: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <Table
-                style={{
-                  width: "95%",
-                }}
-                aria-label="a dense table"
-              >
-                <TableHead>
-                  <TableRow>
-                    <TableCell size="small">Orders</TableCell>
-                    <TableCell size="small">Status</TableCell>
-                    <TableCell>Table NO</TableCell>
-                    <TableCell>Amount&nbsp;(RS)</TableCell>
-                    {/* <TableCell>Placed At</TableCell> */}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {ordersList.length == 0 ? (
-                    <h1>NOT any ORDERS</h1>
-                  ) : (
-                    ordersList.map((order) => (
-                      <TableRow>
-                        <TableCell component="th" scope="row">
-                          {order.name}
-                          {order.orderItems.map((item) => (
-                            <p>
-                              <br />
-                              {item.name}
-                              <p>
-                                {item.quantity} X {item.price}={item.price}
-                              </p>
-                            </p>
-                          ))}
-                        </TableCell>
+              <OrderFilters status={status} setStatusFilter={setStatusFilter}/>
 
-                        <TableCell align="left">
-                          {order.status}
-                          <select
-                            value={order.status}
-                            onChange={(e) => changeOrderStatus(e, order._id)}
+            </Box>
+            <Divider />
+
+            <Box>
+              {loading ? (
+                <CircularProgress
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginRight: "auto",
+                    marginLeft: "auto",
+                    height: "75vh",
+                  }}
+                />
+              ) : (
+                <TableContainer sx={{ mt: 2 }}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((column) => (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
                           >
-                            <option>Order Placed</option>
-                            <option>confimed</option>
-                            <option>prepared</option>
-                            <option>delivered</option>
-                          </select>
-                        </TableCell>
-                        <TableCell>{order.tableno}</TableCell>
-                        <TableCell>{order.orderAmount}</TableCell>
+                            {column.label}
+                          </TableCell>
+                        ))}
                       </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Card>
+                    </TableHead>
+
+                    <TableBody>
+                      {ordersList &&
+                        ordersList.map((order, ind) => {
+                          return (
+                            <>
+                              <TableRow
+                                hover
+                                role="checkbox"
+                                tabIndex={-1}
+                                key={order._id}
+                              >
+                                <TableCell>{ind + 1}</TableCell>
+                                <TableCell>Mar 29, 2023</TableCell>
+                                <TableCell>{order.name}</TableCell>
+                                <TableCell>{order.email}</TableCell>
+                                <TableCell>{order.orderAmount}</TableCell>
+                                <TableCell>{order.tableno}</TableCell>
+                                <TableCell>
+                                  <p
+                                    className={`order-status ${
+                                      order.status === "Order Placed"
+                                        ? "order-placed"
+                                        : order.status === "confimed"
+                                        ? "order-confimed"
+                                        : order.status === "prepared"
+                                        ? "order-prepared"
+                                        : "order-deliver"
+                                    }`}
+                                  >
+                                    {order.status.slice(0, 10)}
+                                  </p>
+                                </TableCell>
+                                <TableCell>
+                                  <select
+                                    style={{
+                                      width: "85%",
+                                      height: "2rem",
+                                      borderRadius: "5px",
+                                      paddingLeft: "0.5rem",
+                                      paddingRight: "0.5rem",
+                                    }}
+                                    value={order.status}
+                                    onChange={(e) =>
+                                      changeOrderStatus(e, order._id)
+                                    }
+                                  >
+                                    {status.map((cur, ind) => {
+                                      return (
+                                        <>
+                                          <option key={cur} value={cur}>
+                                            {cur}
+                                          </option>
+                                        </>
+                                      );
+                                    })}
+                                  </select>
+                                </TableCell>
+                                <TableCell>
+                                  <Button
+                                    sx={{
+                                      height: "31px",
+                                    }}
+                                    variant="outlined"
+                                  >
+                                    Detail
+                                  </Button>
+                                </TableCell>
+                              </TableRow>
+                            </>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            </Box>
+          </Paper>
         </Box>
       </AdminLayout>
     </>

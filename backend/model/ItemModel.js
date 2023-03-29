@@ -1,23 +1,22 @@
 const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
-
   // product basic info
-  name: {type: String,required: true,},
+  name: { type: String, required: true },
   image: { type: String, required: true },
   price: { type: Number, required: true },
   desc: { type: String, required: true },
 
   //veg or nonveg
-  typeProd : {type:String,required : true},
-  
+  typeProd: { type: String, required: true },
+
   //category
   // category: { type: String, required: true },
 
-  category:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Category",
-    required : true
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
   },
   //rating
   ratings: {

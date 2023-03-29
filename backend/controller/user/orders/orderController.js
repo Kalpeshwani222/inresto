@@ -55,10 +55,6 @@ const getOrder = async (req, res) => {
     const orders = await Order.find({ userId });
     res.send(orders);
   } catch (error) {
-    // res.status(400).send({
-    //   message: "something went wrong",
-    //   error : error.stack,
-    // });
     res.send(error);
   }
 };

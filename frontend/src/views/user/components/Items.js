@@ -65,7 +65,7 @@ const Items = ({ menuItem }) => {
               >
                 <div className="wrap-prod-nameprice">
                   <Typography component="div" className="product-title">
-                    {menuItem.name.slice(0, 15)}
+                    {menuItem.name.slice(0, 21)}
                   </Typography>
 
                   <Typography className="product-sub">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Stack, TextField, Typography, Button, Box, Grid } from "@mui/material";
+import {  TextField,  Button, Box, Grid } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const AdminFilterProducts = ({
