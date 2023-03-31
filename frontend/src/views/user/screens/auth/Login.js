@@ -42,7 +42,7 @@ const Login = () => {
     } else if (userInfo.role === "user") {
       window.location.href = "/#/home";
     } else if (userInfo.role === "admin") {
-      window.location.href = "/#/admin";
+      window.location.href = "/#/admin/orders";
     }
   }, []);
 

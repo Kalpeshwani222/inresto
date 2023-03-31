@@ -44,3 +44,18 @@ export const getUserOrders = () => async (dispatch, getState) => {
     dispatch({ type: "USER_ORDER_FAIL", payload: error });
   }
 };
+
+//admin order details
+export const adminOrderDetails = (id) => async (dispatch, getState) => {
+  try {
+    const currentUser = getState().LoginUserReducer.userInfo;
+    dispatch({ type: "ADMIN_ORDERD_DETAILS_REQUEST" });
+    const res = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/api/admin//orders/${id}`
+    );
+
+    dispatch({ type: "ADMIN_ORDERD_DETAILS_SUCCESS", payload: res.data });
+  } catch (error) {
+    dispatch({ type: "ADMIN_ORDERD_DETAILS_FAIL", payload: error });
+  }
+};

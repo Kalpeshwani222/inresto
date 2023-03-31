@@ -4,7 +4,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import {getAllItemsReducer,addMenuItemReducer} from "./redux/reducers/menuItemsReducer"
 import {cartReducer} from "./redux/reducers/cartReducer";
 import {RegisterUserReducer,LoginUserReducer} from './redux/reducers/userReducer';
-import {placeOrderReducer,getUserOrderReducer} from "./redux/reducers/orderReducer"
+import {placeOrderReducer,getUserOrderReducer, getAdminOrderReducer} from "./redux/reducers/orderReducer"
 import { userNotificationsReducer} from "./redux/reducers/userNotifiReducer";
 
 
@@ -22,6 +22,7 @@ const rootReducer = combineReducers({
     userOrders:getUserOrderReducer,
     userNotifications : userNotificationsReducer,
     addMenu : addMenuItemReducer,
+    adminOrderDetails : getAdminOrderReducer
 });
 
 

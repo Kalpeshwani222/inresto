@@ -39,7 +39,7 @@ const OrderFilters = ({ status, setStatusFilter }) => {
                 padding: "5px",
               }}
             >
-              {status.map((cur, ind) => {
+              {status.map((cur) => {
                 return (
                   <>
                     <option key={cur} value={cur}>

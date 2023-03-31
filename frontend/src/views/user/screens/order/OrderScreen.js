@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import { getUserOrders } from "../../../../redux/actions/orderAction";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingScreen from "../../components/LoadingScreen";
+import moment from "moment";
 
 const OrderScreen = () => {
-
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -20,22 +20,26 @@ const OrderScreen = () => {
   return (
     <>
       <div className="">
-      {
-        loading && <LoadingScreen/>
-      }
+        {loading && <LoadingScreen />}
         {orders &&
           orders.map((order) => (
             <div
               style={{
-                border: "1px solid",
-                marginRight: "auto",
-                marginLeft: "auto",
-                marginBottom: "1rem",
+                border: "1px solid rgb(230, 230, 248)",
+                margin: "1rem 0.5rem",
               }}
               onClick={() => history.push(`/orders/${order._id}`)}
             >
-              <h2>{order._id}</h2>
-              {order.orderItems.map((item) => (
+              <h5
+                style={{
+                  color: "red",
+                  fontWeight: "500",
+                  margin: "10px",
+                }}
+              >
+                #{order._id.slice(16, 24)}
+              </h5>
+              {/* {order.orderItems.map((item) => (
                 <div>
                   <p>
                     <br />
@@ -46,9 +50,35 @@ const OrderScreen = () => {
                     <p>{}</p>
                   </p>
                 </div>
-              ))}
-
-              <p>Order Amount : {order.orderAmount}</p>
+              ))} */}
+              <div
+                style={{
+                  margin: "10px",
+                }}
+              >
+                <p>
+                  Table No - <span>{order.tableno}</span>
+                </p>
+                <p>
+                  Status - <span>{order.status}</span>
+                </p>
+              </div>
+              <div
+                className=""
+                style={{
+                  margin: "10px",
+                }}
+              >
+                <p>
+                  Order Amount : <span>{order.orderAmount}</span>
+                </p>
+                <p>
+                  Order on :{" "}
+                  <span>
+                    {moment(order.createdAt).format(" MMMM Do h:mm a")}
+                  </span>
+                </p>
+              </div>
             </div>
           ))}
       </div>

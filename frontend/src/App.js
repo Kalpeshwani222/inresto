@@ -18,6 +18,7 @@ import UserRoutes from "./routes/UserRoutes";
 import Profile from "./views/user/screens/profile/Profile";
 import Dashboard from "./views/admin/screens/Dashboard";
 import ProductList from "./views/admin/screens/ProductList";
+import AdminOrderDetails from "./views/admin/screens/AdminOrderDetails";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -113,8 +114,16 @@ const App = () => {
             exact
           />
             <ProtectedRoutes
-            path="/admin"
+            path="/admin/orders"
             component={AdminOrdersList}
+            user={userInfo}
+            role="admin"
+            exact
+          />
+
+           <ProtectedRoutes
+            path="/admin/order/:id"
+            component={AdminOrderDetails}
             user={userInfo}
             role="admin"
             exact

@@ -15,16 +15,18 @@ import {
   CircularProgress,
 } from "@mui/material";
 import socket from "../../../socket/socketApi";
+import { useHistory } from "react-router-dom";
 import addNotification from "react-push-notification";
 import AdminLayout from "../components/AdminLayout";
 import "./orderList.css";
 import OrderFilters from "../components/OrderFilters";
+import moment from "moment";
 
 const columns = [
   { id: "1", label: "SR NO", minWidth: 20 },
   { id: "2", label: "Time", minWidth: 100 },
-  { id: "3", label: "Name", minWidth: 120 },
-  { id: "4", label: "Email/Phone", minWidth: 120 },
+  // { id: "3", label: "Name", minWidth: 120 },
+  // { id: "4", label: "Email/Phone", minWidth: 120 },
   { id: "5", label: "Amount", minWidth: 80 },
   { id: "6", label: "Table no", minWidth: 80 },
   { id: "7", label: "Status", minWidth: 100 },
@@ -33,6 +35,8 @@ const columns = [
 ];
 
 const AdminOrdersList = () => {
+  const history = useHistory();
+
   const [ordersList, setOrdersList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState("");
@@ -41,7 +45,7 @@ const AdminOrdersList = () => {
     "confimed",
     "prepared",
     "delivered",
-    "none"
+    "none",
   ]);
 
   const getOrdersList = async () => {
@@ -73,7 +77,6 @@ const AdminOrdersList = () => {
         duration: 7000,
         native: true,
       });
-
       //update the orderList array
       setOrdersList((current) => [data, ...current]);
     });
@@ -125,8 +128,7 @@ const AdminOrdersList = () => {
                 alignItems: "center",
               }}
             >
-              <OrderFilters status={status} setStatusFilter={setStatusFilter}/>
-
+              <OrderFilters status={status} setStatusFilter={setStatusFilter} />
             </Box>
             <Divider />
 
@@ -171,9 +173,14 @@ const AdminOrdersList = () => {
                                 key={order._id}
                               >
                                 <TableCell>{ind + 1}</TableCell>
-                                <TableCell>Mar 29, 2023</TableCell>
-                                <TableCell>{order.name}</TableCell>
-                                <TableCell>{order.email}</TableCell>
+                                <TableCell>
+                                  {" "}
+                                  {moment(order.createdAt).format(
+                                    " MMMM Do h:mm a"
+                                  )}
+                                </TableCell>
+                                {/* <TableCell>{order.user ? order.user.name : null}</TableCell> */}
+                                {/* <TableCell>{order.user ? order.user.email : null}</TableCell> */}
                                 <TableCell>{order.orderAmount}</TableCell>
                                 <TableCell>{order.tableno}</TableCell>
                                 <TableCell>
@@ -218,6 +225,9 @@ const AdminOrdersList = () => {
                                 </TableCell>
                                 <TableCell>
                                   <Button
+                                    onClick={() =>
+                                      history.push(`/admin/order/${order._id}`)
+                                    }
                                     sx={{
                                       height: "31px",
                                     }}
