@@ -58,13 +58,15 @@ const createOrder = async (req, res, next) => {
 const getOrder = async (req, res) => {
   const { userId } = req.body;
 try {
-    const orders = await Order.find({ userId }).select('-orderItems')
+    const orders = await Order.find({ user:userId }).select('-orderItems')
       .populate({
         path: "user",
         select: "-password",
       })
       .sort({ $natural: -1 });;
     res.send(orders);
+    // const user = await 
+    // res.send(req.body);
   } catch (error) {
     res.send(error);
   }
