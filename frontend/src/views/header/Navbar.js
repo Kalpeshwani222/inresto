@@ -103,9 +103,9 @@ const Navbar = () => {
             {userInfo ? (
               <>
                 {/* notifications */}
-                <Box>
+                {/* <Box>
                   <UserNotifications />
-                </Box>
+                </Box> */}
 
                 {/* cart */}
                 <Box sx={{ display: { xs: "none", lg: "block" } }}>

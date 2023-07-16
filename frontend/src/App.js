@@ -19,6 +19,9 @@ import Profile from "./views/user/screens/profile/Profile";
 import Dashboard from "./views/admin/screens/Dashboard";
 import ProductList from "./views/admin/screens/ProductList";
 import AdminOrderDetails from "./views/admin/screens/AdminOrderDetails";
+import Policy from "./views/Policy";
+
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -136,7 +139,7 @@ const App = () => {
             role="admin"
             exact
           />
-
+    <Route path="/privacy-policy" component={Policy} exact />
           {/* <Route path="/admin/tables" component={ManageTables} />
           <Route path="/admin/" component={AdminOrdersList} /> */}
 
