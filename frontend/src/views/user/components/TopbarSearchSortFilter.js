@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Navbar from "./../../header/Navbar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
+
 import BottomNavbar from "./../components/BottomNavbar";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Typography } from "@mui/material";
@@ -122,7 +124,7 @@ const TopbarSearchSortFilter = ({
                   id="tableTitle"
                   component="div"
                 >
-                  <ArrowBackIcon
+                  <WestOutlinedIcon
                     style={{
                       fontSize: "30px",
                       cursor: "pointer",

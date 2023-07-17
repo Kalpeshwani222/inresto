@@ -60,7 +60,7 @@ const CartScreen = () => {
   return (
     <>
       <section className="cart-seaction">
-        {!success && <Navbar />}
+        {!success && <Navbar name={"Cart"}/>}
         {loading ? (
           <>
             <Backdrop

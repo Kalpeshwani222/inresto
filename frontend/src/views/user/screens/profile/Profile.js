@@ -46,7 +46,7 @@ const Profile = () => {
     <>
       <section className="profile-section">
         <div className="header">
-          <Navbar />
+          <Navbar name={"Profile"} />
         </div>
 
         <div className="profile-detail">

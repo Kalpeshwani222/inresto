@@ -21,8 +21,6 @@ import ProductList from "./views/admin/screens/ProductList";
 import AdminOrderDetails from "./views/admin/screens/AdminOrderDetails";
 import Policy from "./views/Policy";
 
-
-
 const App = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.LoginUserReducer);
@@ -36,12 +34,13 @@ const App = () => {
           <Route path="/register" component={Register} exact />
           <Route path="/" component={Login} exact />
 
-          <ProtectedRoutes 
-          path="/home"
-          component={Home} 
-          user={userInfo} 
-           role="user"
-          exact />
+          <ProtectedRoutes
+            path="/home"
+            component={Home}
+            user={userInfo}
+            role="user"
+            exact
+          />
 
           <ProtectedRoutes
             path="/scanqr"
@@ -56,7 +55,7 @@ const App = () => {
             // component={MenuItems}
             component={Products}
             user={userInfo}
-             role="user"
+            role="user"
             exact
           />
 
@@ -64,7 +63,7 @@ const App = () => {
             path="/products"
             component={Products}
             user={userInfo}
-             role="user"
+            role="user"
             exact
           />
 
@@ -72,7 +71,7 @@ const App = () => {
             path="/cart"
             component={CartScreen}
             user={userInfo}
-             role="user"
+            role="user"
             exact
           />
 
@@ -80,7 +79,7 @@ const App = () => {
             path="/orders"
             component={OrderScreen}
             user={userInfo}
-             role="user"
+            role="user"
             exact
           />
 
@@ -88,14 +87,14 @@ const App = () => {
             path="/orders/:id"
             component={OrderStatus}
             user={userInfo}
-             role="user"
+            role="user"
             exact
           />
-            <ProtectedRoutes
+          <ProtectedRoutes
             path="/profile"
             component={Profile}
             user={userInfo}
-             role="user"
+            role="user"
             exact
           />
 
@@ -109,14 +108,14 @@ const App = () => {
             exact
           />
 
-           <ProtectedRoutes
+          <ProtectedRoutes
             path="/admin/tables"
             component={ManageTables}
             user={userInfo}
             role="admin"
             exact
           />
-            <ProtectedRoutes
+          <ProtectedRoutes
             path="/admin/orders"
             component={AdminOrdersList}
             user={userInfo}
@@ -124,7 +123,7 @@ const App = () => {
             exact
           />
 
-           <ProtectedRoutes
+          <ProtectedRoutes
             path="/admin/order/:id"
             component={AdminOrderDetails}
             user={userInfo}
@@ -139,10 +138,9 @@ const App = () => {
             role="admin"
             exact
           />
-    <Route path="/privacy-policy" component={Policy} exact />
+          <Route path="/privacy-policy" component={Policy} exact />
           {/* <Route path="/admin/tables" component={ManageTables} />
           <Route path="/admin/" component={AdminOrdersList} /> */}
-
 
           {/* <Route path="/dummy" component={Dummy} /> */}
         </Switch>
