@@ -1,0 +1,17 @@
+.table-div .table{
+    position: relative;
+    border: 2px dotted;
+    border-spacing: 0,5em;
+    border-radius: 4px;
+    height: 100px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+}
+.table-div .table .table-btns{
+    position: absolute;
+    bottom: -10px;
+
+}

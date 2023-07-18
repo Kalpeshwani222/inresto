@@ -7,7 +7,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import AdminLayout from "../components/AdminLayout";
-import { Box, Typography, Divider, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Divider,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -125,72 +131,92 @@ export default function ProductList() {
           <Divider />
 
           {/* <Box height={10} /> */}
-
-          <TableContainer sx={{ mt: 2 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {items.item &&
-                  items.item.map((cur, ind) => {
-                    return (
-                      <>
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                         key={cur.name}
+          <Box>
+            {loading ? (
+              <CircularProgress
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: "auto",
+                  marginLeft: "auto",
+                  height: "75vh",
+                }}
+              />
+            ) : (
+              <TableContainer sx={{ mt: 2 }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{ minWidth: column.minWidth }}
                         >
-                          <TableCell>{ind + 1}</TableCell>
-                          <TableCell>{cur.name}</TableCell>
-                          <TableCell>
-                            <div>
-                              <img
-                                src={cur.image}
-                                style={{
-                                  width: "50px",
-                                  height: "50px",
-                                  borderRadius: "5px",
-                                  objectFit: "contain",
-                                }}
-                              />
-                            </div>
-                          </TableCell>
-                          <TableCell>{cur.category.name}</TableCell>
-                          <TableCell>{cur.price}</TableCell>
-                          <TableCell>{cur.desc.slice(0, 100)}....</TableCell>
-                          <TableCell>
-                            {moment(cur.createdAt).format("Do h:mm a")}
-                          </TableCell>
-                          <TableCell>
-                            <Box sx={{ m: 2 }}>
-                              <ModeOutlinedIcon sx={{ color: "gray" }} />
-                              <DeleteOutlinedIcon sx={{ color: "gray" }} />
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      </>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-            {showLoadMore && (
-              <button variant="outline-primary" onClick={loadMore}>
-                {loadingMore ? "Loading..." : "Load More"}
-              </button>
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {items.item &&
+                      items.item.map((cur, ind) => {
+                        return (
+                          <>
+                            <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={cur.name}
+                            >
+                              <TableCell>{ind + 1}</TableCell>
+                              <TableCell>{cur.name}</TableCell>
+                              <TableCell>
+                                <div>
+                                  <img
+                                    src={cur.image}
+                                    style={{
+                                      width: "50px",
+                                      height: "50px",
+                                      borderRadius: "5px",
+                                      objectFit: "contain",
+                                    }}
+                                  />
+                                </div>
+                              </TableCell>
+                              <TableCell>{cur.category.name}</TableCell>
+                              <TableCell>{cur.price}</TableCell>
+                              <TableCell>
+                                {cur.desc.slice(0, 100)}....
+                              </TableCell>
+                              <TableCell>
+                                {moment(cur.createdAt).format("Do h:mm a")}
+                              </TableCell>
+                              <TableCell>
+                                <Box sx={{ m: 2 }}>
+                                  <ModeOutlinedIcon sx={{ color: "gray" }} />
+                                  <DeleteOutlinedIcon sx={{ color: "gray" }} />
+                                </Box>
+                              </TableCell>
+                            </TableRow>
+                          </>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+                {showLoadMore && (
+                  <Button
+                    variant="contained"
+                    sx={{ mr: 2.5, ml: 2.5, bgcolor: "#0e9f6e" }}
+                    onClick={loadMore}
+                  >
+                    {loadingMore ? "Loading..." : "Load More"}
+                  </Button>
+                )}
+              </TableContainer>
             )}
-          </TableContainer>
+          </Box>
         </Paper>
       </Box>
 
