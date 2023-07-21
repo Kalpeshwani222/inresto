@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "com.onrender.restobaba.twa",
-        "sha256_cert_fingerprints": ["58:D5:3A:64:70:EF:35:01:38:6B:54:9A:7D:73:4C:91:53:0A:06:0B:B0:24:8B:55:9D:3C:BB:FE:EF:AB:07:BD"]
+        "sha256_cert_fingerprints": ["C5:EF:04:F8:09:BF:57:97:31:A9:31:FC:E4:39:8F:31:6B:95:5C:14:90:F3:17:28:A6:34:8D:60:84:A4:B0:3A"]
       }
     }]
